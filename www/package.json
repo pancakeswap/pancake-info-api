@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "next build",
-    "now-build": "build"
+    "now-build": "yarn build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "1.x",
