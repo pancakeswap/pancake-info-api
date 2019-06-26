@@ -1,0 +1,8 @@
+.vscode
+.gitignore
+README.md
+.prettierrc
+.eslintrc.json
+node_modules
+yarn.lock
+.next

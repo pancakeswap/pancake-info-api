@@ -1,0 +1,13 @@
+{
+  "name": "uniswap-info-experimental",
+  "version": 2,
+  "alias": "uniswap-info-experimental",
+  "builds": [
+    { "src": "./api/index.ts", "use": "@now/node" },
+    { "src": "./www/package.json", "use": "@now/next" }
+  ],
+  "routes": [
+    { "src": "/api", "dest": "/api/index.ts", "methods": ["GET"] },
+    { "src": "/(.*)", "dest": "/www/$1" }
+  ]
+}
