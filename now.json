@@ -1,13 +1,11 @@
 {
   "name": "uniswap-info-experimental",
   "version": 2,
-  "alias": "uniswap-info-experimental",
-  "builds": [
-    { "src": "./api/index.ts", "use": "@now/node" },
-    { "src": "./www/package.json", "use": "@now/next" }
-  ],
+  "alias": "api.uniswap.info",
+  "builds": [{ "src": "./src/**/*.ts", "use": "@now/node" }],
   "routes": [
-    { "src": "/api", "dest": "/api/index.ts", "methods": ["GET"] },
-    { "src": "/(.*)", "dest": "/www/$1" }
+    { "src": "/status", "dest": "/src/status", "methods": ["GET"] },
+    { "src": "/tokens", "dest": "/src/tokens", "methods": ["GET"] },
+    { "src": "/token/(?<tokenAddress>.*)", "dest": "/src/token?tokenAddress=$tokenAddress", "methods": ["GET"] }
   ]
 }

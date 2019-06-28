@@ -1,8 +1,5 @@
-.vscode
-.gitignore
 README.md
+.eslintrc
 .prettierrc
-.eslintrc.json
 node_modules
 yarn.lock
-.next
