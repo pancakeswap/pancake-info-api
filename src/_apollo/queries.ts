@@ -8,20 +8,24 @@ export const STATUS = gql`
   }
 `
 
-export const ALL_TOKENS = gql`
+export const ALL_PAIRS = gql`
   query exchanges {
-    uniswaps(where: { id: "1" }) {
-      exchanges {
-        tokenAddress
-        tokenSymbol
-        tokenName
-      }
+    exchanges(orderBy: ethBalance, orderDirection: desc) {
+      tokenAddress
+      tokenSymbol
+      tokenName
     }
   }
 `
 
-export const TOKEN_HISTORICAL_DATA = gql`
+export const PAIR_HISTORICAL_DATA = gql`
   query exchangeHistoricalDatas($tokenAddress: String!, $timestamp: Int!) {
+    exchanges(where: { tokenAddress: $tokenAddress }) {
+      tradeVolumeEth
+      tradeVolumeToken
+      price
+    }
+
     exchangeHistoricalDatas(
       where: { tokenAddress: $tokenAddress, timestamp_lt: $timestamp }
       first: 1
@@ -29,6 +33,7 @@ export const TOKEN_HISTORICAL_DATA = gql`
       orderDirection: desc
     ) {
       tradeVolumeEth
+      tradeVolumeToken
       price
     }
   }

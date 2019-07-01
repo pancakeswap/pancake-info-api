@@ -18,6 +18,62 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
+"@ethersproject/address@^5.0.0-beta.125":
+  version "5.0.0-beta.125"
+  resolved "https://registry.yarnpkg.com/@ethersproject/address/-/address-5.0.0-beta.125.tgz#0e75562d0fd493d73f23d31844521ef6556e1bc1"
+  integrity sha512-X742o0xmcpnv9X5pXKdzTmPfFdmMjQ21iu7LT3Hua2vPa/o6Ve0GQI295PhxUh/YoWdyH95FO4dK9KkAtl2r3Q==
+  dependencies:
+    "@ethersproject/bignumber" ">5.0.0-beta.0"
+    "@ethersproject/bytes" ">5.0.0-beta.0"
+    "@ethersproject/errors" ">5.0.0-beta.0"
+    "@ethersproject/keccak256" ">5.0.0-beta.0"
+    "@ethersproject/rlp" ">5.0.0-beta.0"
+    bn.js "^4.4.0"
+
+"@ethersproject/bignumber@>5.0.0-beta.0":
+  version "5.0.0-beta.127"
+  resolved "https://registry.yarnpkg.com/@ethersproject/bignumber/-/bignumber-5.0.0-beta.127.tgz#9fb1df7979b81c77a22ce4a2ca7e049d1c7f52e9"
+  integrity sha512-nt8lKya8dECXJH6DTQHL0H6HbfKbGCatPLzptAFt53ODgbb1on3Cr//5l4XvCZO6ZWn+DSa38PigY+ntooe8QA==
+  dependencies:
+    "@ethersproject/bytes" ">5.0.0-beta.0"
+    "@ethersproject/errors" ">5.0.0-beta.0"
+    "@ethersproject/properties" ">5.0.0-beta.0"
+    bn.js "^4.4.0"
+
+"@ethersproject/bytes@>5.0.0-beta.0":
+  version "5.0.0-beta.126"
+  resolved "https://registry.yarnpkg.com/@ethersproject/bytes/-/bytes-5.0.0-beta.126.tgz#17992dfbf4e1b8e972ad1caf04780d7d8ddc4ca6"
+  integrity sha512-MWBM1F2uypiDb3ROUJjBRtR0DGYvjAHqlOoaGBsTqq2DgF3swASF6Pfbqj+dS0zpY6XoO3w41e4+RCdjiAr0Jw==
+  dependencies:
+    "@ethersproject/errors" ">5.0.0-beta.0"
+
+"@ethersproject/errors@>5.0.0-beta.0":
+  version "5.0.0-beta.126"
+  resolved "https://registry.yarnpkg.com/@ethersproject/errors/-/errors-5.0.0-beta.126.tgz#bddabff53cb0a6fd544e1168ce3990a095f2b593"
+  integrity sha512-Rfc+rLaykgKaYgdc/5FuTNqlQNKzm6h9w9HNhkpGT8gE5Dh1xjtWrv8pKdUCbBjy6RCzMeVcmJ8COqLmsxPS6g==
+
+"@ethersproject/keccak256@>5.0.0-beta.0":
+  version "5.0.0-beta.125"
+  resolved "https://registry.yarnpkg.com/@ethersproject/keccak256/-/keccak256-5.0.0-beta.125.tgz#ac2bd7d20a411ebcddddcfc686ebd426960eb112"
+  integrity sha512-Vzood4ptHvWk64yqE5DMef7qLivEm3qH3S/60l66kWSAMmf5ISuSxeO+8Ss3o+p86zEGIhyipjpenb2LD6+/xA==
+  dependencies:
+    "@ethersproject/bytes" ">5.0.0-beta.0"
+    js-sha3 "0.5.7"
+
+"@ethersproject/properties@>5.0.0-beta.0":
+  version "5.0.0-beta.127"
+  resolved "https://registry.yarnpkg.com/@ethersproject/properties/-/properties-5.0.0-beta.127.tgz#ec2032675e909fa1d2e6adae09502271b2a702c6"
+  integrity sha512-zD14d+byTbdDRDPzHGkSW30bBtpFWaQpgzHh3ia6huJfr3qK8rVqGiDSYeNGJQdtdscss2l/F9yFuLd6ZdITPQ==
+  dependencies:
+    "@ethersproject/errors" ">5.0.0-beta.0"
+
+"@ethersproject/rlp@>5.0.0-beta.0":
+  version "5.0.0-beta.124"
+  resolved "https://registry.yarnpkg.com/@ethersproject/rlp/-/rlp-5.0.0-beta.124.tgz#ca333bf52b03fac56ce94b90a701604bda526465"
+  integrity sha512-XRjIyOflY6VzSy62iBplESUWgRVJh9ImUwxILpMXLRxtTa7IGtu2Poe1L+O8LEm6gXvTOFd1uzrk/mXnkBoyHQ==
+  dependencies:
+    "@ethersproject/bytes" ">5.0.0-beta.0"
+
 "@now/node-bridge@1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@now/node-bridge/-/node-bridge-1.2.2.tgz#b4740d8806227b8dd1d4d8481e21b3b30ad299b4"
@@ -254,6 +310,11 @@ bignumber.js@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.0.tgz#805880f84a329b5eac6e7cb6f8274b6d82bdf075"
   integrity sha512-t/OYhhJ2SD+YGBQcjY8GzzDHEk9f3nerxjtfa6tlMXfe7frs/WozhvCNoGvpM0P3bNf3Gq5ZRMlGr5f3r4/N8A==
+
+bn.js@^4.4.0:
+  version "4.11.8"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
+  integrity sha512-ItfYfPLkWHUjckQCk8xC+LwxgK8NYcXywGigJgSwOP8Y2iyWT4f2vsZnoOXTTbo+o5yXmIUJ4gn5538SO5S3gA==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -654,6 +715,11 @@ iterall@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
   integrity sha512-yynBb1g+RFUPY64fTrFv7nsjRrENBQJaX2UL+2Szc9REFrSNm1rpSXHGzhmAy7a9uv3vlvgBlXnf9RqmPH1/DA==
+
+js-sha3@0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.5.7.tgz#0d4ffd8002d5333aabaf4a23eed2f6374c9f28e7"
+  integrity sha1-DU/9gALVMzqrr0oj7tL2N0yfKOc=
 
 js-tokens@^4.0.0:
   version "4.0.0"

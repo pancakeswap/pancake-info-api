@@ -1,5 +1,6 @@
 interface Volume {
   ETH: string
+  [propname: string]: string
 }
 
 export default interface ReturnData {

@@ -5,9 +5,9 @@
   "builds": [{ "src": "./src/**/*.ts", "use": "@now/node" }],
   "routes": [
     { "src": "/status", "dest": "/src/status", "methods": ["GET"] },
-    { "src": "/tokens", "dest": "/src/tokens", "methods": ["GET"] },
-    { "src": "/token/(?<tokenAddress>.*)", "dest": "/src/token?tokenAddress=$tokenAddress", "methods": ["GET"] },
-    { "src": "/unicorn", "dest": "/src/🦄.ts", "methods": ["GET"] },
+    { "src": "/pairs", "dest": "/src/pairs", "methods": ["GET"] },
+    { "src": "/pair/(?<tokenAddress>.*)", "dest": "/src/pair?tokenAddress=$tokenAddress", "methods": ["GET"] },
+    { "src": "/pink", "dest": "/src/pink.ts", "methods": ["GET"] },
     { "src": "/%F0%9F%A6%84", "dest": "/src/🦄.ts", "methods": ["GET"] },
     { "src": "/.*", "dest": "/404.html", "status": 404 }
   ]

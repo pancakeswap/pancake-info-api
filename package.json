@@ -5,6 +5,7 @@
     "node": "10.x"
   },
   "dependencies": {
+    "@ethersproject/address": "^5.0.0-beta.125",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
     "apollo-link-http": "^1.5.15",
