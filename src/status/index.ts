@@ -6,7 +6,7 @@ import { return200, return500 } from '../_shared'
 
 export default async function(_: NowRequest, res: NowResponse): Promise<NowResponse> {
   return client
-    .query({ query: STATUS, fetchPolicy: 'no-cache' })
+    .query({ query: STATUS })
     .then((): NowResponse => return200(res, 'Success.'))
     .catch((error): NowResponse => return500(res, error))
 }

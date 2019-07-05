@@ -8,5 +8,10 @@ export default new ApolloClient({
     fetch,
     uri: 'https://api.thegraph.com/subgraphs/name/graphprotocol/uniswap'
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'no-cache'
+    }
+  }
 })

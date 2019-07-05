@@ -12,8 +12,6 @@ export const ALL_PAIRS = gql`
   query exchanges {
     exchanges(orderBy: ethBalance, orderDirection: desc) {
       tokenAddress
-      tokenSymbol
-      tokenName
     }
   }
 `
@@ -21,9 +19,14 @@ export const ALL_PAIRS = gql`
 export const PAIR_HISTORICAL_DATA = gql`
   query exchangeHistoricalDatas($tokenAddress: String!, $timestamp: Int!) {
     exchanges(where: { tokenAddress: $tokenAddress }) {
+      tokenName
+      tokenSymbol
+
+      ethBalance
+      price
+
       tradeVolumeEth
       tradeVolumeToken
-      price
     }
 
     exchangeHistoricalDatas(
@@ -34,7 +37,6 @@ export const PAIR_HISTORICAL_DATA = gql`
     ) {
       tradeVolumeEth
       tradeVolumeToken
-      price
     }
   }
 `
