@@ -1,5 +1,5 @@
 {
-  "name": "uniswap-info-experimental",
+  "name": "uniswap-api",
   "version": 2,
   "alias": "api.uniswap.info",
   "builds": [{ "src": "./src/**/*.ts", "use": "@now/node" }],
