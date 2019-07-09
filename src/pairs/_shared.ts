@@ -47,8 +47,8 @@ export async function get24HourPairData(_tokenAddress: string, _24HoursAgo: numb
         }
 
         const volumeThen: ExchangeData = {
-          tradeVolumeEth: new BigNumber(exchangeHistoricalData.tradeVolumeEth),
-          tradeVolumeToken: new BigNumber(exchangeHistoricalData.tradeVolumeToken)
+          tradeVolumeEth: new BigNumber(exchangeHistoricalData ? exchangeHistoricalData.tradeVolumeEth : 0),
+          tradeVolumeToken: new BigNumber(exchangeHistoricalData ? exchangeHistoricalData.tradeVolumeToken : 0)
         }
 
         const volumeDeltaEth = volumeNow.tradeVolumeEth.minus(volumeThen.tradeVolumeEth)

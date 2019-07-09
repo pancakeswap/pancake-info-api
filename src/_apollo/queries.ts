@@ -8,9 +8,10 @@ export const STATUS = gql`
   }
 `
 
+// this should probably be filtering on ethBalance_gt e.g. .01, but seems like the graph doesn't support this?
 export const ALL_PAIRS = gql`
   query exchanges {
-    exchanges(orderBy: ethBalance, orderDirection: desc) {
+    exchanges(where: { addLiquidityCount_gte: "1" }, orderBy: ethBalance, orderDirection: desc) {
       tokenAddress
     }
   }
