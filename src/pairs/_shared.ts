@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js'
 import { getAddress } from '@ethersproject/address'
 
 import client from '../_apollo/client'
-import { PAIR_HISTORICAL_DATA } from '../_apollo/queries'
-import { PairData } from './types'
+import { EXCHANGE_ADDRESS, ALL_PAIRS, PAIR_HISTORICAL_DATA } from '../_apollo/queries'
+import { PairData } from './_types'
 
 interface ExchangeData {
   tradeVolumeEth: BigNumber
@@ -13,20 +13,48 @@ interface ExchangeData {
 const MINUTE = 60
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
-
 export function get24HoursAgo(): number {
   const now = Math.floor(Date.now() / 1000)
   return now - DAY
 }
 
-export async function get24HourPairData(_tokenAddress: string, _24HoursAgo: number): Promise<PairData> {
-  const tokenAddress = getAddress(_tokenAddress)
+export async function getExchangeAddress(tokenAddress: string): Promise<string> {
+  return client
+    .query({
+      query: EXCHANGE_ADDRESS,
+      variables: {
+        tokenAddress
+      }
+    })
+    .then((result): any => {
+      const {
+        data: { exchanges }
+      } = result
 
+      return exchanges[0].id
+    })
+}
+
+export async function getAllPairs(): Promise<any[]> {
+  return client.query({ query: ALL_PAIRS }).then((result): any => {
+    const {
+      data: { exchanges }
+    } = result
+    return exchanges.map(({ tokenAddress, id }: any): any => ({ tokenAddress, exchangeAddress: id }))
+  })
+}
+
+export async function get24HourPairData(
+  tokenAddress: string,
+  exchangeAddress: string,
+  _24HoursAgo: number
+): Promise<PairData> {
   return client
     .query({
       query: PAIR_HISTORICAL_DATA,
       variables: {
         tokenAddress,
+        exchangeAddress,
         timestamp: _24HoursAgo
       }
     })
@@ -55,7 +83,7 @@ export async function get24HourPairData(_tokenAddress: string, _24HoursAgo: numb
         const volumeDeltaToken = volumeNow.tradeVolumeToken.minus(volumeThen.tradeVolumeToken)
 
         return {
-          token_address: tokenAddress,
+          token_address: getAddress(tokenAddress),
           ...(tokenName && tokenName !== 'unknown' ? { token_name: tokenName } : {}),
           ...(tokenSymbol && tokenSymbol !== 'unknown' ? { token_symbol: tokenSymbol } : {}),
           liquidity_last: new BigNumber(ethBalance).toFixed(18),

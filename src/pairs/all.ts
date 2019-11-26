@@ -1,33 +1,24 @@
 import { NowRequest, NowResponse } from '@now/node'
 
-import client from '../_apollo/client'
-import { ALL_PAIRS } from '../_apollo/queries'
-import { return200, return500 } from '../_shared'
-import { get24HoursAgo, get24HourPairData } from './_shared'
-import { PairDatas, PairData } from './types'
-
-interface ErrorWrapper {
-  error: Error
-}
-
-function isErrorWrapper(e: any | ErrorWrapper): e is ErrorWrapper {
-  return !!(e as ErrorWrapper).error
-}
+import { return200, return500 } from '../_utils'
+import { getAllPairs, get24HoursAgo, get24HourPairData } from './_shared'
+import { PairDatas, PairData } from './_types'
 
 export default async function(_: NowRequest, res: NowResponse): Promise<NowResponse> {
-  const tokenAddresses: string[] | ErrorWrapper = await client
-    .query({ query: ALL_PAIRS })
-    .then(({ data: { exchanges } }): string[] => exchanges.map(({ tokenAddress }: any): string => tokenAddress))
-    .catch((error): ErrorWrapper => ({ error }))
-
-  if (isErrorWrapper(tokenAddresses)) {
-    return return500(res, tokenAddresses.error)
+  let tokens: any[]
+  try {
+    tokens = await getAllPairs()
+  } catch (error) {
+    return return500(res, error)
   }
 
   const _24HoursAgo = get24HoursAgo()
 
-  return await Promise.all(
-    tokenAddresses.map((tokenAddress): Promise<PairData> => get24HourPairData(tokenAddress, _24HoursAgo))
+  return Promise.all(
+    tokens.map(
+      ({ tokenAddress, exchangeAddress }): Promise<PairData> =>
+        get24HourPairData(tokenAddress, exchangeAddress, _24HoursAgo)
+    )
   )
     .then(
       (pairDatas): NowResponse => {
