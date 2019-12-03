@@ -8,13 +8,13 @@
     { "src": "/v1/assets", "dest": "/src/v1/assets.ts", "methods": ["GET"] },
     { "src": "/v1/tickers", "dest": "/src/v1/tickers.ts", "methods": ["GET"] },
     {
-      "src": "/v1/orderbook/(?<exchangeAddress>.*)",
-      "dest": "/src/v1/orderbook.ts?exchangeAddress=$exchangeAddress",
+      "src": "/v1/orderbook/(?<pair>.*)",
+      "dest": "/src/v1/orderbook.ts?pair=$pair",
       "methods": ["GET"]
     },
     {
-      "src": "/v1/trades/(?<exchangeAddress>.*)",
-      "dest": "/src/v1/trades.ts?exchangeAddress=$exchangeAddress",
+      "src": "/v1/trades/(?<pair>.*)",
+      "dest": "/src/v1/trades.ts?pair=$pair",
       "methods": ["GET"]
     },
     { "src": "/.*", "dest": "/404.html", "status": 404 }

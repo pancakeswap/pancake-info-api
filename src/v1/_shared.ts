@@ -12,7 +12,7 @@ export function get24HoursAgo(): number {
   return Math.floor((Date.now() - DAY) / 1000)
 }
 
-const TOP_PAIR_LIMIT = 50
+const TOP_PAIR_LIMIT = 100
 interface Pair {
   tokenAddress: string
   tokenSymbol?: string
@@ -116,20 +116,18 @@ export async function getOrderbook(exchangeAddress: string): Promise<Orderbook> 
   const marketDetailsEthToToken = getMarketDetails(undefined, reserves)
   const marketDetailsTokenToEth = getMarketDetails(reserves, undefined)
 
-  const segments = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
-    (i): BigNumber =>
-      new BigNumber(exchangeHistoricalData.ethBalance)
-        .multipliedBy(DECIMALS_FACTOR())
-        .multipliedBy(i)
-        .dividedToIntegerBy(10)
-  )
+  const segments = Array(19)
+    .fill(undefined)
+    .map((_, i): number => i + 1)
 
-  const bids: [string, string][] = segments.map((amount): [string, string] => {
-    const tradeDetails = getTradeDetails(TRADE_EXACT.INPUT, amount, marketDetailsEthToToken)
+  const amount = new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR()).dividedToIntegerBy(20)
+
+  const bids: [string, string][] = segments.map((_, i): [string, string] => {
+    const tradeDetails = getTradeDetails(TRADE_EXACT.INPUT, amount.multipliedBy(i), marketDetailsEthToToken)
     return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rate.toString()]
   })
-  const asks: [string, string][] = segments.map((amount): [string, string] => {
-    const tradeDetails = getTradeDetails(TRADE_EXACT.OUTPUT, amount, marketDetailsTokenToEth)
+  const asks: [string, string][] = segments.map((_, i): [string, string] => {
+    const tradeDetails = getTradeDetails(TRADE_EXACT.OUTPUT, amount.multipliedBy(i), marketDetailsTokenToEth)
     return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rateInverted.toString()]
   })
 

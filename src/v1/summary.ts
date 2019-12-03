@@ -13,17 +13,14 @@ export default async function(_: NowRequest, res: NowResponse): Promise<NowRespo
             const pair = topPairs[i]
             const pairData = topPairsData[i]
 
-            accumulator[pair.tokenAddress] = {
-              ...(pair.tokenName ? { name: pair.tokenName } : {}),
-              ...(pair.tokenSymbol ? { symbol: pair.tokenSymbol } : {}),
-              exchange_address: pair.exchangeAddress,
+            accumulator[`ETH_${pair.exchangeAddress}`] = {
               last_price: pairData.price,
               base_volume: pairData.tradeVolumeEth,
               quote_volume: pairData.tradeVolumeToken
             }
             return accumulator
           }, {}),
-          60 * 60 // cache for 1 hour
+          60 * 15 // cache for 15 minutes
         )
       }
     )
