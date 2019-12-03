@@ -122,11 +122,11 @@ export async function getOrderbook(exchangeAddress: string): Promise<Orderbook> 
 
   const amount = new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR()).dividedToIntegerBy(20)
 
-  const bids: [string, string][] = segments.map((_, i): [string, string] => {
+  const bids: [string, string][] = segments.map((i): [string, string] => {
     const tradeDetails = getTradeDetails(TRADE_EXACT.INPUT, amount.multipliedBy(i), marketDetailsEthToToken)
     return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rate.toString()]
   })
-  const asks: [string, string][] = segments.map((_, i): [string, string] => {
+  const asks: [string, string][] = segments.map((i): [string, string] => {
     const tradeDetails = getTradeDetails(TRADE_EXACT.OUTPUT, amount.multipliedBy(i), marketDetailsTokenToEth)
     return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rateInverted.toString()]
   })
