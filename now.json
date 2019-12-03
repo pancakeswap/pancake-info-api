@@ -4,12 +4,19 @@
   "alias": "api.uniswap.info",
   "builds": [{ "src": "src/**/*.ts", "use": "@now/node" }],
   "routes": [
+    { "src": "/v1/summary", "dest": "/src/v1/summary.ts", "methods": ["GET"] },
+    { "src": "/v1/assets", "dest": "/src/v1/assets.ts", "methods": ["GET"] },
+    { "src": "/v1/tickers", "dest": "/src/v1/tickers.ts", "methods": ["GET"] },
     {
-      "src": "/pair/(?<tokenAddress>.*)",
-      "dest": "/src/pairs/single.ts?tokenAddress=$tokenAddress",
+      "src": "/v1/orderbook/(?<exchangeAddress>.*)",
+      "dest": "/src/v1/orderbook.ts?exchangeAddress=$exchangeAddress",
       "methods": ["GET"]
     },
-    { "src": "/pairs", "dest": "/src/pairs/all.ts", "methods": ["GET"] },
+    {
+      "src": "/v1/trades/(?<exchangeAddress>.*)",
+      "dest": "/src/v1/trades.ts?exchangeAddress=$exchangeAddress",
+      "methods": ["GET"]
+    },
     { "src": "/.*", "dest": "/404.html", "status": 404 }
   ]
 }

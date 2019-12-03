@@ -1,7 +1,7 @@
 import { NowResponse } from '@now/node'
 
-export function return200(res: NowResponse, body?: string | any): NowResponse {
-  res.setHeader('Cache-Control', 'max-age=0, s-maxage=86400')
+export function return200(res: NowResponse, body: string | any, maxAge: number): NowResponse {
+  res.setHeader('Cache-Control', `max-age=0, s-maxage=${maxAge}`)
   return typeof body === 'string' ? res.status(200).send(body) : res.status(200).json(body)
 }
 
