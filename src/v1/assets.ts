@@ -32,6 +32,14 @@ export default async function(_: NowRequest, res: NowResponse): Promise<NowRespo
                   maker_fee: '0',
                   taker_fee: '0.003'
                 }
+                // hard-code SAI
+                if (pair.tokenAddress === '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359') {
+                  accumulator[pair.tokenAddress] = {
+                    ...accumulator[pair.tokenAddress],
+                    name: 'Sai Stablecoin v1.0',
+                    symbol: 'SAI'
+                  }
+                }
                 return accumulator
               }, {})
           },
