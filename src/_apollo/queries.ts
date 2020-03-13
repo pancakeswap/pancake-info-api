@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export const TOP_PAIRS = gql`
   query _($limit: Int!) {
-    exchanges(first: $limit, orderBy: ethLiquidity, orderDirection: desc) {
+    exchanges(first: $limit, orderBy: ethBalance, orderDirection: desc) {
       tokenAddress
       tokenSymbol
       tokenName

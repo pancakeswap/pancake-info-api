@@ -12,6 +12,16 @@ export function get24HoursAgo(): number {
   return Math.floor((Date.now() - DAY) / 1000)
 }
 
+const BLACKLIST = [
+  '0xb8c77482e45f1f44de1745f52c74426c631bdd52', // BNB
+  '0x95daaab98046846bf4b2853e23cba236fa394a31', // EMONT
+  '0x55296f69f40ea6d20e478533c15a6b08b654e758', // XYO
+  '0xc3761eb917cd790b30dad99f6cc5b4ff93c4f9ea', // ERC20
+  '0x5c406d99e04b8494dc253fcc52943ef82bca7d75', // cUSD
+
+  '0x5a4ade4f3e934a0885f42884f7077261c3f4f66f' // old SNX
+]
+
 const TOP_PAIR_LIMIT = 100
 interface Pair {
   tokenAddress: string
@@ -28,14 +38,24 @@ export async function getTopPairs(): Promise<Pair[]> {
       }
     })
     .then(({ data: { exchanges } }): Pair[] =>
-      exchanges.map(
-        ({ tokenAddress, tokenSymbol, tokenName, id }: any): Pair => ({
-          tokenAddress: getAddress(tokenAddress),
-          tokenSymbol,
-          tokenName,
-          exchangeAddress: getAddress(id)
-        })
-      )
+      exchanges
+        .map(
+          ({ tokenAddress, tokenSymbol, tokenName, id }: any): Pair => {
+            const normalized = {
+              tokenAddress: getAddress(tokenAddress),
+              tokenSymbol,
+              tokenName,
+              exchangeAddress: getAddress(id)
+            }
+            // hard-code SAI
+            if (normalized.tokenAddress === '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359') {
+              normalized.tokenSymbol = 'Sai Stablecoin v1.0'
+              normalized.tokenName = 'SAI'
+            }
+            return normalized
+          }
+        )
+        .filter((pair: Pair): boolean => !BLACKLIST.includes(pair.tokenAddress.toLowerCase()))
     )
 }
 

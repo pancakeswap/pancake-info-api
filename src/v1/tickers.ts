@@ -25,14 +25,7 @@ export default async function(_: NowRequest, res: NowResponse): Promise<NowRespo
               base_volume: pairData.tradeVolumeEth,
               quote_volume: pairData.tradeVolumeToken
             }
-            // hard-code SAI
-            if (pair.tokenAddress === '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359') {
-              accumulator[`ETH_${pair.exchangeAddress}`] = {
-                ...accumulator[`ETH_${pair.exchangeAddress}`],
-                quote_name: 'Sai Stablecoin v1.0',
-                quote_symbol: 'SAI'
-              }
-            }
+
             return accumulator
           }, {}),
           60 * 15 // cache for 15 minutes
