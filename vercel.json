@@ -29,7 +29,6 @@
       "src": "/v2/trades/(?<pair>.*)",
       "dest": "/src/v2/trades.ts?pair=$pair",
       "methods": ["GET"]
-    },
-    { "src": "/.*", "dest": "/404.json", "status": 404 }
+    }
   ]
 }
