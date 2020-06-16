@@ -18,13 +18,13 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
         const id0 = getAddress(pair.token0.id)
         const id1 = getAddress(pair.token1.id)
         accumulator[`${id0}_${id1}`] = {
-          last_price: pair.token0Price + '',
+          last_price: pair.token0Price,
           base_volume: pair.volumeToken0,
           quote_volume: pair.volumeToken1
         }
         // do not want to double count volume
         // accumulator[`${id1}_${id0}`] = {
-        //   last_price: pair.token1Price + '',
+        //   last_price: pair.token1Price,
         //   base_volume: pair.volumeToken1,
         //   quote_volume: pair.volumeToken0
         // }

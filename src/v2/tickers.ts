@@ -34,7 +34,7 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
           quote_id: id1,
           quote_name: pair.token1.name,
           quote_symbol: pair.token1.symbol,
-          last_price: pair.token0Price,
+          last_price: pair.token1Price, // token1Price is token1/token0 unfortunately
           base_volume: pair.volumeToken0,
           quote_volume: pair.volumeToken1
         }
