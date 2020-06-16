@@ -1,3 +1,4 @@
+import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
 
 import { return200, return500 } from '../utils'
@@ -14,12 +15,14 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
     return200(
       res,
       pairs.reduce<ReturnShape>((accumulator, pair, i): any => {
-        accumulator[`${pair.token0.id}_${pair.token1.id}`] = {
+        const id0 = getAddress(pair.token0.id)
+        const id1 = getAddress(pair.token1.id)
+        accumulator[`${id0}_${id1}`] = {
           last_price: pair.token0Price + '',
           base_volume: pair.volumeToken0,
           quote_volume: pair.volumeToken1
         }
-        accumulator[`${pair.token1.id}_${pair.token0.id}`] = {
+        accumulator[`${id1}_${id0}`] = {
           last_price: pair.token1Price + '',
           base_volume: pair.volumeToken1,
           quote_volume: pair.volumeToken0
