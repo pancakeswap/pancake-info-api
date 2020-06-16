@@ -2,7 +2,7 @@ import { TRADE_EXACT, BigNumber, getMarketDetails, getTradeDetails } from '@unis
 import { getAddress } from '@ethersproject/address'
 
 import client from './apollo/client'
-import { TOP_PAIRS, PAIR_DATA, ORDERBOOK, TRANSACTIONS } from './apollo/queries'
+import { TOP_PAIRS, PAIR_PRICE_VOLUME, PAIR_RESERVES, SWAPS } from './apollo/queries'
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
@@ -74,7 +74,7 @@ export async function getTopPairsData(): Promise<[Pair[], PairData[]]> {
       (pair): Promise<PairData> =>
         client
           .query({
-            query: PAIR_DATA,
+            query: PAIR_PRICE_VOLUME,
             variables: {
               exchangeAddress: pair.exchangeAddress.toLowerCase(),
               timestamp: _24HoursAgo
@@ -116,7 +116,7 @@ interface Orderbook {
 export async function getOrderbook(exchangeAddress: string): Promise<Orderbook> {
   const [exchange, exchangeHistoricalData] = await client
     .query({
-      query: ORDERBOOK,
+      query: PAIR_RESERVES,
       variables: {
         exchangeAddress: exchangeAddress.toLowerCase()
       }
@@ -176,7 +176,7 @@ export async function getTrades(exchangeAddress: string): Promise<Trade[]> {
   while (!finished) {
     await client
       .query({
-        query: TRANSACTIONS,
+        query: SWAPS,
         variables: {
           skip,
           exchangeAddress: exchangeAddress.toLowerCase(),
