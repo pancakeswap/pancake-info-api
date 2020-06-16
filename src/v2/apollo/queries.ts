@@ -1,35 +1,35 @@
 import gql from 'graphql-tag'
 
 export const TOP_PAIRS = gql`
-  query($limit: Int!, $excludeTokenIds: [String!]!) {
+  fragment TokenInfo on Token {
+    id
+    symbol
+    name
+  }
+  fragment DetailedPairInfo on Pair {
+    token0Price
+    token1Price
+    reserve0
+    reserve1
+    volumeToken0
+    volumeToken1
+  }
+  query($limit: Int!, $excludeTokenIds: [String!]!, $detailed: Boolean = false) {
     pairs(
       first: $limit
       orderBy: reserveETH
       orderDirection: desc
       where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
     ) {
+      id
       token0 {
-        id
-        symbol
-        name
+        ...TokenInfo
       }
       token1 {
-        id
-        symbol
-        name
+        ...TokenInfo
       }
-    }
-  }
-`
 
-export const PAIR_PRICE_VOLUME = gql`
-  query($pairId: ID!) {
-    pair(id: $pairId) {
-      token0Price
-      token1Price
-
-      volumeToken0
-      volumeToken1
+      ...DetailedPairInfo @include(if: $detailed)
     }
   }
 `

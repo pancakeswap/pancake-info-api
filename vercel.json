@@ -29,6 +29,7 @@
       "src": "/v2/trades/(?<pair>.*)",
       "dest": "/src/v2/trades.ts?pair=$pair",
       "methods": ["GET"]
-    }
+    },
+    {"src": "/.*", "dest": "/src/404.ts"}
   ]
 }

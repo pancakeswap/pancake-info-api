@@ -6,7 +6,7 @@ export function return200(res: NowResponse, body: any, maxAge: number): NowRespo
   return res
 }
 
-function returnError(res: NowResponse, code: number, message: string): NowResponse {
+export function returnError(res: NowResponse, code: number, message: string): NowResponse {
   res.setHeader('Content-Type', 'application/json')
 
   res.status(code).json({
