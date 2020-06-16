@@ -2,7 +2,7 @@ import { BigNumber, getMarketDetails, getTradeDetails, TRADE_EXACT } from '@unis
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES, SWAPS, TOP_PAIRS } from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, SWAPS, TOP_PAIRS } from './apollo/queries'
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
@@ -45,56 +45,55 @@ export async function getTopPairs<T extends boolean>(detailed: T): Promise<T ext
   return pairs
 }
 
-const DECIMALS_FACTOR = (decimals: number = 18): BigNumber => new BigNumber(10).pow(decimals)
-interface Orderbook {
-  timestamp: number
-  bids: [string, string][]
-  asks: [string, string][]
-}
-export async function getOrderbook(pairId: string): Promise<Orderbook> {
-  const [exchange, exchangeHistoricalData] = await client
+// returns reserves of token a and b in the order they are queried
+export async function getReserves(tokenAAddress: string, tokenBAddress: string): Promise<[string, string]> {
+  const inOrder = tokenAAddress.toLowerCase() < tokenBAddress.toLowerCase()
+  return client
     .query({
-      query: PAIR_RESERVES,
+      query: PAIR_RESERVES_BY_TOKENS,
       variables: {
-        exchangeAddress: pairId.toLowerCase()
+        token0: inOrder ? tokenAAddress.toLowerCase() : tokenBAddress.toLowerCase(),
+        token1: inOrder ? tokenBAddress.toLowerCase() : tokenAAddress.toLowerCase()
       }
     })
-    .then(({ data: { exchanges, exchangeHistoricalDatas } }): any => [exchanges[0], exchangeHistoricalDatas[0]])
+    .then(({ data: { pairs: [{ reserve0, reserve1 }] } }): [string, string] =>
+      inOrder ? [reserve0, reserve1] : [reserve1, reserve0]
+    )
 
-  const reserves = {
-    token: { decimals: exchange.tokenDecimals },
-    ethReserve: {
-      token: { decimals: 18 },
-      amount: new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR())
-    },
-    tokenReserve: {
-      token: { decimals: exchange.tokenDecimals },
-      amount: new BigNumber(exchangeHistoricalData.tokenBalance).multipliedBy(DECIMALS_FACTOR(exchange.tokenDecimals))
-    }
-  }
-  const marketDetailsEthToToken = getMarketDetails(undefined, reserves)
-  const marketDetailsTokenToEth = getMarketDetails(reserves, undefined)
-
-  const segments = Array(19)
-    .fill(undefined)
-    .map((_, i): number => i + 1)
-
-  const amount = new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR()).dividedToIntegerBy(20)
-
-  const bids: [string, string][] = segments.map((i): [string, string] => {
-    const tradeDetails = getTradeDetails(TRADE_EXACT.INPUT, amount.multipliedBy(i), marketDetailsEthToToken)
-    return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rate.toString()]
-  })
-  const asks: [string, string][] = segments.map((i): [string, string] => {
-    const tradeDetails = getTradeDetails(TRADE_EXACT.OUTPUT, amount.multipliedBy(i), marketDetailsTokenToEth)
-    return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rateInverted.toString()]
-  })
-
-  return {
-    timestamp: exchangeHistoricalData.timestamp,
-    bids,
-    asks
-  }
+  // const reserves = {
+  //   token: { decimals: exchange.tokenDecimals },
+  //   ethReserve: {
+  //     token: { decimals: 18 },
+  //     amount: new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR())
+  //   },
+  //   tokenReserve: {
+  //     token: { decimals: exchange.tokenDecimals },
+  //     amount: new BigNumber(exchangeHistoricalData.tokenBalance).multipliedBy(DECIMALS_FACTOR(exchange.tokenDecimals))
+  //   }
+  // }
+  // const marketDetailsEthToToken = getMarketDetails(undefined, reserves)
+  // const marketDetailsTokenToEth = getMarketDetails(reserves, undefined)
+  //
+  // const segments = Array(19)
+  //   .fill(undefined)
+  //   .map((_, i): number => i + 1)
+  //
+  // const amount = new BigNumber(exchangeHistoricalData.ethBalance).multipliedBy(DECIMALS_FACTOR()).dividedToIntegerBy(20)
+  //
+  // const bids: [string, string][] = segments.map((i): [string, string] => {
+  //   const tradeDetails = getTradeDetails(TRADE_EXACT.INPUT, amount.multipliedBy(i), marketDetailsEthToToken)
+  //   return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rate.toString()]
+  // })
+  // const asks: [string, string][] = segments.map((i): [string, string] => {
+  //   const tradeDetails = getTradeDetails(TRADE_EXACT.OUTPUT, amount.multipliedBy(i), marketDetailsTokenToEth)
+  //   return [amount.dividedBy(DECIMALS_FACTOR()).toString(), tradeDetails.executionRate.rateInverted.toString()]
+  // })
+  //
+  // return {
+  //   timestamp: exchangeHistoricalData.timestamp,
+  //   bids,
+  //   asks
+  // }
 }
 
 interface Trade {
