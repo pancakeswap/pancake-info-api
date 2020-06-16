@@ -1,35 +1,34 @@
+import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
 
-import { getTopPairs } from './_shared'
-import { return200, return500 } from '../_utils'
+import { getTopPairs, Pair } from './_shared'
+import { return200, return500 } from '../utils'
 
-export default async function(_: NowRequest, res: NowResponse): Promise<NowResponse> {
-  return await getTopPairs()
-    .then(
-      (topPairs): NowResponse =>
-        return200(
-          res,
-          {
-            ETH: {
-              name: 'Ether',
-              symbol: 'ETH',
-              id: 'ETH',
-              maker_fee: '0',
-              taker_fee: '0.003'
-            },
-            ...topPairs.reduce((accumulator: any, pair): any => {
-              accumulator[pair.tokenAddress] = {
-                ...(pair.tokenName ? { name: pair.tokenName } : {}),
-                ...(pair.tokenSymbol ? { symbol: pair.tokenSymbol } : {}),
-                id: pair.exchangeAddress,
-                maker_fee: '0',
-                taker_fee: '0.003'
-              }
-              return accumulator
-            }, {})
-          },
-          60 * 60 * 24 // cache for 1 day
-        )
-    )
-    .catch((error): NowResponse => return500(res, error))
+interface ReturnShape {
+  [tokenAddress: string]: { id: string; name: string; symbol: string; maker_fee: '0'; taker_fee: '0.003' }
+}
+
+export default async function(req: NowRequest, res: NowResponse): Promise<void> {
+  try {
+    const pairs = await getTopPairs()
+    const tokens = pairs.reduce<{
+      [tokenAddress: string]: { id: string; name: string; symbol: string; maker_fee: '0'; taker_fee: '0.003' }
+    }>((memo: ReturnShape, pair: Pair): ReturnShape => {
+      for (let token of [pair.token0, pair.token1]) {
+        const id = getAddress(token.id)
+        if (memo[id]) continue
+        memo[id] = {
+          id,
+          name: token.name,
+          symbol: token.symbol,
+          maker_fee: '0',
+          taker_fee: '0.003'
+        }
+      }
+      return memo
+    }, {})
+    return200(res, tokens, 60 * 60 * 24)
+  } catch (error) {
+    return500(res, error)
+  }
 }

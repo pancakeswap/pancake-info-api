@@ -24,40 +24,25 @@ const BLACKLIST = [
 ]
 
 const TOP_PAIR_LIMIT = 100
-interface Pair {
-  tokenAddress: string
-  tokenSymbol?: string
-  tokenName?: string
-  exchangeAddress: string
+interface Token {
+  name: string
+  symbol: string
+  id: string
+}
+export interface Pair {
+  token0: Token
+  token1: Token
 }
 export async function getTopPairs(): Promise<Pair[]> {
   return client
     .query({
       query: TOP_PAIRS,
       variables: {
-        limit: TOP_PAIR_LIMIT
+        limit: TOP_PAIR_LIMIT,
+        excludeTokenIds: BLACKLIST
       }
     })
-    .then(({ data: { exchanges } }): Pair[] =>
-      exchanges
-        .map(
-          ({ tokenAddress, tokenSymbol, tokenName, id }: any): Pair => {
-            const normalized = {
-              tokenAddress: getAddress(tokenAddress),
-              tokenSymbol,
-              tokenName,
-              exchangeAddress: getAddress(id)
-            }
-            // hard-code SAI
-            if (normalized.tokenAddress === '0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359') {
-              normalized.tokenSymbol = 'Sai Stablecoin v1.0'
-              normalized.tokenName = 'SAI'
-            }
-            return normalized
-          }
-        )
-        .filter((pair: Pair): boolean => !BLACKLIST.includes(pair.tokenAddress.toLowerCase()))
-    )
+    .then(({ data: { pairs } }): Pair[] => pairs)
 }
 
 interface PairData {
