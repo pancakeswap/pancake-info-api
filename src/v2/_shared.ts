@@ -24,8 +24,8 @@ export interface Pair {
   token1: Token
 }
 export interface DetailedPair extends Pair {
-  token0Price: number
-  token1Price: number
+  token0Price: string
+  token1Price: string
   reserve0: string
   reserve1: string
   volumeToken0: string
