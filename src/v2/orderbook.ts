@@ -20,6 +20,28 @@ function getAmountOut(
   }
 }
 
+function getAmountIn(
+  amountOut: BigNumber,
+  reserveIn: BigNumber,
+  reserveOut: BigNumber
+): { amountIn: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
+  const amountIn = amountOut.eq(0)
+    ? new BigNumber(0)
+    : amountOut.isGreaterThanOrEqualTo(amountOut)
+    ? new BigNumber(Infinity)
+    : reserveIn
+        .multipliedBy(reserveOut)
+        .dividedBy(reserveOut.minus(amountOut)) // reserves in after
+        .minus(reserveIn) // minus reserves in
+        .dividedBy(0.997) // fee
+
+  return {
+    amountIn,
+    reservesInAfter: reserveIn.plus(amountIn),
+    reservesOutAfter: reserveOut.minus(amountOut)
+  }
+}
+
 function computeBidsAsks(
   baseReserves: BigNumber,
   quoteReserves: BigNumber,
@@ -33,10 +55,10 @@ function computeBidsAsks(
   }
 
   const increment = baseReserves.dividedBy(numSegments)
-  const baseAmounts = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
-  const bids = baseAmounts.map((amountIn): [string, string] => {
+  const baseAmounts = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i))
+  const bids = baseAmounts.map((buyBaseAmount): [string, string] => {
     const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountOut(
-      amountIn.minus(increment),
+      buyBaseAmount,
       baseReserves,
       quoteReserves
     )
@@ -44,9 +66,19 @@ function computeBidsAsks(
     return [increment.toString(), amountOut.dividedBy(increment).toString()]
   })
 
+  const asks = baseAmounts.map((sellBaseAmount): [string, string] => {
+    const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountIn(
+      sellBaseAmount,
+      baseReserves,
+      quoteReserves
+    )
+    const { amountIn } = getAmountIn(increment, baseReservesBefore, quoteReservesBefore)
+    return [increment.toString(), increment.dividedBy(amountIn).toString()]
+  })
+
   return {
-    bids: bids,
-    asks: []
+    bids,
+    asks
   }
 }
 
