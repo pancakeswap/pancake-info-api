@@ -1,6 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
-import { BigNumber } from '@uniswap/sdk/dist'
+import { BigNumber } from '@uniswap/sdk'
 
 import { getSwaps } from './_shared'
 import { return200, return400, return500 } from '../utils'
