@@ -5,37 +5,40 @@ import { BigNumber } from '@uniswap/sdk'
 import { getReserves } from './_shared'
 import { return200, return400, return500 } from '../utils'
 
-function computeSwapResult(
+function getAmountOut(
   amountIn: BigNumber,
   reserveIn: BigNumber,
   reserveOut: BigNumber
-): { price: string; reserveInAfter: BigNumber; reserveOutAfter: BigNumber } {
-  const amountOut = reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997)))
+): { amountOut: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
+  const amountOut = reserveOut.minus(
+    reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997)))
+  )
   return {
-    price: amountIn.dividedBy(amountOut).toString(),
-    reserveInAfter: reserveIn.plus(amountIn),
-    reserveOutAfter: reserveOut.minus(amountOut)
+    amountOut,
+    reservesInAfter: reserveIn.plus(amountIn),
+    reservesOutAfter: reserveOut.minus(amountOut)
   }
 }
 
-function computeBids(reserveIn: BigNumber, reserveOut: BigNumber, numSegments: number): [string, string][] {
-  const increment = reserveIn.dividedBy(numSegments)
+function computeBids(baseReserves: BigNumber, quoteReserves: BigNumber, numSegments: number): [string, string][] {
+  const increment = baseReserves.dividedBy(numSegments)
   const amountsIn = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
-  return amountsIn.map((amountIn): [string, string] => {
-    const { reserveInAfter, reserveOutAfter } = amountIn.isEqualTo(increment)
-      ? { reserveInAfter: reserveIn, reserveOutAfter: reserveOut }
-      : computeSwapResult(amountIn.minus(increment), reserveIn, reserveOut)
-    const { price } = computeSwapResult(increment, reserveInAfter, reserveOutAfter)
-    return [increment.toString(), price]
+  return amountsIn.map((amountIn, ix): [string, string] => {
+    const { reservesInAfter, reservesOutAfter } =
+      ix === 0
+        ? { reservesInAfter: baseReserves, reservesOutAfter: quoteReserves }
+        : getAmountOut(amountIn.minus(increment), baseReserves, quoteReserves)
+    const { amountOut } = getAmountOut(increment, reservesInAfter, reservesOutAfter)
+    return [increment.toString(), amountOut.dividedBy(amountIn).toString()]
   })
 }
 
 function computeBidsAsks(
-  reservesA: BigNumber,
-  reservesB: BigNumber,
+  baseReserves: BigNumber,
+  quoteReserves: BigNumber,
   numSegments: number = 20
 ): { bids: [string, string][]; asks: [string, string][] } {
-  if (reservesA.eq(0) || reservesB.eq(0)) {
+  if (baseReserves.eq(0) || quoteReserves.eq(0)) {
     return {
       bids: [],
       asks: []
@@ -43,8 +46,11 @@ function computeBidsAsks(
   }
 
   return {
-    bids: computeBids(reservesA, reservesB, numSegments),
-    asks: computeBids(reservesB, reservesA, numSegments)
+    bids: computeBids(baseReserves, quoteReserves, numSegments),
+    asks: computeBids(quoteReserves, baseReserves, numSegments).map(([amount, price]) => [
+      amount,
+      new BigNumber(1).dividedBy(new BigNumber(price)).toString()
+    ])
   }
 }
 
