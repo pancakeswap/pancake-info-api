@@ -27,7 +27,7 @@ function getAmountIn(
 ): { amountIn: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
   const amountIn = amountOut.eq(0)
     ? new BigNumber(0)
-    : amountOut.isGreaterThanOrEqualTo(amountOut)
+    : amountOut.isGreaterThanOrEqualTo(reserveOut)
     ? new BigNumber(Infinity)
     : reserveIn
         .multipliedBy(reserveOut)
