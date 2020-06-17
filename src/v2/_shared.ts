@@ -24,14 +24,17 @@ export interface Pair {
   token1: Token
 }
 export interface DetailedPair extends Pair {
-  token0Price: string
-  token1Price: string
   reserve0: string
   reserve1: string
-  volumeToken0: string
-  volumeToken1: string
+  dailyVolumeToken0: string
+  dailyVolumeToken1: string
 }
-export async function getTopPairs<T extends boolean>(detailed: T): Promise<T extends true ? DetailedPair[] : Pair[]> {
+export interface MappedDetailedPair extends DetailedPair {
+  price?: string
+}
+export async function getTopPairs<T extends boolean>(
+  detailed: T
+): Promise<T extends true ? MappedDetailedPair[] : Pair[]> {
   const {
     data: { pairs }
   } = await client.query({
@@ -42,7 +45,17 @@ export async function getTopPairs<T extends boolean>(detailed: T): Promise<T ext
       detailed
     }
   })
-  return pairs
+  return detailed
+    ? pairs.map(
+        (pair: DetailedPair): MappedDetailedPair => ({
+          ...pair,
+          price:
+            pair.reserve0 !== '0' && pair.reserve1 !== '0'
+              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
+              : undefined
+        })
+      )
+    : pairs
 }
 
 function isSorted(tokenA: string, tokenB: string): boolean {

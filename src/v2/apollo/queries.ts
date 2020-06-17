@@ -6,18 +6,16 @@ export const TOP_PAIRS = gql`
     symbol
     name
   }
-  fragment DetailedPairInfo on Pair {
-    token0Price
-    token1Price
+  fragment DetailedPairInfo on PairDayData {
     reserve0
     reserve1
-    volumeToken0
-    volumeToken1
+    dailyVolumeToken0
+    dailyVolumeToken1
   }
   query($limit: Int!, $excludeTokenIds: [String!]!, $detailed: Boolean = false) {
-    pairs(
+    pairDayDatas(
       first: $limit
-      orderBy: reserveETH
+      orderBy: reserveUSD
       orderDirection: desc
       where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
     ) {

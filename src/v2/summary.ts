@@ -18,9 +18,9 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
         const id0 = getAddress(pair.token0.id)
         const id1 = getAddress(pair.token1.id)
         accumulator[`${id0}_${id1}`] = {
-          last_price: pair.token0Price,
-          base_volume: pair.volumeToken0,
-          quote_volume: pair.volumeToken1
+          last_price: pair.price ?? '0',
+          base_volume: pair.dailyVolumeToken0,
+          quote_volume: pair.dailyVolumeToken1
         }
         return accumulator
       }, {}),
