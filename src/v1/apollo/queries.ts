@@ -33,10 +33,6 @@ export const TOP_PAIRS_DATA = gql`
 
 export const ORDERBOOK = gql`
   query _($exchangeAddress: String!) {
-    exchanges(where: { id: $exchangeAddress }) {
-      tokenDecimals
-    }
-
     exchangeHistoricalDatas(
       first: 1
       where: { exchangeAddress: $exchangeAddress }

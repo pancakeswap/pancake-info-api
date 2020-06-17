@@ -1,4 +1,4 @@
-import { BigNumber } from '@uniswap/sdk'
+import BigNumber from 'bignumber.js'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'

@@ -1,7 +1,7 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
 
-import { return200, return500 } from '../utils'
+import { return200, return500 } from '../utils/response'
 import { getTopPairs } from './_shared'
 
 interface ReturnShape {
