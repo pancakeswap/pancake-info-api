@@ -35,6 +35,9 @@ export interface MappedDetailedPair extends DetailedPair {
 export async function getTopPairs<T extends boolean>(
   detailed: T
 ): Promise<T extends true ? MappedDetailedPair[] : Pair[]> {
+  const epochSecond = Math.floor(new Date().getTime() / 1000)
+  const dayId = Math.floor(epochSecond / 86400)
+  const dayStartTime = dayId * 86400
   const {
     data: { pairDayDatas: pairs }
   } = await client.query({
@@ -44,7 +47,7 @@ export async function getTopPairs<T extends boolean>(
       excludeTokenIds: BLACKLIST,
       detailed,
       // yesterday's data
-      date: Math.floor(new Date().getTime() / (86400 * 1000)) - 1
+      date: dayStartTime
     }
   })
   return detailed
