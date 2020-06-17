@@ -2,38 +2,38 @@ import { BigNumber } from '@uniswap/sdk'
 
 function getAmountOut(
   amountIn: BigNumber,
-  reserveIn: BigNumber,
-  reserveOut: BigNumber
+  reservesIn: BigNumber,
+  reservesOut: BigNumber
 ): { amountOut: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
   const amountOut = amountIn.eq(0)
     ? new BigNumber(0)
-    : reserveOut.minus(reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997))))
+    : reservesOut.minus(reservesOut.multipliedBy(reservesIn).dividedBy(reservesIn.plus(amountIn.multipliedBy(0.997))))
   return {
     amountOut,
-    reservesInAfter: reserveIn.plus(amountIn),
-    reservesOutAfter: reserveOut.minus(amountOut)
+    reservesInAfter: reservesIn.plus(amountIn),
+    reservesOutAfter: reservesOut.minus(amountOut)
   }
 }
 
 function getAmountIn(
   amountOut: BigNumber,
-  reserveIn: BigNumber,
-  reserveOut: BigNumber
+  reservesIn: BigNumber,
+  reservesOut: BigNumber
 ): { amountIn: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
   const amountIn = amountOut.eq(0)
     ? new BigNumber(0)
-    : amountOut.isGreaterThanOrEqualTo(reserveOut)
+    : amountOut.isGreaterThanOrEqualTo(reservesOut)
     ? new BigNumber(Infinity)
-    : reserveIn
-        .multipliedBy(reserveOut)
-        .dividedBy(reserveOut.minus(amountOut)) // reserves in after
-        .minus(reserveIn) // minus reserves in
+    : reservesIn
+        .multipliedBy(reservesOut)
+        .dividedBy(reservesOut.minus(amountOut)) // reserves in after
+        .minus(reservesIn) // minus reserves in
         .dividedBy(0.997) // fee
 
   return {
     amountIn,
-    reservesInAfter: reserveIn.plus(amountIn),
-    reservesOutAfter: reserveOut.minus(amountOut)
+    reservesInAfter: reservesIn.plus(amountIn),
+    reservesOutAfter: reservesOut.minus(amountOut)
   }
 }
 
@@ -64,10 +64,10 @@ export function computeBidsAsks(
   const asks = baseAmounts.map((sellBaseAmount): [string, string] => {
     const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountIn(
       sellBaseAmount,
-      baseReserves,
-      quoteReserves
+      quoteReserves,
+      baseReserves
     )
-    const { amountIn } = getAmountIn(increment, baseReservesBefore, quoteReservesBefore)
+    const { amountIn } = getAmountIn(increment, quoteReservesBefore, baseReservesBefore)
     return [increment.toString(), amountIn.dividedBy(increment).toString()]
   })
 
