@@ -30,11 +30,17 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
     return200(
       res,
       swaps.map(swap => {
+        const aIn = swap.amountAIn !== '0'
         const aOut = swap.amountAOut !== '0'
+        const bIn = swap.amountBIn !== '0'
         const bOut = swap.amountBOut !== '0'
-        // a is the base
-        // swapping out the base === buying
-        const type = aOut && bOut ? 'flash' : aOut ? 'buy' : bOut ? 'sell' : 'unknown'
+
+        // a is the base so if the pair sends a and not b then it's a 'buy'
+        const isBuy = aOut && bIn && !aIn && !bOut
+        const isSell = !aOut && !bIn && aIn && bOut
+        const isBorrowBoth = aOut && bOut && aIn && bIn
+
+        const type = isBuy ? 'buy' : isSell ? 'sell' : isBorrowBoth ? 'borrow-both' : '???'
         const baseAmount = aOut ? swap.amountAOut : swap.amountAIn
         const quoteAmount = bOut ? swap.amountBOut : swap.amountBIn
         return {
