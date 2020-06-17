@@ -10,27 +10,14 @@ function getAmountOut(
   reserveIn: BigNumber,
   reserveOut: BigNumber
 ): { amountOut: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
-  const amountOut = reserveOut.minus(
-    reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997)))
-  )
+  const amountOut = amountIn.eq(0)
+    ? new BigNumber(0)
+    : reserveOut.minus(reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997))))
   return {
     amountOut,
     reservesInAfter: reserveIn.plus(amountIn),
     reservesOutAfter: reserveOut.minus(amountOut)
   }
-}
-
-function computeBids(baseReserves: BigNumber, quoteReserves: BigNumber, numSegments: number): [string, string][] {
-  const increment = baseReserves.dividedBy(numSegments)
-  const amountsIn = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
-  return amountsIn.map((amountIn, ix): [string, string] => {
-    const { reservesInAfter, reservesOutAfter } =
-      ix === 0
-        ? { reservesInAfter: baseReserves, reservesOutAfter: quoteReserves }
-        : getAmountOut(amountIn.minus(increment), baseReserves, quoteReserves)
-    const { amountOut } = getAmountOut(increment, reservesInAfter, reservesOutAfter)
-    return [increment.toString(), amountOut.dividedBy(amountIn).toString()]
-  })
 }
 
 function computeBidsAsks(
@@ -45,12 +32,21 @@ function computeBidsAsks(
     }
   }
 
+  const increment = baseReserves.dividedBy(numSegments)
+  const baseAmounts = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
+  const bids = baseAmounts.map((amountIn): [string, string] => {
+    const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountOut(
+      amountIn.minus(increment),
+      baseReserves,
+      quoteReserves
+    )
+    const { amountOut } = getAmountOut(increment, baseReservesBefore, quoteReservesBefore)
+    return [increment.toString(), amountOut.dividedBy(increment).toString()]
+  })
+
   return {
-    bids: computeBids(baseReserves, quoteReserves, numSegments),
-    asks: computeBids(quoteReserves, baseReserves, numSegments).map(([amount, price]) => [
-      amount,
-      new BigNumber(1).dividedBy(new BigNumber(price)).toString()
-    ])
+    bids: bids,
+    asks: []
   }
 }
 
