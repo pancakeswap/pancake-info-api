@@ -5,6 +5,29 @@ import { BigNumber } from '@uniswap/sdk'
 import { getReserves } from './_shared'
 import { return200, return400, return500 } from '../utils'
 
+function computeSwapResult(
+  amountIn: BigNumber,
+  reserveIn: BigNumber,
+  reserveOut: BigNumber
+): { price: string; reserveInAfter: BigNumber; reserveOutAfter: BigNumber } {
+  const amountOut = reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997)))
+  return {
+    price: amountOut.dividedBy(amountIn).toString(),
+    reserveInAfter: reserveIn.plus(amountIn),
+    reserveOutAfter: reserveOut.minus(amountOut)
+  }
+}
+
+function computeBids(reserveIn: BigNumber, reserveOut: BigNumber, numSegments: number): [string, string][] {
+  const increment = reserveIn.dividedBy(numSegments)
+  const amountsIn = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
+  return amountsIn.map((amountIn): [string, string] => {
+    const { reserveInAfter, reserveOutAfter } = computeSwapResult(amountIn.minus(increment), reserveIn, reserveOut)
+    const { price } = computeSwapResult(increment, reserveInAfter, reserveOutAfter)
+    return [increment.toString(), price]
+  })
+}
+
 function computeBidsAsks(
   reservesA: BigNumber,
   reservesB: BigNumber,
@@ -17,11 +40,9 @@ function computeBidsAsks(
     }
   }
 
-  const segments = Array.from({ length: numSegments }, (x, i): number => i)
-
   return {
-    bids: [],
-    asks: []
+    bids: computeBids(reservesA, reservesB, numSegments),
+    asks: computeBids(reservesB, reservesA, numSegments)
   }
 }
 

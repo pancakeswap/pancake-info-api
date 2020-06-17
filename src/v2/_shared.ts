@@ -71,14 +71,6 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
     )
 }
 
-// interface Trade {
-//   id: string
-//   timestamp: number
-//   type: 'buy' | 'sell'
-//   ethAmount: string
-//   tokenAmount: string
-//   price: string
-// }
 interface Swap {
   id: string
   timestamp: number
