@@ -1,9 +1,29 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
-import { BigNumber } from '@uniswap/sdk/dist'
+import { BigNumber } from '@uniswap/sdk'
 
 import { getReserves } from './_shared'
 import { return200, return400, return500 } from '../utils'
+
+function computeBidsAsks(
+  reservesA: BigNumber,
+  reservesB: BigNumber,
+  numSegments: number = 20
+): { bids: [string, string][]; asks: [string, string][] } {
+  if (reservesA.eq(0) || reservesB.eq(0)) {
+    return {
+      bids: [],
+      asks: []
+    }
+  }
+
+  const segments = Array.from({ length: numSegments }, (x, i): number => i)
+
+  return {
+    bids: [],
+    asks: []
+  }
+}
 
 export default async function(req: NowRequest, res: NowResponse): Promise<void> {
   if (
@@ -27,19 +47,13 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
   try {
     const [reservesA, reservesB] = await getReserves(idA, idB)
 
-    const segments = Array.from({ length: 20 }, (x, i): number => i)
-
     const timestamp = new Date().getTime()
-
-    const reservesABn = new BigNumber(reservesA)
-    const reservesBBn = new BigNumber(reservesB)
 
     return200(
       res,
       {
         timestamp,
-        bids: segments.map(i => {}),
-        asks: segments.map(i => {})
+        ...computeBidsAsks(new BigNumber(reservesA), new BigNumber(reservesB))
       },
       60 * 15
     )
