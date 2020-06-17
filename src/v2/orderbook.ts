@@ -12,7 +12,7 @@ function computeSwapResult(
 ): { price: string; reserveInAfter: BigNumber; reserveOutAfter: BigNumber } {
   const amountOut = reserveOut.multipliedBy(reserveIn).dividedBy(reserveIn.plus(amountIn.multipliedBy(0.997)))
   return {
-    price: amountOut.dividedBy(amountIn).toString(),
+    price: amountIn.dividedBy(amountOut).toString(),
     reserveInAfter: reserveIn.plus(amountIn),
     reserveOutAfter: reserveOut.minus(amountOut)
   }
