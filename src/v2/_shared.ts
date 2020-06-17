@@ -45,8 +45,12 @@ export async function getTopPairs<T extends boolean>(detailed: T): Promise<T ext
   return pairs
 }
 
-function sortedFormatted(tokenA: string, tokenB: string): [string, string] {
+function isSorted(tokenA: string, tokenB: string): boolean {
   return tokenA.toLowerCase() < tokenB.toLowerCase()
+}
+
+function sortedFormatted(tokenA: string, tokenB: string): [string, string] {
+  return isSorted(tokenA, tokenB)
     ? [tokenA.toLowerCase(), tokenB.toLowerCase()]
     : [tokenB.toLowerCase(), tokenA.toLowerCase()]
 }
@@ -83,16 +87,23 @@ interface Swap {
   amount1In: string
   amount1Out: string
 }
-export async function getSwaps(tokenA: string, tokenB: string): Promise<Swap[]> {
+interface SwapMapped extends Swap {
+  amountAIn: string
+  amountAOut: string
+  amountBIn: string
+  amountBOut: string
+}
+export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapped[]> {
   const _24HoursAgo = get24HoursAgo()
   const [token0, token1] = sortedFormatted(tokenA, tokenB)
 
+  const sorted = isSorted(tokenA, tokenB)
   let skip = 0
-  let results: Swap[] = []
+  let results: SwapMapped[] = []
   let finished = false
   while (!finished) {
     await client
-      .query({
+      .query<{ pairs: [{ swaps: Swap[] }] }>({
         query: SWAPS_BY_TOKENS,
         variables: {
           skip,
@@ -112,7 +123,17 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<Swap[]> 
           } else {
             skip += swaps.length
 
-            results = results.concat(swaps)
+            results = results.concat(
+              swaps.map(
+                (swap): SwapMapped => ({
+                  ...swap,
+                  amountAIn: sorted ? swap.amount0In : swap.amount1In,
+                  amountAOut: sorted ? swap.amount0Out : swap.amount1Out,
+                  amountBIn: sorted ? swap.amount1In : swap.amount0In,
+                  amountBOut: sorted ? swap.amount1Out : swap.amount0Out
+                })
+              )
+            )
           }
         }
       )

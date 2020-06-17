@@ -1,5 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
+import { BigNumber } from '@uniswap/sdk/dist'
 
 import { getSwaps } from './_shared'
 import { return200, return400, return500 } from '../utils'
@@ -28,7 +29,20 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
 
     return200(
       res,
-      swaps,
+      swaps.map(swap => {
+        const aOut = swap.amountAOut !== '0'
+        const bOut = swap.amountBOut !== '0'
+        // a is the base
+        // swapping out the base === buying
+        const type = aOut && bOut ? 'flash' : aOut ? 'buy' : bOut ? 'sell' : 'unknown'
+        return {
+          trade_id: swap.id,
+          base_volume: aOut ? swap.amountAOut : swap.amountAIn,
+          quote_volume: bOut ? swap.amountBOut : swap.amountBIn,
+          type,
+          trade_timestamp: swap.timestamp
+        }
+      }),
       // trades.map((trades): any => ({
       //   trade_id: trades.id,
       //   price: trades.price,
