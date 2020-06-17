@@ -40,7 +40,7 @@ function getAmountIn(
 export function computeBidsAsks(
   baseReserves: BigNumber,
   quoteReserves: BigNumber,
-  numSegments: number = 20
+  numSegments: number = 200
 ): { bids: [string, string][]; asks: [string, string][] } {
   if (baseReserves.eq(0) || quoteReserves.eq(0)) {
     return {
@@ -49,8 +49,10 @@ export function computeBidsAsks(
     }
   }
 
-  const increment = baseReserves.dividedBy(numSegments)
+  // we don't do exactly 100 segments because we do not care about the trade that takes exact out of entire reserves
+  const increment = baseReserves.dividedBy(numSegments + 1)
   const baseAmounts = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i))
+
   const bids = baseAmounts.map((buyBaseAmount): [string, string] => {
     const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountOut(
       buyBaseAmount,
@@ -67,8 +69,8 @@ export function computeBidsAsks(
       quoteReserves,
       baseReserves
     )
-    const { amountIn } = getAmountIn(increment, quoteReservesBefore, baseReservesBefore)
-    return [increment.toString(), increment.dividedBy(amountIn).toString()]
+    const { amountIn } = getAmountIn(increment, baseReservesBefore, quoteReservesBefore)
+    return [increment.toString(), amountIn.dividedBy(increment).toString()]
   })
 
   return {
