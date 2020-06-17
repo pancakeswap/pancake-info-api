@@ -16,8 +16,8 @@ export function returnError(res: NowResponse, code: number, message: string): No
   return res
 }
 
-export function return400(res: NowResponse): NowResponse {
-  return returnError(res, 400, 'Bad request')
+export function return400(res: NowResponse, message: string = 'Bad request'): NowResponse {
+  return returnError(res, 400, message)
 }
 
 export function return500(res: NowResponse, error: Error): NowResponse {

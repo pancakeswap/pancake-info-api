@@ -1,4 +1,4 @@
-import { BigNumber, getMarketDetails, getTradeDetails, TRADE_EXACT } from '@uniswap/sdk'
+import { BigNumber } from '@uniswap/sdk'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
@@ -12,7 +12,7 @@ export function get24HoursAgo(): number {
   return Math.floor((Date.now() - DAY) / 1000)
 }
 
-const TOP_PAIR_LIMIT = 100
+const TOP_PAIR_LIMIT = 1000
 interface Token {
   name: string
   symbol: string

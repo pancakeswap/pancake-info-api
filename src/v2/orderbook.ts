@@ -8,24 +8,23 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
   if (
     !req.query.pair ||
     typeof req.query.pair !== 'string' ||
-    !/^0x[0-9a-fA-F{40}]_0x[0-9a-fA-F]{40}$/.test(req.query.pair)
+    !/^0x[0-9a-fA-F]{40}_0x[0-9a-fA-F]{40}$/.test(req.query.pair)
   ) {
-    return400(res)
+    return400(res, 'Invalid pair identifier: must be of format tokenAddress_tokenAddress')
     return
   }
 
-  const [token0, token1] = req.query.pair.split('_')
-  let id0: string, id1: string
+  const [tokenA, tokenB] = req.query.pair.split('_')
+  let idA: string, idB: string
   try {
-    id0 = getAddress(token0)
-    id1 = getAddress(token1)
+    ;[idA, idB] = [getAddress(tokenA), getAddress(tokenB)]
   } catch (error) {
     return400(res)
     return
   }
 
   try {
-    const reserves = await getReserves(id0, id1)
+    const reserves = await getReserves(idA, idB)
     return200(res, reserves, 60 * 10)
   } catch (error) {
     return500(res, error)
