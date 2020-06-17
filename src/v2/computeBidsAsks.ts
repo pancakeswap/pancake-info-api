@@ -68,7 +68,7 @@ export function computeBidsAsks(
       baseReserves
     )
     const { amountIn } = getAmountIn(increment, quoteReservesBefore, baseReservesBefore)
-    return [increment.toString(), amountIn.dividedBy(increment).toString()]
+    return [increment.toString(), increment.dividedBy(amountIn).toString()]
   })
 
   return {
