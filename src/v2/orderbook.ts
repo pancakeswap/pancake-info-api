@@ -22,7 +22,9 @@ function computeBids(reserveIn: BigNumber, reserveOut: BigNumber, numSegments: n
   const increment = reserveIn.dividedBy(numSegments)
   const amountsIn = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i + 1))
   return amountsIn.map((amountIn): [string, string] => {
-    const { reserveInAfter, reserveOutAfter } = computeSwapResult(amountIn.minus(increment), reserveIn, reserveOut)
+    const { reserveInAfter, reserveOutAfter } = amountIn.isEqualTo(increment)
+      ? { reserveInAfter: reserveIn, reserveOutAfter: reserveOut }
+      : computeSwapResult(amountIn.minus(increment), reserveIn, reserveOut)
     const { price } = computeSwapResult(increment, reserveInAfter, reserveOutAfter)
     return [increment.toString(), price]
   })
