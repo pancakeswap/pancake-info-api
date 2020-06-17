@@ -36,7 +36,7 @@ export async function getTopPairs<T extends boolean>(
   detailed: T
 ): Promise<T extends true ? MappedDetailedPair[] : Pair[]> {
   const {
-    data: { pairs }
+    data: { pairDayDatas: pairs }
   } = await client.query({
     query: TOP_PAIRS,
     variables: {
