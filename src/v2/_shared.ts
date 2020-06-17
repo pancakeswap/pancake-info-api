@@ -42,7 +42,9 @@ export async function getTopPairs<T extends boolean>(
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST,
-      detailed
+      detailed,
+      // yesterday's data
+      date: Math.floor(new Date().getTime() / (86400 * 1000)) - 1
     }
   })
   return detailed
