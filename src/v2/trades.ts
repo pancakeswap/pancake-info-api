@@ -35,12 +35,16 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
         // a is the base
         // swapping out the base === buying
         const type = aOut && bOut ? 'flash' : aOut ? 'buy' : bOut ? 'sell' : 'unknown'
+        const baseAmount = aOut ? swap.amountAOut : swap.amountAIn
+        const qouteAmount = bOut ? swap.amountBOut : swap.amountBIn
         return {
           trade_id: swap.id,
-          base_volume: aOut ? swap.amountAOut : swap.amountAIn,
-          quote_volume: bOut ? swap.amountBOut : swap.amountBIn,
+          base_volume: baseAmount,
+          quote_volume: qouteAmount,
           type,
-          trade_timestamp: swap.timestamp
+          trade_timestamp: swap.timestamp,
+          price:
+            baseAmount !== '0' ? new BigNumber(qouteAmount).dividedBy(new BigNumber(baseAmount)).toString() : undefined
         }
       }),
       // trades.map((trades): any => ({
