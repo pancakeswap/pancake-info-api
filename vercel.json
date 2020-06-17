@@ -17,6 +17,19 @@
       "dest": "/src/v1/trades.ts?pair=$pair",
       "methods": ["GET"]
     },
-    { "src": "/.*", "dest": "/404.html", "status": 404 }
+    { "src": "/v2/summary", "dest": "/src/v2/summary.ts", "methods": ["GET"] },
+    { "src": "/v2/assets", "dest": "/src/v2/assets.ts", "methods": ["GET"] },
+    { "src": "/v2/tickers", "dest": "/src/v2/tickers.ts", "methods": ["GET"] },
+    {
+      "src": "/v2/orderbook/(?<pair>.*)",
+      "dest": "/src/v2/orderbook.ts?pair=$pair",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/v2/trades/(?<pair>.*)",
+      "dest": "/src/v2/trades.ts?pair=$pair",
+      "methods": ["GET"]
+    },
+    {"src": "/.*", "dest": "/src/404.ts"}
   ]
 }

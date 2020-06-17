@@ -1,0 +1,1766 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Bundle {
+    ethPrice: BigDecimal!
+    id: ID!
+}
+
+type Burn {
+    amount0: BigDecimal
+    amount1: BigDecimal
+    amountUSD: BigDecimal
+    feeLiquidity: BigDecimal
+    feeTo: Bytes
+    id: ID!
+    liquidity: BigDecimal!
+    logIndex: BigInt
+    pair: Pair!
+    sender: Bytes
+    timestamp: BigInt!
+    to: Bytes
+    transaction: Transaction!
+}
+
+type LiquidityPosition {
+    id: ID!
+    liquidityTokenBalance: BigDecimal!
+    pair: Pair!
+    poolOwnership: BigDecimal
+    user: User!
+}
+
+type Mint {
+    amount0: BigDecimal
+    amount1: BigDecimal
+    amountUSD: BigDecimal
+    feeLiquidity: BigDecimal
+    feeTo: Bytes
+    id: ID!
+    liquidity: BigDecimal!
+    logIndex: BigInt
+    pair: Pair!
+    sender: Bytes
+    timestamp: BigInt!
+    to: Bytes!
+    transaction: Transaction!
+}
+
+type Pair {
+    burns(first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Burn_filter): [Burn!]
+    createdAtBlockNumber: BigInt!
+    createdAtTimestamp: BigInt!
+    factory: UniswapFactory!
+    id: ID!
+    liquidityPositions(first: Int = 100, orderBy: LiquidityPosition_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: LiquidityPosition_filter): [LiquidityPosition!]
+    mints(first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Mint_filter): [Mint!]
+    reserve0: BigDecimal!
+    reserve1: BigDecimal!
+    reserveETH: BigDecimal!
+    reserveUSD: BigDecimal!
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap!]
+    token0: Token!
+    token0Price: BigDecimal!
+    token1: Token!
+    token1Price: BigDecimal!
+    totalSupply: BigDecimal!
+    trackedReserveETH: BigDecimal!
+    txCount: BigInt!
+    volumeToken0: BigDecimal!
+    volumeToken1: BigDecimal!
+    volumeUSD: BigDecimal!
+}
+
+type PairDayData {
+    dailyTxns: BigInt!
+    dailyVolumeToken0: BigDecimal!
+    dailyVolumeToken1: BigDecimal!
+    dailyVolumeUSD: BigDecimal!
+    date: Int!
+    id: ID!
+    pairAddress: Bytes!
+    reserve0: BigDecimal!
+    reserve1: BigDecimal!
+    reserveUSD: BigDecimal!
+    token0: Token!
+    token1: Token!
+}
+
+type Query {
+    bundle(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Bundle
+    bundles(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Bundle_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Bundle_filter
+    ): [Bundle!]!
+    burn(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Burn
+    burns(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Burn_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Burn_filter
+    ): [Burn!]!
+    liquidityPosition(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): LiquidityPosition
+    liquidityPositions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: LiquidityPosition_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: LiquidityPosition_filter
+    ): [LiquidityPosition!]!
+    mint(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Mint
+    mints(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Mint_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Mint_filter
+    ): [Mint!]!
+    pair(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pair
+    pairDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PairDayData
+    pairDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PairDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PairDayData_filter
+    ): [PairDayData!]!
+    pairs(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pair_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pair_filter
+    ): [Pair!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokenDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenDayData
+    tokenDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenDayData_filter
+    ): [TokenDayData!]!
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    uniswapDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UniswapDayData
+    uniswapDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UniswapDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UniswapDayData_filter
+    ): [UniswapDayData!]!
+    uniswapFactories(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UniswapFactory_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UniswapFactory_filter
+    ): [UniswapFactory!]!
+    uniswapFactory(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UniswapFactory
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type Subscription {
+    bundle(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Bundle
+    bundles(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Bundle_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Bundle_filter
+    ): [Bundle!]!
+    burn(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Burn
+    burns(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Burn_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Burn_filter
+    ): [Burn!]!
+    liquidityPosition(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): LiquidityPosition
+    liquidityPositions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: LiquidityPosition_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: LiquidityPosition_filter
+    ): [LiquidityPosition!]!
+    mint(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Mint
+    mints(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Mint_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Mint_filter
+    ): [Mint!]!
+    pair(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Pair
+    pairDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PairDayData
+    pairDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PairDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PairDayData_filter
+    ): [PairDayData!]!
+    pairs(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Pair_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Pair_filter
+    ): [Pair!]!
+    swap(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Swap
+    swaps(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Swap_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Swap_filter
+    ): [Swap!]!
+    token(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Token
+    tokenDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): TokenDayData
+    tokenDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: TokenDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: TokenDayData_filter
+    ): [TokenDayData!]!
+    tokens(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Token_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Token_filter
+    ): [Token!]!
+    transaction(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Transaction
+    transactions(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Transaction_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Transaction_filter
+    ): [Transaction!]!
+    uniswapDayData(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UniswapDayData
+    uniswapDayDatas(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UniswapDayData_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UniswapDayData_filter
+    ): [UniswapDayData!]!
+    uniswapFactories(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: UniswapFactory_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: UniswapFactory_filter
+    ): [UniswapFactory!]!
+    uniswapFactory(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): UniswapFactory
+    user(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): User
+    users(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: User_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: User_filter
+    ): [User!]!
+}
+
+type Swap {
+    amount0In: BigDecimal!
+    amount0Out: BigDecimal!
+    amount1In: BigDecimal!
+    amount1Out: BigDecimal!
+    amountUSD: BigDecimal!
+    id: ID!
+    logIndex: BigInt
+    pair: Pair!
+    sender: Bytes!
+    timestamp: BigInt!
+    to: Bytes!
+    transaction: Transaction!
+}
+
+type Token {
+    allPairs(first: Int = 100, orderBy: Pair_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Pair_filter): [Pair!]
+    decimals: BigInt!
+    derivedETH: BigDecimal
+    id: ID!
+    mostLiquidPairs(first: Int = 100, orderBy: PairDayData_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: PairDayData_filter): [PairDayData]!
+    name: String!
+    symbol: String!
+    totalLiquidity: BigDecimal!
+    tradeVolume: BigDecimal!
+    tradeVolumeUSD: BigDecimal!
+    txCount: BigInt!
+}
+
+type TokenDayData {
+    dailyTxns: BigInt!
+    dailyVolumeETH: BigDecimal!
+    dailyVolumeToken: BigDecimal!
+    dailyVolumeUSD: BigDecimal!
+    date: Int!
+    id: ID!
+    maxStored: Int!
+    mostLiquidPairs(first: Int = 100, orderBy: PairDayData_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: PairDayData_filter): [PairDayData!]!
+    priceUSD: BigDecimal!
+    token: Token!
+    totalLiquidityETH: BigDecimal!
+    totalLiquidityToken: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+}
+
+type Transaction {
+    blockNumber: BigInt!
+    burns(first: Int = 100, orderBy: Burn_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Burn_filter): [Burn]!
+    id: ID!
+    mints(first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Mint_filter): [Mint]!
+    swaps(first: Int = 100, orderBy: Swap_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Swap_filter): [Swap]!
+    timestamp: BigInt!
+}
+
+type UniswapDayData {
+    dailyVolumeETH: BigDecimal!
+    dailyVolumeUSD: BigDecimal!
+    date: Int!
+    id: ID!
+    maxStored: Int
+    mostLiquidTokens(first: Int = 100, orderBy: TokenDayData_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: TokenDayData_filter): [TokenDayData!]!
+    totalLiquidityETH: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+    totalVolumeETH: BigDecimal!
+    totalVolumeUSD: BigDecimal!
+    txCount: BigInt!
+}
+
+type UniswapFactory {
+    id: ID!
+    mostLiquidTokens(first: Int = 100, orderBy: TokenDayData_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: TokenDayData_filter): [TokenDayData!]!
+    pairCount: Int!
+    pairs(first: Int = 100, orderBy: Pair_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Pair_filter): [Pair]!
+    totalLiquidityETH: BigDecimal!
+    totalLiquidityUSD: BigDecimal!
+    totalVolumeETH: BigDecimal!
+    totalVolumeUSD: BigDecimal!
+    txCount: BigInt!
+}
+
+type User {
+    id: ID!
+    liquidityPositions(first: Int = 100, orderBy: LiquidityPosition_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: LiquidityPosition_filter): [LiquidityPosition!]
+}
+
+enum Bundle_orderBy {
+    ethPrice
+    id
+}
+
+enum Burn_orderBy {
+    amount0
+    amount1
+    amountUSD
+    feeLiquidity
+    feeTo
+    id
+    liquidity
+    logIndex
+    pair
+    sender
+    timestamp
+    to
+    transaction
+}
+
+enum LiquidityPosition_orderBy {
+    id
+    liquidityTokenBalance
+    pair
+    poolOwnership
+    user
+}
+
+enum Mint_orderBy {
+    amount0
+    amount1
+    amountUSD
+    feeLiquidity
+    feeTo
+    id
+    liquidity
+    logIndex
+    pair
+    sender
+    timestamp
+    to
+    transaction
+}
+
+enum OrderDirection {
+    asc
+    desc
+}
+
+enum PairDayData_orderBy {
+    dailyTxns
+    dailyVolumeToken0
+    dailyVolumeToken1
+    dailyVolumeUSD
+    date
+    id
+    pairAddress
+    reserve0
+    reserve1
+    reserveUSD
+    token0
+    token1
+}
+
+enum Pair_orderBy {
+    burns
+    createdAtBlockNumber
+    createdAtTimestamp
+    factory
+    id
+    liquidityPositions
+    mints
+    reserve0
+    reserve1
+    reserveETH
+    reserveUSD
+    swaps
+    token0
+    token0Price
+    token1
+    token1Price
+    totalSupply
+    trackedReserveETH
+    txCount
+    volumeToken0
+    volumeToken1
+    volumeUSD
+}
+
+enum Swap_orderBy {
+    amount0In
+    amount0Out
+    amount1In
+    amount1Out
+    amountUSD
+    id
+    logIndex
+    pair
+    sender
+    timestamp
+    to
+    transaction
+}
+
+enum TokenDayData_orderBy {
+    dailyTxns
+    dailyVolumeETH
+    dailyVolumeToken
+    dailyVolumeUSD
+    date
+    id
+    maxStored
+    mostLiquidPairs
+    priceUSD
+    token
+    totalLiquidityETH
+    totalLiquidityToken
+    totalLiquidityUSD
+}
+
+enum Token_orderBy {
+    allPairs
+    decimals
+    derivedETH
+    id
+    mostLiquidPairs
+    name
+    symbol
+    totalLiquidity
+    tradeVolume
+    tradeVolumeUSD
+    txCount
+}
+
+enum Transaction_orderBy {
+    blockNumber
+    burns
+    id
+    mints
+    swaps
+    timestamp
+}
+
+enum UniswapDayData_orderBy {
+    dailyVolumeETH
+    dailyVolumeUSD
+    date
+    id
+    maxStored
+    mostLiquidTokens
+    totalLiquidityETH
+    totalLiquidityUSD
+    totalVolumeETH
+    totalVolumeUSD
+    txCount
+}
+
+enum UniswapFactory_orderBy {
+    id
+    mostLiquidTokens
+    pairCount
+    pairs
+    totalLiquidityETH
+    totalLiquidityUSD
+    totalVolumeETH
+    totalVolumeUSD
+    txCount
+}
+
+enum User_orderBy {
+    id
+    liquidityPositions
+}
+
+input Block_height {
+    hash: Bytes
+    number: Int
+}
+
+input Bundle_filter {
+    ethPrice: BigDecimal
+    ethPrice_gt: BigDecimal
+    ethPrice_gte: BigDecimal
+    ethPrice_in: [BigDecimal!]
+    ethPrice_lt: BigDecimal
+    ethPrice_lte: BigDecimal
+    ethPrice_not: BigDecimal
+    ethPrice_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+input Burn_filter {
+    amount0: BigDecimal
+    amount0_gt: BigDecimal
+    amount0_gte: BigDecimal
+    amount0_in: [BigDecimal!]
+    amount0_lt: BigDecimal
+    amount0_lte: BigDecimal
+    amount0_not: BigDecimal
+    amount0_not_in: [BigDecimal!]
+    amount1: BigDecimal
+    amount1_gt: BigDecimal
+    amount1_gte: BigDecimal
+    amount1_in: [BigDecimal!]
+    amount1_lt: BigDecimal
+    amount1_lte: BigDecimal
+    amount1_not: BigDecimal
+    amount1_not_in: [BigDecimal!]
+    amountUSD: BigDecimal
+    amountUSD_gt: BigDecimal
+    amountUSD_gte: BigDecimal
+    amountUSD_in: [BigDecimal!]
+    amountUSD_lt: BigDecimal
+    amountUSD_lte: BigDecimal
+    amountUSD_not: BigDecimal
+    amountUSD_not_in: [BigDecimal!]
+    feeLiquidity: BigDecimal
+    feeLiquidity_gt: BigDecimal
+    feeLiquidity_gte: BigDecimal
+    feeLiquidity_in: [BigDecimal!]
+    feeLiquidity_lt: BigDecimal
+    feeLiquidity_lte: BigDecimal
+    feeLiquidity_not: BigDecimal
+    feeLiquidity_not_in: [BigDecimal!]
+    feeTo: Bytes
+    feeTo_contains: Bytes
+    feeTo_in: [Bytes!]
+    feeTo_not: Bytes
+    feeTo_not_contains: Bytes
+    feeTo_not_in: [Bytes!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    liquidity: BigDecimal
+    liquidity_gt: BigDecimal
+    liquidity_gte: BigDecimal
+    liquidity_in: [BigDecimal!]
+    liquidity_lt: BigDecimal
+    liquidity_lte: BigDecimal
+    liquidity_not: BigDecimal
+    liquidity_not_in: [BigDecimal!]
+    logIndex: BigInt
+    logIndex_gt: BigInt
+    logIndex_gte: BigInt
+    logIndex_in: [BigInt!]
+    logIndex_lt: BigInt
+    logIndex_lte: BigInt
+    logIndex_not: BigInt
+    logIndex_not_in: [BigInt!]
+    pair: String
+    pair_contains: String
+    pair_ends_with: String
+    pair_gt: String
+    pair_gte: String
+    pair_in: [String!]
+    pair_lt: String
+    pair_lte: String
+    pair_not: String
+    pair_not_contains: String
+    pair_not_ends_with: String
+    pair_not_in: [String!]
+    pair_not_starts_with: String
+    pair_starts_with: String
+    sender: Bytes
+    sender_contains: Bytes
+    sender_in: [Bytes!]
+    sender_not: Bytes
+    sender_not_contains: Bytes
+    sender_not_in: [Bytes!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+    to: Bytes
+    to_contains: Bytes
+    to_in: [Bytes!]
+    to_not: Bytes
+    to_not_contains: Bytes
+    to_not_in: [Bytes!]
+}
+
+input LiquidityPosition_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    liquidityTokenBalance: BigDecimal
+    liquidityTokenBalance_gt: BigDecimal
+    liquidityTokenBalance_gte: BigDecimal
+    liquidityTokenBalance_in: [BigDecimal!]
+    liquidityTokenBalance_lt: BigDecimal
+    liquidityTokenBalance_lte: BigDecimal
+    liquidityTokenBalance_not: BigDecimal
+    liquidityTokenBalance_not_in: [BigDecimal!]
+    pair: String
+    pair_contains: String
+    pair_ends_with: String
+    pair_gt: String
+    pair_gte: String
+    pair_in: [String!]
+    pair_lt: String
+    pair_lte: String
+    pair_not: String
+    pair_not_contains: String
+    pair_not_ends_with: String
+    pair_not_in: [String!]
+    pair_not_starts_with: String
+    pair_starts_with: String
+    poolOwnership: BigDecimal
+    poolOwnership_gt: BigDecimal
+    poolOwnership_gte: BigDecimal
+    poolOwnership_in: [BigDecimal!]
+    poolOwnership_lt: BigDecimal
+    poolOwnership_lte: BigDecimal
+    poolOwnership_not: BigDecimal
+    poolOwnership_not_in: [BigDecimal!]
+    user: String
+    user_contains: String
+    user_ends_with: String
+    user_gt: String
+    user_gte: String
+    user_in: [String!]
+    user_lt: String
+    user_lte: String
+    user_not: String
+    user_not_contains: String
+    user_not_ends_with: String
+    user_not_in: [String!]
+    user_not_starts_with: String
+    user_starts_with: String
+}
+
+input Mint_filter {
+    amount0: BigDecimal
+    amount0_gt: BigDecimal
+    amount0_gte: BigDecimal
+    amount0_in: [BigDecimal!]
+    amount0_lt: BigDecimal
+    amount0_lte: BigDecimal
+    amount0_not: BigDecimal
+    amount0_not_in: [BigDecimal!]
+    amount1: BigDecimal
+    amount1_gt: BigDecimal
+    amount1_gte: BigDecimal
+    amount1_in: [BigDecimal!]
+    amount1_lt: BigDecimal
+    amount1_lte: BigDecimal
+    amount1_not: BigDecimal
+    amount1_not_in: [BigDecimal!]
+    amountUSD: BigDecimal
+    amountUSD_gt: BigDecimal
+    amountUSD_gte: BigDecimal
+    amountUSD_in: [BigDecimal!]
+    amountUSD_lt: BigDecimal
+    amountUSD_lte: BigDecimal
+    amountUSD_not: BigDecimal
+    amountUSD_not_in: [BigDecimal!]
+    feeLiquidity: BigDecimal
+    feeLiquidity_gt: BigDecimal
+    feeLiquidity_gte: BigDecimal
+    feeLiquidity_in: [BigDecimal!]
+    feeLiquidity_lt: BigDecimal
+    feeLiquidity_lte: BigDecimal
+    feeLiquidity_not: BigDecimal
+    feeLiquidity_not_in: [BigDecimal!]
+    feeTo: Bytes
+    feeTo_contains: Bytes
+    feeTo_in: [Bytes!]
+    feeTo_not: Bytes
+    feeTo_not_contains: Bytes
+    feeTo_not_in: [Bytes!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    liquidity: BigDecimal
+    liquidity_gt: BigDecimal
+    liquidity_gte: BigDecimal
+    liquidity_in: [BigDecimal!]
+    liquidity_lt: BigDecimal
+    liquidity_lte: BigDecimal
+    liquidity_not: BigDecimal
+    liquidity_not_in: [BigDecimal!]
+    logIndex: BigInt
+    logIndex_gt: BigInt
+    logIndex_gte: BigInt
+    logIndex_in: [BigInt!]
+    logIndex_lt: BigInt
+    logIndex_lte: BigInt
+    logIndex_not: BigInt
+    logIndex_not_in: [BigInt!]
+    pair: String
+    pair_contains: String
+    pair_ends_with: String
+    pair_gt: String
+    pair_gte: String
+    pair_in: [String!]
+    pair_lt: String
+    pair_lte: String
+    pair_not: String
+    pair_not_contains: String
+    pair_not_ends_with: String
+    pair_not_in: [String!]
+    pair_not_starts_with: String
+    pair_starts_with: String
+    sender: Bytes
+    sender_contains: Bytes
+    sender_in: [Bytes!]
+    sender_not: Bytes
+    sender_not_contains: Bytes
+    sender_not_in: [Bytes!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+    to: Bytes
+    to_contains: Bytes
+    to_in: [Bytes!]
+    to_not: Bytes
+    to_not_contains: Bytes
+    to_not_in: [Bytes!]
+}
+
+input PairDayData_filter {
+    dailyTxns: BigInt
+    dailyTxns_gt: BigInt
+    dailyTxns_gte: BigInt
+    dailyTxns_in: [BigInt!]
+    dailyTxns_lt: BigInt
+    dailyTxns_lte: BigInt
+    dailyTxns_not: BigInt
+    dailyTxns_not_in: [BigInt!]
+    dailyVolumeToken0: BigDecimal
+    dailyVolumeToken0_gt: BigDecimal
+    dailyVolumeToken0_gte: BigDecimal
+    dailyVolumeToken0_in: [BigDecimal!]
+    dailyVolumeToken0_lt: BigDecimal
+    dailyVolumeToken0_lte: BigDecimal
+    dailyVolumeToken0_not: BigDecimal
+    dailyVolumeToken0_not_in: [BigDecimal!]
+    dailyVolumeToken1: BigDecimal
+    dailyVolumeToken1_gt: BigDecimal
+    dailyVolumeToken1_gte: BigDecimal
+    dailyVolumeToken1_in: [BigDecimal!]
+    dailyVolumeToken1_lt: BigDecimal
+    dailyVolumeToken1_lte: BigDecimal
+    dailyVolumeToken1_not: BigDecimal
+    dailyVolumeToken1_not_in: [BigDecimal!]
+    dailyVolumeUSD: BigDecimal
+    dailyVolumeUSD_gt: BigDecimal
+    dailyVolumeUSD_gte: BigDecimal
+    dailyVolumeUSD_in: [BigDecimal!]
+    dailyVolumeUSD_lt: BigDecimal
+    dailyVolumeUSD_lte: BigDecimal
+    dailyVolumeUSD_not: BigDecimal
+    dailyVolumeUSD_not_in: [BigDecimal!]
+    date: Int
+    date_gt: Int
+    date_gte: Int
+    date_in: [Int!]
+    date_lt: Int
+    date_lte: Int
+    date_not: Int
+    date_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    pairAddress: Bytes
+    pairAddress_contains: Bytes
+    pairAddress_in: [Bytes!]
+    pairAddress_not: Bytes
+    pairAddress_not_contains: Bytes
+    pairAddress_not_in: [Bytes!]
+    reserve0: BigDecimal
+    reserve0_gt: BigDecimal
+    reserve0_gte: BigDecimal
+    reserve0_in: [BigDecimal!]
+    reserve0_lt: BigDecimal
+    reserve0_lte: BigDecimal
+    reserve0_not: BigDecimal
+    reserve0_not_in: [BigDecimal!]
+    reserve1: BigDecimal
+    reserve1_gt: BigDecimal
+    reserve1_gte: BigDecimal
+    reserve1_in: [BigDecimal!]
+    reserve1_lt: BigDecimal
+    reserve1_lte: BigDecimal
+    reserve1_not: BigDecimal
+    reserve1_not_in: [BigDecimal!]
+    reserveUSD: BigDecimal
+    reserveUSD_gt: BigDecimal
+    reserveUSD_gte: BigDecimal
+    reserveUSD_in: [BigDecimal!]
+    reserveUSD_lt: BigDecimal
+    reserveUSD_lte: BigDecimal
+    reserveUSD_not: BigDecimal
+    reserveUSD_not_in: [BigDecimal!]
+    token0: String
+    token0_contains: String
+    token0_ends_with: String
+    token0_gt: String
+    token0_gte: String
+    token0_in: [String!]
+    token0_lt: String
+    token0_lte: String
+    token0_not: String
+    token0_not_contains: String
+    token0_not_ends_with: String
+    token0_not_in: [String!]
+    token0_not_starts_with: String
+    token0_starts_with: String
+    token1: String
+    token1_contains: String
+    token1_ends_with: String
+    token1_gt: String
+    token1_gte: String
+    token1_in: [String!]
+    token1_lt: String
+    token1_lte: String
+    token1_not: String
+    token1_not_contains: String
+    token1_not_ends_with: String
+    token1_not_in: [String!]
+    token1_not_starts_with: String
+    token1_starts_with: String
+}
+
+input Pair_filter {
+    createdAtBlockNumber: BigInt
+    createdAtBlockNumber_gt: BigInt
+    createdAtBlockNumber_gte: BigInt
+    createdAtBlockNumber_in: [BigInt!]
+    createdAtBlockNumber_lt: BigInt
+    createdAtBlockNumber_lte: BigInt
+    createdAtBlockNumber_not: BigInt
+    createdAtBlockNumber_not_in: [BigInt!]
+    createdAtTimestamp: BigInt
+    createdAtTimestamp_gt: BigInt
+    createdAtTimestamp_gte: BigInt
+    createdAtTimestamp_in: [BigInt!]
+    createdAtTimestamp_lt: BigInt
+    createdAtTimestamp_lte: BigInt
+    createdAtTimestamp_not: BigInt
+    createdAtTimestamp_not_in: [BigInt!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    reserve0: BigDecimal
+    reserve0_gt: BigDecimal
+    reserve0_gte: BigDecimal
+    reserve0_in: [BigDecimal!]
+    reserve0_lt: BigDecimal
+    reserve0_lte: BigDecimal
+    reserve0_not: BigDecimal
+    reserve0_not_in: [BigDecimal!]
+    reserve1: BigDecimal
+    reserve1_gt: BigDecimal
+    reserve1_gte: BigDecimal
+    reserve1_in: [BigDecimal!]
+    reserve1_lt: BigDecimal
+    reserve1_lte: BigDecimal
+    reserve1_not: BigDecimal
+    reserve1_not_in: [BigDecimal!]
+    reserveETH: BigDecimal
+    reserveETH_gt: BigDecimal
+    reserveETH_gte: BigDecimal
+    reserveETH_in: [BigDecimal!]
+    reserveETH_lt: BigDecimal
+    reserveETH_lte: BigDecimal
+    reserveETH_not: BigDecimal
+    reserveETH_not_in: [BigDecimal!]
+    reserveUSD: BigDecimal
+    reserveUSD_gt: BigDecimal
+    reserveUSD_gte: BigDecimal
+    reserveUSD_in: [BigDecimal!]
+    reserveUSD_lt: BigDecimal
+    reserveUSD_lte: BigDecimal
+    reserveUSD_not: BigDecimal
+    reserveUSD_not_in: [BigDecimal!]
+    token0: String
+    token0Price: BigDecimal
+    token0Price_gt: BigDecimal
+    token0Price_gte: BigDecimal
+    token0Price_in: [BigDecimal!]
+    token0Price_lt: BigDecimal
+    token0Price_lte: BigDecimal
+    token0Price_not: BigDecimal
+    token0Price_not_in: [BigDecimal!]
+    token0_contains: String
+    token0_ends_with: String
+    token0_gt: String
+    token0_gte: String
+    token0_in: [String!]
+    token0_lt: String
+    token0_lte: String
+    token0_not: String
+    token0_not_contains: String
+    token0_not_ends_with: String
+    token0_not_in: [String!]
+    token0_not_starts_with: String
+    token0_starts_with: String
+    token1: String
+    token1Price: BigDecimal
+    token1Price_gt: BigDecimal
+    token1Price_gte: BigDecimal
+    token1Price_in: [BigDecimal!]
+    token1Price_lt: BigDecimal
+    token1Price_lte: BigDecimal
+    token1Price_not: BigDecimal
+    token1Price_not_in: [BigDecimal!]
+    token1_contains: String
+    token1_ends_with: String
+    token1_gt: String
+    token1_gte: String
+    token1_in: [String!]
+    token1_lt: String
+    token1_lte: String
+    token1_not: String
+    token1_not_contains: String
+    token1_not_ends_with: String
+    token1_not_in: [String!]
+    token1_not_starts_with: String
+    token1_starts_with: String
+    totalSupply: BigDecimal
+    totalSupply_gt: BigDecimal
+    totalSupply_gte: BigDecimal
+    totalSupply_in: [BigDecimal!]
+    totalSupply_lt: BigDecimal
+    totalSupply_lte: BigDecimal
+    totalSupply_not: BigDecimal
+    totalSupply_not_in: [BigDecimal!]
+    trackedReserveETH: BigDecimal
+    trackedReserveETH_gt: BigDecimal
+    trackedReserveETH_gte: BigDecimal
+    trackedReserveETH_in: [BigDecimal!]
+    trackedReserveETH_lt: BigDecimal
+    trackedReserveETH_lte: BigDecimal
+    trackedReserveETH_not: BigDecimal
+    trackedReserveETH_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+    volumeToken0: BigDecimal
+    volumeToken0_gt: BigDecimal
+    volumeToken0_gte: BigDecimal
+    volumeToken0_in: [BigDecimal!]
+    volumeToken0_lt: BigDecimal
+    volumeToken0_lte: BigDecimal
+    volumeToken0_not: BigDecimal
+    volumeToken0_not_in: [BigDecimal!]
+    volumeToken1: BigDecimal
+    volumeToken1_gt: BigDecimal
+    volumeToken1_gte: BigDecimal
+    volumeToken1_in: [BigDecimal!]
+    volumeToken1_lt: BigDecimal
+    volumeToken1_lte: BigDecimal
+    volumeToken1_not: BigDecimal
+    volumeToken1_not_in: [BigDecimal!]
+    volumeUSD: BigDecimal
+    volumeUSD_gt: BigDecimal
+    volumeUSD_gte: BigDecimal
+    volumeUSD_in: [BigDecimal!]
+    volumeUSD_lt: BigDecimal
+    volumeUSD_lte: BigDecimal
+    volumeUSD_not: BigDecimal
+    volumeUSD_not_in: [BigDecimal!]
+}
+
+input Swap_filter {
+    amount0In: BigDecimal
+    amount0In_gt: BigDecimal
+    amount0In_gte: BigDecimal
+    amount0In_in: [BigDecimal!]
+    amount0In_lt: BigDecimal
+    amount0In_lte: BigDecimal
+    amount0In_not: BigDecimal
+    amount0In_not_in: [BigDecimal!]
+    amount0Out: BigDecimal
+    amount0Out_gt: BigDecimal
+    amount0Out_gte: BigDecimal
+    amount0Out_in: [BigDecimal!]
+    amount0Out_lt: BigDecimal
+    amount0Out_lte: BigDecimal
+    amount0Out_not: BigDecimal
+    amount0Out_not_in: [BigDecimal!]
+    amount1In: BigDecimal
+    amount1In_gt: BigDecimal
+    amount1In_gte: BigDecimal
+    amount1In_in: [BigDecimal!]
+    amount1In_lt: BigDecimal
+    amount1In_lte: BigDecimal
+    amount1In_not: BigDecimal
+    amount1In_not_in: [BigDecimal!]
+    amount1Out: BigDecimal
+    amount1Out_gt: BigDecimal
+    amount1Out_gte: BigDecimal
+    amount1Out_in: [BigDecimal!]
+    amount1Out_lt: BigDecimal
+    amount1Out_lte: BigDecimal
+    amount1Out_not: BigDecimal
+    amount1Out_not_in: [BigDecimal!]
+    amountUSD: BigDecimal
+    amountUSD_gt: BigDecimal
+    amountUSD_gte: BigDecimal
+    amountUSD_in: [BigDecimal!]
+    amountUSD_lt: BigDecimal
+    amountUSD_lte: BigDecimal
+    amountUSD_not: BigDecimal
+    amountUSD_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    logIndex: BigInt
+    logIndex_gt: BigInt
+    logIndex_gte: BigInt
+    logIndex_in: [BigInt!]
+    logIndex_lt: BigInt
+    logIndex_lte: BigInt
+    logIndex_not: BigInt
+    logIndex_not_in: [BigInt!]
+    pair: String
+    pair_contains: String
+    pair_ends_with: String
+    pair_gt: String
+    pair_gte: String
+    pair_in: [String!]
+    pair_lt: String
+    pair_lte: String
+    pair_not: String
+    pair_not_contains: String
+    pair_not_ends_with: String
+    pair_not_in: [String!]
+    pair_not_starts_with: String
+    pair_starts_with: String
+    sender: Bytes
+    sender_contains: Bytes
+    sender_in: [Bytes!]
+    sender_not: Bytes
+    sender_not_contains: Bytes
+    sender_not_in: [Bytes!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+    to: Bytes
+    to_contains: Bytes
+    to_in: [Bytes!]
+    to_not: Bytes
+    to_not_contains: Bytes
+    to_not_in: [Bytes!]
+}
+
+input TokenDayData_filter {
+    dailyTxns: BigInt
+    dailyTxns_gt: BigInt
+    dailyTxns_gte: BigInt
+    dailyTxns_in: [BigInt!]
+    dailyTxns_lt: BigInt
+    dailyTxns_lte: BigInt
+    dailyTxns_not: BigInt
+    dailyTxns_not_in: [BigInt!]
+    dailyVolumeETH: BigDecimal
+    dailyVolumeETH_gt: BigDecimal
+    dailyVolumeETH_gte: BigDecimal
+    dailyVolumeETH_in: [BigDecimal!]
+    dailyVolumeETH_lt: BigDecimal
+    dailyVolumeETH_lte: BigDecimal
+    dailyVolumeETH_not: BigDecimal
+    dailyVolumeETH_not_in: [BigDecimal!]
+    dailyVolumeToken: BigDecimal
+    dailyVolumeToken_gt: BigDecimal
+    dailyVolumeToken_gte: BigDecimal
+    dailyVolumeToken_in: [BigDecimal!]
+    dailyVolumeToken_lt: BigDecimal
+    dailyVolumeToken_lte: BigDecimal
+    dailyVolumeToken_not: BigDecimal
+    dailyVolumeToken_not_in: [BigDecimal!]
+    dailyVolumeUSD: BigDecimal
+    dailyVolumeUSD_gt: BigDecimal
+    dailyVolumeUSD_gte: BigDecimal
+    dailyVolumeUSD_in: [BigDecimal!]
+    dailyVolumeUSD_lt: BigDecimal
+    dailyVolumeUSD_lte: BigDecimal
+    dailyVolumeUSD_not: BigDecimal
+    dailyVolumeUSD_not_in: [BigDecimal!]
+    date: Int
+    date_gt: Int
+    date_gte: Int
+    date_in: [Int!]
+    date_lt: Int
+    date_lte: Int
+    date_not: Int
+    date_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    maxStored: Int
+    maxStored_gt: Int
+    maxStored_gte: Int
+    maxStored_in: [Int!]
+    maxStored_lt: Int
+    maxStored_lte: Int
+    maxStored_not: Int
+    maxStored_not_in: [Int!]
+    mostLiquidPairs: [String!]
+    mostLiquidPairs_contains: [String!]
+    mostLiquidPairs_not: [String!]
+    mostLiquidPairs_not_contains: [String!]
+    priceUSD: BigDecimal
+    priceUSD_gt: BigDecimal
+    priceUSD_gte: BigDecimal
+    priceUSD_in: [BigDecimal!]
+    priceUSD_lt: BigDecimal
+    priceUSD_lte: BigDecimal
+    priceUSD_not: BigDecimal
+    priceUSD_not_in: [BigDecimal!]
+    token: String
+    token_contains: String
+    token_ends_with: String
+    token_gt: String
+    token_gte: String
+    token_in: [String!]
+    token_lt: String
+    token_lte: String
+    token_not: String
+    token_not_contains: String
+    token_not_ends_with: String
+    token_not_in: [String!]
+    token_not_starts_with: String
+    token_starts_with: String
+    totalLiquidityETH: BigDecimal
+    totalLiquidityETH_gt: BigDecimal
+    totalLiquidityETH_gte: BigDecimal
+    totalLiquidityETH_in: [BigDecimal!]
+    totalLiquidityETH_lt: BigDecimal
+    totalLiquidityETH_lte: BigDecimal
+    totalLiquidityETH_not: BigDecimal
+    totalLiquidityETH_not_in: [BigDecimal!]
+    totalLiquidityToken: BigDecimal
+    totalLiquidityToken_gt: BigDecimal
+    totalLiquidityToken_gte: BigDecimal
+    totalLiquidityToken_in: [BigDecimal!]
+    totalLiquidityToken_lt: BigDecimal
+    totalLiquidityToken_lte: BigDecimal
+    totalLiquidityToken_not: BigDecimal
+    totalLiquidityToken_not_in: [BigDecimal!]
+    totalLiquidityUSD: BigDecimal
+    totalLiquidityUSD_gt: BigDecimal
+    totalLiquidityUSD_gte: BigDecimal
+    totalLiquidityUSD_in: [BigDecimal!]
+    totalLiquidityUSD_lt: BigDecimal
+    totalLiquidityUSD_lte: BigDecimal
+    totalLiquidityUSD_not: BigDecimal
+    totalLiquidityUSD_not_in: [BigDecimal!]
+}
+
+input Token_filter {
+    allPairs: [String!]
+    allPairs_contains: [String!]
+    allPairs_not: [String!]
+    allPairs_not_contains: [String!]
+    decimals: BigInt
+    decimals_gt: BigInt
+    decimals_gte: BigInt
+    decimals_in: [BigInt!]
+    decimals_lt: BigInt
+    decimals_lte: BigInt
+    decimals_not: BigInt
+    decimals_not_in: [BigInt!]
+    derivedETH: BigDecimal
+    derivedETH_gt: BigDecimal
+    derivedETH_gte: BigDecimal
+    derivedETH_in: [BigDecimal!]
+    derivedETH_lt: BigDecimal
+    derivedETH_lte: BigDecimal
+    derivedETH_not: BigDecimal
+    derivedETH_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    mostLiquidPairs: [String!]
+    mostLiquidPairs_contains: [String!]
+    mostLiquidPairs_not: [String!]
+    mostLiquidPairs_not_contains: [String!]
+    name: String
+    name_contains: String
+    name_ends_with: String
+    name_gt: String
+    name_gte: String
+    name_in: [String!]
+    name_lt: String
+    name_lte: String
+    name_not: String
+    name_not_contains: String
+    name_not_ends_with: String
+    name_not_in: [String!]
+    name_not_starts_with: String
+    name_starts_with: String
+    symbol: String
+    symbol_contains: String
+    symbol_ends_with: String
+    symbol_gt: String
+    symbol_gte: String
+    symbol_in: [String!]
+    symbol_lt: String
+    symbol_lte: String
+    symbol_not: String
+    symbol_not_contains: String
+    symbol_not_ends_with: String
+    symbol_not_in: [String!]
+    symbol_not_starts_with: String
+    symbol_starts_with: String
+    totalLiquidity: BigDecimal
+    totalLiquidity_gt: BigDecimal
+    totalLiquidity_gte: BigDecimal
+    totalLiquidity_in: [BigDecimal!]
+    totalLiquidity_lt: BigDecimal
+    totalLiquidity_lte: BigDecimal
+    totalLiquidity_not: BigDecimal
+    totalLiquidity_not_in: [BigDecimal!]
+    tradeVolume: BigDecimal
+    tradeVolumeUSD: BigDecimal
+    tradeVolumeUSD_gt: BigDecimal
+    tradeVolumeUSD_gte: BigDecimal
+    tradeVolumeUSD_in: [BigDecimal!]
+    tradeVolumeUSD_lt: BigDecimal
+    tradeVolumeUSD_lte: BigDecimal
+    tradeVolumeUSD_not: BigDecimal
+    tradeVolumeUSD_not_in: [BigDecimal!]
+    tradeVolume_gt: BigDecimal
+    tradeVolume_gte: BigDecimal
+    tradeVolume_in: [BigDecimal!]
+    tradeVolume_lt: BigDecimal
+    tradeVolume_lte: BigDecimal
+    tradeVolume_not: BigDecimal
+    tradeVolume_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+}
+
+input Transaction_filter {
+    blockNumber: BigInt
+    blockNumber_gt: BigInt
+    blockNumber_gte: BigInt
+    blockNumber_in: [BigInt!]
+    blockNumber_lt: BigInt
+    blockNumber_lte: BigInt
+    blockNumber_not: BigInt
+    blockNumber_not_in: [BigInt!]
+    burns: [String!]
+    burns_contains: [String!]
+    burns_not: [String!]
+    burns_not_contains: [String!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    mints: [String!]
+    mints_contains: [String!]
+    mints_not: [String!]
+    mints_not_contains: [String!]
+    swaps: [String!]
+    swaps_contains: [String!]
+    swaps_not: [String!]
+    swaps_not_contains: [String!]
+    timestamp: BigInt
+    timestamp_gt: BigInt
+    timestamp_gte: BigInt
+    timestamp_in: [BigInt!]
+    timestamp_lt: BigInt
+    timestamp_lte: BigInt
+    timestamp_not: BigInt
+    timestamp_not_in: [BigInt!]
+}
+
+input UniswapDayData_filter {
+    dailyVolumeETH: BigDecimal
+    dailyVolumeETH_gt: BigDecimal
+    dailyVolumeETH_gte: BigDecimal
+    dailyVolumeETH_in: [BigDecimal!]
+    dailyVolumeETH_lt: BigDecimal
+    dailyVolumeETH_lte: BigDecimal
+    dailyVolumeETH_not: BigDecimal
+    dailyVolumeETH_not_in: [BigDecimal!]
+    dailyVolumeUSD: BigDecimal
+    dailyVolumeUSD_gt: BigDecimal
+    dailyVolumeUSD_gte: BigDecimal
+    dailyVolumeUSD_in: [BigDecimal!]
+    dailyVolumeUSD_lt: BigDecimal
+    dailyVolumeUSD_lte: BigDecimal
+    dailyVolumeUSD_not: BigDecimal
+    dailyVolumeUSD_not_in: [BigDecimal!]
+    date: Int
+    date_gt: Int
+    date_gte: Int
+    date_in: [Int!]
+    date_lt: Int
+    date_lte: Int
+    date_not: Int
+    date_not_in: [Int!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    maxStored: Int
+    maxStored_gt: Int
+    maxStored_gte: Int
+    maxStored_in: [Int!]
+    maxStored_lt: Int
+    maxStored_lte: Int
+    maxStored_not: Int
+    maxStored_not_in: [Int!]
+    mostLiquidTokens: [String!]
+    mostLiquidTokens_contains: [String!]
+    mostLiquidTokens_not: [String!]
+    mostLiquidTokens_not_contains: [String!]
+    totalLiquidityETH: BigDecimal
+    totalLiquidityETH_gt: BigDecimal
+    totalLiquidityETH_gte: BigDecimal
+    totalLiquidityETH_in: [BigDecimal!]
+    totalLiquidityETH_lt: BigDecimal
+    totalLiquidityETH_lte: BigDecimal
+    totalLiquidityETH_not: BigDecimal
+    totalLiquidityETH_not_in: [BigDecimal!]
+    totalLiquidityUSD: BigDecimal
+    totalLiquidityUSD_gt: BigDecimal
+    totalLiquidityUSD_gte: BigDecimal
+    totalLiquidityUSD_in: [BigDecimal!]
+    totalLiquidityUSD_lt: BigDecimal
+    totalLiquidityUSD_lte: BigDecimal
+    totalLiquidityUSD_not: BigDecimal
+    totalLiquidityUSD_not_in: [BigDecimal!]
+    totalVolumeETH: BigDecimal
+    totalVolumeETH_gt: BigDecimal
+    totalVolumeETH_gte: BigDecimal
+    totalVolumeETH_in: [BigDecimal!]
+    totalVolumeETH_lt: BigDecimal
+    totalVolumeETH_lte: BigDecimal
+    totalVolumeETH_not: BigDecimal
+    totalVolumeETH_not_in: [BigDecimal!]
+    totalVolumeUSD: BigDecimal
+    totalVolumeUSD_gt: BigDecimal
+    totalVolumeUSD_gte: BigDecimal
+    totalVolumeUSD_in: [BigDecimal!]
+    totalVolumeUSD_lt: BigDecimal
+    totalVolumeUSD_lte: BigDecimal
+    totalVolumeUSD_not: BigDecimal
+    totalVolumeUSD_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+}
+
+input UniswapFactory_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    mostLiquidTokens: [String!]
+    mostLiquidTokens_contains: [String!]
+    mostLiquidTokens_not: [String!]
+    mostLiquidTokens_not_contains: [String!]
+    pairCount: Int
+    pairCount_gt: Int
+    pairCount_gte: Int
+    pairCount_in: [Int!]
+    pairCount_lt: Int
+    pairCount_lte: Int
+    pairCount_not: Int
+    pairCount_not_in: [Int!]
+    pairs: [String!]
+    pairs_contains: [String!]
+    pairs_not: [String!]
+    pairs_not_contains: [String!]
+    totalLiquidityETH: BigDecimal
+    totalLiquidityETH_gt: BigDecimal
+    totalLiquidityETH_gte: BigDecimal
+    totalLiquidityETH_in: [BigDecimal!]
+    totalLiquidityETH_lt: BigDecimal
+    totalLiquidityETH_lte: BigDecimal
+    totalLiquidityETH_not: BigDecimal
+    totalLiquidityETH_not_in: [BigDecimal!]
+    totalLiquidityUSD: BigDecimal
+    totalLiquidityUSD_gt: BigDecimal
+    totalLiquidityUSD_gte: BigDecimal
+    totalLiquidityUSD_in: [BigDecimal!]
+    totalLiquidityUSD_lt: BigDecimal
+    totalLiquidityUSD_lte: BigDecimal
+    totalLiquidityUSD_not: BigDecimal
+    totalLiquidityUSD_not_in: [BigDecimal!]
+    totalVolumeETH: BigDecimal
+    totalVolumeETH_gt: BigDecimal
+    totalVolumeETH_gte: BigDecimal
+    totalVolumeETH_in: [BigDecimal!]
+    totalVolumeETH_lt: BigDecimal
+    totalVolumeETH_lte: BigDecimal
+    totalVolumeETH_not: BigDecimal
+    totalVolumeETH_not_in: [BigDecimal!]
+    totalVolumeUSD: BigDecimal
+    totalVolumeUSD_gt: BigDecimal
+    totalVolumeUSD_gte: BigDecimal
+    totalVolumeUSD_in: [BigDecimal!]
+    totalVolumeUSD_lt: BigDecimal
+    totalVolumeUSD_lte: BigDecimal
+    totalVolumeUSD_not: BigDecimal
+    totalVolumeUSD_not_in: [BigDecimal!]
+    txCount: BigInt
+    txCount_gt: BigInt
+    txCount_gte: BigInt
+    txCount_in: [BigInt!]
+    txCount_lt: BigInt
+    txCount_lte: BigInt
+    txCount_not: BigInt
+    txCount_not_in: [BigInt!]
+}
+
+input User_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+
+scalar BigDecimal
+
+scalar BigInt
+
+scalar Bytes
