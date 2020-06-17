@@ -1,5 +1,6 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
+import { BigNumber } from '@uniswap/sdk/dist'
 
 import { getReserves } from './_shared'
 import { return200, return400, return500 } from '../utils'
@@ -24,8 +25,24 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
   }
 
   try {
-    const reserves = await getReserves(idA, idB)
-    return200(res, reserves, 60 * 10)
+    const [reservesA, reservesB] = await getReserves(idA, idB)
+
+    const segments = Array.from({ length: 20 }, (x, i): number => i)
+
+    const timestamp = new Date().getTime()
+
+    const reservesABn = new BigNumber(reservesA)
+    const reservesBBn = new BigNumber(reservesB)
+
+    return200(
+      res,
+      {
+        timestamp,
+        bids: segments.map(i => {}),
+        asks: segments.map(i => {})
+      },
+      60 * 15
+    )
   } catch (error) {
     return500(res, error)
   }

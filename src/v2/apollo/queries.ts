@@ -43,16 +43,12 @@ export const PAIR_RESERVES_BY_TOKENS = gql`
   }
 `
 
-export const SWAPS = gql`
-  query($skip: Int!, $pairId: ID!, $timestamp: BigInt!) {
-    transactions(
-      skip: $skip
-      where: { id: $pairId, timestamp_gte: $timestamp }
-      orderBy: timestamp
-      orderDirection: asc
-    ) {
-      timestamp
-      swaps {
+export const SWAPS_BY_TOKENS = gql`
+  query($skip: Int!, $token0: String!, $token1: String!, $timestamp: BigInt!) {
+    pairs(where: { token0: $token0, token1: $token1 }) {
+      swaps(skip: $skip, where: { timestamp_gte: $timestamp }, orderBy: timestamp, orderDirection: asc) {
+        id
+        timestamp
         amount0In
         amount0Out
         amount1In
