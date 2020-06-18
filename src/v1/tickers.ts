@@ -1,7 +1,7 @@
 import { NowRequest, NowResponse } from '@now/node'
 
 import { getTopPairsData } from './_shared'
-import { return200, return500 } from '../utils'
+import { return200, return500 } from '../utils/response'
 
 export default async function(_: NowRequest, res: NowResponse): Promise<NowResponse> {
   return await getTopPairsData()

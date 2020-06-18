@@ -1,4 +1,4 @@
-import { BigNumber } from '@uniswap/sdk'
+import BigNumber from 'bignumber.js'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
@@ -35,14 +35,19 @@ export interface MappedDetailedPair extends DetailedPair {
 export async function getTopPairs<T extends boolean>(
   detailed: T
 ): Promise<T extends true ? MappedDetailedPair[] : Pair[]> {
+  const epochSecond = Math.floor(new Date().getTime() / 1000)
+  const dayId = Math.floor(epochSecond / 86400)
+  const dayStartTime = dayId * 86400
   const {
-    data: { pairs }
+    data: { pairDayDatas: pairs }
   } = await client.query({
     query: TOP_PAIRS,
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST,
-      detailed
+      detailed,
+      // yesterday's data
+      date: dayStartTime
     }
   })
   return detailed

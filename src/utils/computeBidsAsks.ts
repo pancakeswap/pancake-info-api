@@ -1,4 +1,4 @@
-import { BigNumber } from '@uniswap/sdk'
+import BigNumber from 'bignumber.js'
 
 function getAmountOut(
   amountIn: BigNumber,

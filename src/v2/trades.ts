@@ -1,9 +1,9 @@
 import { getAddress } from '@ethersproject/address'
 import { NowRequest, NowResponse } from '@now/node'
-import { BigNumber } from '@uniswap/sdk'
+import BigNumber from 'bignumber.js'
 
 import { getSwaps } from './_shared'
-import { return200, return400, return500 } from '../utils'
+import { return200, return400, return500 } from '../utils/response'
 
 export default async function(req: NowRequest, res: NowResponse): Promise<void> {
   if (
