@@ -123,7 +123,8 @@ export async function getOrderbook(exchangeAddress: string): Promise<Orderbook> 
     timestamp: exchangeHistoricalData.timestamp,
     ...computeBidsAsks(
       new BigNumber(exchangeHistoricalData.ethBalance),
-      new BigNumber(exchangeHistoricalData.tokenBalance)
+      new BigNumber(exchangeHistoricalData.tokenBalance),
+      20
     )
   }
 }
