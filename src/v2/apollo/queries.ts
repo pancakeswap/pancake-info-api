@@ -1,39 +1,18 @@
 import gql from 'graphql-tag'
 
-export const TOP_PAIR_QUERY = `
-  fragment TokenInfo on Token {
-    id
-    symbol
-    name
-  }
-
-  query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
-    lastPairs: pairs(
-      first: $limit
-      orderBy: reserveUSD
-      orderDirection: desc
-      where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
-    ) {
+export const PAIRS_VOLUME_QUERY_STRING = `
+  query PairsVolume($limit: Int!, $pairIds: [ID!]!) {
+    pairVolumes: pairs(first: $limit, where: { id_in: $pairIds }, __BLOCK_NUMBER__) {
       id
-      token0 {
-        ...TokenInfo
-      }
-      token1 {
-        ...TokenInfo
-      }
-      reserve0
-      reserve1
       volumeToken0
       volumeToken1
     }
+  }
+`
 
-    firstPairs: pairs(
-      first: $limit
-      orderBy: reserveUSD
-      orderDirection: desc
-      where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
-      __BLOCK_NUMBER__
-    ) {
+export const PAIRS_VOLUME_QUERY = gql`
+  query PairsVolume($limit: Int!, $pairIds: [ID!]!) {
+    pairVolumes: pairs(first: $limit, where: { id_in: $pairIds }) {
       id
       volumeToken0
       volumeToken1
@@ -51,7 +30,7 @@ export const TOP_PAIRS = gql`
   }
 
   query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
-    lastPairs: pairs(
+    pairs(
       first: $limit
       orderBy: reserveUSD
       orderDirection: desc
@@ -66,17 +45,6 @@ export const TOP_PAIRS = gql`
       }
       reserve0
       reserve1
-      volumeToken0
-      volumeToken1
-    }
-
-    firstPairs: pairs(
-      first: $limit
-      orderBy: reserveUSD
-      orderDirection: desc
-      where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
-    ) {
-      id
       volumeToken0
       volumeToken1
     }

@@ -2013,6 +2013,20 @@ export interface User_Filter {
 
 
 
+export type PairsVolumeQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  pairIds: ReadonlyArray<Scalars['ID']>;
+}>;
+
+
+export type PairsVolumeQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly pairVolumes: ReadonlyArray<(
+    { readonly __typename?: 'Pair' }
+    & Pick<Pair, 'id' | 'volumeToken0' | 'volumeToken1'>
+  )> }
+);
+
 export type TokenInfoFragment = (
   { readonly __typename?: 'Token' }
   & Pick<Token, 'id' | 'symbol' | 'name'>
@@ -2026,7 +2040,7 @@ export type TopPairsQueryVariables = Exact<{
 
 export type TopPairsQuery = (
   { readonly __typename?: 'Query' }
-  & { readonly lastPairs: ReadonlyArray<(
+  & { readonly pairs: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
     & Pick<Pair, 'id' | 'reserve0' | 'reserve1' | 'volumeToken0' | 'volumeToken1'>
     & { readonly token0: (
@@ -2036,9 +2050,6 @@ export type TopPairsQuery = (
       { readonly __typename?: 'Token' }
       & TokenInfoFragment
     ) }
-  )>, readonly firstPairs: ReadonlyArray<(
-    { readonly __typename?: 'Pair' }
-    & Pick<Pair, 'id' | 'volumeToken0' | 'volumeToken1'>
   )> }
 );
 

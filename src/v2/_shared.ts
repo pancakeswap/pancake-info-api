@@ -3,11 +3,20 @@ import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES_BY_TOKENS, SWAPS_BY_TOKENS, TOP_PAIR_QUERY, TOP_PAIRS } from './apollo/queries'
+import {
+  PAIR_RESERVES_BY_TOKENS,
+  PAIRS_VOLUME_QUERY,
+  PAIRS_VOLUME_QUERY_STRING,
+  SWAPS_BY_TOKENS,
+  TOP_PAIR_QUERY,
+  TOP_PAIRS
+} from './apollo/queries'
 import { getBlockFromTimestamp } from './blocks/queries'
 import {
   PairReservesQuery,
   PairReservesQueryVariables,
+  PairsVolumeQuery,
+  PairsVolumeQueryVariables,
   SwapsByTokensQuery,
   SwapsByTokensQueryVariables,
   TopPairsQuery,
@@ -18,45 +27,56 @@ const SECOND = 1000
 const MINUTE = 60 * SECOND
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
+
 export function get24HoursAgo(): number {
   return Math.floor((Date.now() - DAY) / 1000)
 }
 
 const TOP_PAIR_LIMIT = 1000
 export type Pair = TopPairsQuery['lastPairs'][number]
+
 export interface MappedDetailedPair extends Pair {
   price?: string
-  previous24hVolumeToken0?: BigNumber
-  previous24hVolumeToken1?: BigNumber
+  previous24hVolumeToken0: BigNumber
+  previous24hVolumeToken1: BigNumber
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.floor(new Date().getTime() / 1000)
   const firstBlock = await getBlockFromTimestamp(epochSecond - 86400)
 
-  // workaround for https://github.com/graphprotocol/graph-node/issues/1460
-  const actualQuery = gql`
-    ${TOP_PAIR_QUERY.replace(/__BLOCK_NUMBER__/g, `block: { number: ${firstBlock} }`)}
-  `
-
   const {
-    data: { firstPairs, lastPairs }
+    data: { pairs }
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
-    query: actualQuery,
+    query: TOP_PAIR_QUERY,
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST
     }
   })
 
+  // workaround for https://github.com/graphprotocol/graph-node/issues/1460
+  const volumeQuery = gql`
+    ${PAIRS_VOLUME_QUERY_STRING.replace(/__BLOCK_NUMBER__/g, `block: {number: ${firstBlock}}`)}
+  `
+  const {
+    data: { pairVolumes }
+  } = await client.query<PairsVolumeQuery, PairsVolumeQueryVariables>({
+    query: volumeQuery,
+    variables: {
+      limit: TOP_PAIR_LIMIT,
+      pairIds: pairs.map(pair => pair.id)
+    }
+  })
+
   const yesterdayVolumeIndex =
-    firstPairs?.reduce<{ [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber } }>((memo, pair) => {
+    pairVolumes?.reduce<{ [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber } }>((memo, pair) => {
       memo[pair.id] = { volumeToken0: new BigNumber(pair.volumeToken0), volumeToken1: new BigNumber(pair.volumeToken1) }
       return memo
     }, {}) ?? {}
 
   return (
-    lastPairs?.map(
+    pairs?.map(
       (pair): MappedDetailedPair => {
         return {
           ...pair,
@@ -67,11 +87,11 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
           previous24hVolumeToken0:
             pair.volumeToken0 && yesterdayVolumeIndex[pair.id]?.volumeToken0
               ? new BigNumber(pair.volumeToken0).minus(yesterdayVolumeIndex[pair.id].volumeToken0)
-              : undefined,
+              : new BigNumber(pair.volumeToken0),
           previous24hVolumeToken1:
             pair.volumeToken1 && yesterdayVolumeIndex[pair.id]?.volumeToken1
               ? new BigNumber(pair.volumeToken1).minus(yesterdayVolumeIndex[pair.id].volumeToken1)
-              : undefined
+              : new BigNumber(pair.volumeToken1)
         }
       }
     ) ?? []
@@ -107,12 +127,14 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
 type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
 
 type Swap = ArrayElement<SwapsByTokensQuery['pairs'][0]['swaps']>
+
 interface SwapMapped extends Swap {
   amountAIn: string
   amountAOut: string
   amountBIn: string
   amountBOut: string
 }
+
 export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapped[]> {
   const _24HoursAgo = get24HoursAgo()
   const [token0, token1] = sortedFormatted(tokenA, tokenB)

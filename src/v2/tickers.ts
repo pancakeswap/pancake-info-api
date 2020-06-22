@@ -35,8 +35,8 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
           quote_name: pair.token1.name,
           quote_symbol: pair.token1.symbol,
           last_price: pair.price ?? '0',
-          base_volume: pair.previous24hVolumeToken0?.toString() ?? '0',
-          quote_volume: pair.previous24hVolumeToken1?.toString() ?? '0'
+          base_volume: pair.previous24hVolumeToken0.toString(),
+          quote_volume: pair.previous24hVolumeToken1.toString()
         }
 
         return accumulator
