@@ -3,14 +3,7 @@ import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import {
-  PAIR_RESERVES_BY_TOKENS,
-  PAIRS_VOLUME_QUERY,
-  PAIRS_VOLUME_QUERY_STRING,
-  SWAPS_BY_TOKENS,
-  TOP_PAIR_QUERY,
-  TOP_PAIRS
-} from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_TOKENS, TOP_PAIRS } from './apollo/queries'
 import { getBlockFromTimestamp } from './blocks/queries'
 import {
   PairReservesQuery,
@@ -33,7 +26,7 @@ export function get24HoursAgo(): number {
 }
 
 const TOP_PAIR_LIMIT = 1000
-export type Pair = TopPairsQuery['lastPairs'][number]
+export type Pair = TopPairsQuery['pairs'][number]
 
 export interface MappedDetailedPair extends Pair {
   price?: string
@@ -48,7 +41,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const {
     data: { pairs }
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
-    query: TOP_PAIR_QUERY,
+    query: TOP_PAIRS,
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST
