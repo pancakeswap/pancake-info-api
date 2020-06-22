@@ -99,8 +99,9 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
     )
 }
 
-type Swap = SwapsByTokensQuery['pairs'][0]['swaps']
-// @ts-ignore
+type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+
+type Swap = ArrayElement<SwapsByTokensQuery['pairs'][0]['swaps']>
 interface SwapMapped extends Swap {
   amountAIn: string
   amountAOut: string
@@ -139,7 +140,7 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapp
 
             results = results.concat(
               swaps.map(
-                (swap): SwapMapped => ({
+                (swap: Swap): SwapMapped => ({
                   ...swap,
                   amountAIn: sorted ? swap.amount0In : swap.amount1In,
                   amountAOut: sorted ? swap.amount0Out : swap.amount1Out,
