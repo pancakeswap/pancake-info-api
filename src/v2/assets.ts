@@ -10,7 +10,7 @@ interface ReturnShape {
 
 export default async function(req: NowRequest, res: NowResponse): Promise<void> {
   try {
-    const pairs = await getTopPairs(false)
+    const pairs = await getTopPairs()
     const tokens = pairs.reduce<{
       [tokenAddress: string]: { id: string; name: string; symbol: string; maker_fee: '0'; taker_fee: '0.003' }
     }>((memo: ReturnShape, pair: Pair): ReturnShape => {

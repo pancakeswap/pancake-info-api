@@ -1,66 +1,94 @@
 import BigNumber from 'bignumber.js'
+import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES_BY_TOKENS, SWAPS_BY_TOKENS, TOP_PAIRS } from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_TOKENS, TOP_PAIRS } from './apollo/queries'
+import { getBlockFromTimestamp } from './blocks/queries'
+import {
+  PairReservesQuery,
+  PairReservesQueryVariables,
+  PairsVolumeQuery,
+  PairsVolumeQueryVariables,
+  SwapsByTokensQuery,
+  SwapsByTokensQueryVariables,
+  TopPairsQuery,
+  TopPairsQueryVariables
+} from './generated/v2-subgraph'
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
+
 export function get24HoursAgo(): number {
   return Math.floor((Date.now() - DAY) / 1000)
 }
 
 const TOP_PAIR_LIMIT = 1000
-interface Token {
-  name: string
-  symbol: string
-  id: string
-}
-export interface Pair {
-  id: string
-  token0: Token
-  token1: Token
-}
-export interface DetailedPair extends Pair {
-  reserve0: string
-  reserve1: string
-  dailyVolumeToken0: string
-  dailyVolumeToken1: string
-}
-export interface MappedDetailedPair extends DetailedPair {
+export type Pair = TopPairsQuery['pairs'][number]
+
+export interface MappedDetailedPair extends Pair {
   price?: string
+  previous24hVolumeToken0: BigNumber
+  previous24hVolumeToken1: BigNumber
 }
-export async function getTopPairs<T extends boolean>(
-  detailed: T
-): Promise<T extends true ? MappedDetailedPair[] : Pair[]> {
+
+export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.floor(new Date().getTime() / 1000)
-  const dayId = Math.floor(epochSecond / 86400)
-  const dayStartTime = dayId * 86400
+  const firstBlock = await getBlockFromTimestamp(epochSecond - 86400)
+
   const {
-    data: { pairDayDatas: pairs }
-  } = await client.query({
+    data: { pairs }
+  } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
     query: TOP_PAIRS,
     variables: {
       limit: TOP_PAIR_LIMIT,
-      excludeTokenIds: BLACKLIST,
-      detailed,
-      // yesterday's data
-      date: dayStartTime
+      excludeTokenIds: BLACKLIST
     }
   })
-  return detailed
-    ? pairs.map(
-        (pair: DetailedPair): MappedDetailedPair => ({
+
+  // workaround for https://github.com/graphprotocol/graph-node/issues/1460
+  const volumeQuery = gql`
+    ${PAIRS_VOLUME_QUERY_STRING.replace(/__BLOCK_NUMBER__/g, `block: {number: ${firstBlock}}`)}
+  `
+  const {
+    data: { pairVolumes }
+  } = await client.query<PairsVolumeQuery, PairsVolumeQueryVariables>({
+    query: volumeQuery,
+    variables: {
+      limit: TOP_PAIR_LIMIT,
+      pairIds: pairs.map(pair => pair.id)
+    }
+  })
+
+  const yesterdayVolumeIndex =
+    pairVolumes?.reduce<{ [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber } }>((memo, pair) => {
+      memo[pair.id] = { volumeToken0: new BigNumber(pair.volumeToken0), volumeToken1: new BigNumber(pair.volumeToken1) }
+      return memo
+    }, {}) ?? {}
+
+  return (
+    pairs?.map(
+      (pair): MappedDetailedPair => {
+        return {
           ...pair,
           price:
             pair.reserve0 !== '0' && pair.reserve1 !== '0'
               ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
-              : undefined
-        })
-      )
-    : pairs
+              : undefined,
+          previous24hVolumeToken0:
+            pair.volumeToken0 && yesterdayVolumeIndex[pair.id]?.volumeToken0
+              ? new BigNumber(pair.volumeToken0).minus(yesterdayVolumeIndex[pair.id].volumeToken0)
+              : new BigNumber(pair.volumeToken0),
+          previous24hVolumeToken1:
+            pair.volumeToken1 && yesterdayVolumeIndex[pair.id]?.volumeToken1
+              ? new BigNumber(pair.volumeToken1).minus(yesterdayVolumeIndex[pair.id].volumeToken1)
+              : new BigNumber(pair.volumeToken1)
+        }
+      }
+    ) ?? []
+  )
 }
 
 function isSorted(tokenA: string, tokenB: string): boolean {
@@ -77,7 +105,7 @@ function sortedFormatted(tokenA: string, tokenB: string): [string, string] {
 export async function getReserves(tokenA: string, tokenB: string): Promise<[string, string]> {
   const [token0, token1] = sortedFormatted(tokenA, tokenB)
   return client
-    .query({
+    .query<PairReservesQuery, PairReservesQueryVariables>({
       query: PAIR_RESERVES_BY_TOKENS,
       variables: {
         token0,
@@ -89,20 +117,17 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
     )
 }
 
-interface Swap {
-  id: string
-  timestamp: number
-  amount0In: string
-  amount0Out: string
-  amount1In: string
-  amount1Out: string
-}
+type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
+
+type Swap = ArrayElement<SwapsByTokensQuery['pairs'][0]['swaps']>
+
 interface SwapMapped extends Swap {
   amountAIn: string
   amountAOut: string
   amountBIn: string
   amountBOut: string
 }
+
 export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapped[]> {
   const _24HoursAgo = get24HoursAgo()
   const [token0, token1] = sortedFormatted(tokenA, tokenB)
@@ -113,7 +138,7 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapp
   let finished = false
   while (!finished) {
     await client
-      .query<{ pairs: [{ swaps: Swap[] }] }>({
+      .query<SwapsByTokensQuery, SwapsByTokensQueryVariables>({
         query: SWAPS_BY_TOKENS,
         variables: {
           skip,
@@ -128,14 +153,14 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapp
             pairs: [{ swaps }]
           }
         }): void => {
-          if (swaps.length === 0) {
+          if (!swaps || swaps.length === 0) {
             finished = true
           } else {
             skip += swaps.length
 
             results = results.concat(
               swaps.map(
-                (swap): SwapMapped => ({
+                (swap: Swap): SwapMapped => ({
                   ...swap,
                   amountAIn: sorted ? swap.amount0In : swap.amount1In,
                   amountAOut: sorted ? swap.amount0Out : swap.amount1Out,

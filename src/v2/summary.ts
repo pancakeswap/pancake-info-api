@@ -10,17 +10,17 @@ interface ReturnShape {
 
 export default async function(req: NowRequest, res: NowResponse): Promise<void> {
   try {
-    const pairs = await getTopPairs(true)
+    const pairs = await getTopPairs()
 
     return200(
       res,
-      pairs.reduce<ReturnShape>((accumulator, pair, i): any => {
+      pairs.reduce<ReturnShape>((accumulator, pair): any => {
         const id0 = getAddress(pair.token0.id)
         const id1 = getAddress(pair.token1.id)
         accumulator[`${id0}_${id1}`] = {
           last_price: pair.price ?? '0',
-          base_volume: pair.dailyVolumeToken0,
-          quote_volume: pair.dailyVolumeToken1
+          base_volume: pair.volumeToken0,
+          quote_volume: pair.volumeToken1
         }
         return accumulator
       }, {}),
