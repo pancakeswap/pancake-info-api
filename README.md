@@ -9,6 +9,7 @@ The API is designed around the CoinMarketCap
 Prefer the Uniswap subgraph for any Uniswap queries whenever possible.
 
 V2 Subgraph: https://github.com/Uniswap/uniswap-v2-subgraph
+
 V1 Subgraph: https://github.com/graphprotocol/uniswap-subgraph 
 
 ## Segregated data
