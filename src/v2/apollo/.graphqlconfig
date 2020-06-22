@@ -1,6 +1,6 @@
 {
   "name": "Uniswap V2",
-  "schemaPath": "v2-schema.graphql",
+  "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
       "Uniswap V2": {

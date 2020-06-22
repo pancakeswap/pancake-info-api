@@ -1,0 +1,15 @@
+{
+  "name": "Ethereum Blocks",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Ethereum Blocks": {
+        "url": "https://api.thegraph.com/subgraphs/name/blocklytics/ethereum-blocks",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}
