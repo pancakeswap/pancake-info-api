@@ -2021,7 +2021,6 @@ export type TokenInfoFragment = (
 export type TopPairsQueryVariables = Exact<{
   limit: Scalars['Int'];
   excludeTokenIds: ReadonlyArray<Scalars['String']>;
-  firstBlock: Scalars['Int'];
 }>;
 
 

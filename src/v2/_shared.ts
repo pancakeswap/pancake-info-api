@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js'
+import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES_BY_TOKENS, SWAPS_BY_TOKENS, TOP_PAIRS } from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, SWAPS_BY_TOKENS, TOP_PAIR_QUERY, TOP_PAIRS } from './apollo/queries'
 import { getBlockFromTimestamp } from './blocks/queries'
 import {
   PairReservesQuery,
@@ -33,16 +34,18 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.floor(new Date().getTime() / 1000)
   const firstBlock = await getBlockFromTimestamp(epochSecond - 86400)
 
-  const firstBlockNumber: number = parseInt(firstBlock ?? '0')
+  // workaround for https://github.com/graphprotocol/graph-node/issues/1460
+  const actualQuery = gql`
+    ${TOP_PAIR_QUERY.replace(/__BLOCK_NUMBER__/g, `block: { number: ${firstBlock} }`)}
+  `
 
   const {
     data: { firstPairs, lastPairs }
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
-    query: TOP_PAIRS,
+    query: actualQuery,
     variables: {
       limit: TOP_PAIR_LIMIT,
-      excludeTokenIds: BLACKLIST,
-      firstBlock: firstBlockNumber
+      excludeTokenIds: BLACKLIST
     }
   })
 

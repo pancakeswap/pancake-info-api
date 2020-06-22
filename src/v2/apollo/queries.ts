@@ -1,13 +1,13 @@
 import gql from 'graphql-tag'
 
-export const TOP_PAIRS = gql`
+export const TOP_PAIR_QUERY = `
   fragment TokenInfo on Token {
     id
     symbol
     name
   }
 
-  query TopPairs($limit: Int!, $excludeTokenIds: [String!]!, $firstBlock: Int!) {
+  query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
     lastPairs: pairs(
       first: $limit
       orderBy: reserveUSD
@@ -32,7 +32,49 @@ export const TOP_PAIRS = gql`
       orderBy: reserveUSD
       orderDirection: desc
       where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
-      block: { number: $firstBlock }
+      __BLOCK_NUMBER__
+    ) {
+      id
+      volumeToken0
+      volumeToken1
+    }
+  }
+`
+
+// only used for code gen because
+// https://github.com/graphprotocol/graph-node/issues/1460
+export const TOP_PAIRS = gql`
+  fragment TokenInfo on Token {
+    id
+    symbol
+    name
+  }
+
+  query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
+    lastPairs: pairs(
+      first: $limit
+      orderBy: reserveUSD
+      orderDirection: desc
+      where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
+    ) {
+      id
+      token0 {
+        ...TokenInfo
+      }
+      token1 {
+        ...TokenInfo
+      }
+      reserve0
+      reserve1
+      volumeToken0
+      volumeToken1
+    }
+
+    firstPairs: pairs(
+      first: $limit
+      orderBy: reserveUSD
+      orderDirection: desc
+      where: { token0_not_in: $excludeTokenIds, token1_not_in: $excludeTokenIds }
     ) {
       id
       volumeToken0
