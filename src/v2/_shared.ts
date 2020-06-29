@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import gql, { resetCaches } from 'graphql-tag'
+import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
@@ -61,7 +61,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   }
 
   // workaround for https://github.com/graphprotocol/graph-node/issues/1460
-  resetCaches()
+  gql.resetCaches()
   const volumeQuery = gql`
     ${PAIRS_VOLUME_QUERY_STRING.replace(/__BLOCK_NUMBER__/g, `block: {number: ${firstBlock}}`)}
   `
