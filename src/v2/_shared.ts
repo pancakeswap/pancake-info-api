@@ -42,10 +42,11 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     throw new Error('first block was not fetched')
   }
 
-  console.debug('fetching tickers for historical block', firstBlock)
+  console.debug('Fetching pair info for historical block', firstBlock)
 
   const {
-    data: { pairs }
+    data: { pairs },
+    errors: topPairsErrors
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
     query: TOP_PAIRS,
     variables: {
@@ -54,12 +55,18 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     }
   })
 
+  if (topPairsErrors && topPairsErrors.length > 0) {
+    console.error('Failed to fetch top pairs', topPairsErrors)
+    throw new Error('Failed to fetch top pairs from the subgraph')
+  }
+
   // workaround for https://github.com/graphprotocol/graph-node/issues/1460
   const volumeQuery = gql`
     ${PAIRS_VOLUME_QUERY_STRING.replace(/__BLOCK_NUMBER__/g, `block: {number: ${firstBlock}}`)}
   `
   const {
-    data: { pairVolumes }
+    data: { pairVolumes },
+    errors: yesterdayVolumeErrors
   } = await client.query<PairsVolumeQuery, PairsVolumeQueryVariables>({
     query: volumeQuery,
     variables: {
@@ -67,6 +74,11 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
       pairIds: pairs.map(pair => pair.id)
     }
   })
+
+  if (yesterdayVolumeErrors && yesterdayVolumeErrors.length > 0) {
+    console.error('Failed to fetch yesterday volume', yesterdayVolumeErrors)
+    throw new Error(`Failed to get volume info for 24h ago from the subgraph`)
+  }
 
   const yesterdayVolumeIndex =
     pairVolumes?.reduce<{ [pairId: string]: { volumeToken0: BigNumber; volumeToken1: BigNumber } }>((memo, pair) => {
