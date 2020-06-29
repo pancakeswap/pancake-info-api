@@ -42,6 +42,8 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     throw new Error('first block was not fetched')
   }
 
+  console.debug('fetching tickers for historical block', firstBlock)
+
   const {
     data: { pairs }
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
