@@ -38,6 +38,10 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.floor(new Date().getTime() / 1000)
   const firstBlock = await getBlockFromTimestamp(epochSecond - 86400)
 
+  if (!firstBlock) {
+    throw new Error('first block was not fetched')
+  }
+
   const {
     data: { pairs }
   } = await client.query<TopPairsQuery, TopPairsQueryVariables>({
