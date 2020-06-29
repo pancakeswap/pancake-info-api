@@ -78,10 +78,10 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
         const yesterday = yesterdayVolumeIndex[pair.id]
         if (yesterday) {
           if (yesterday.volumeToken0.gt(pair.volumeToken0)) {
-            throw new Error(`pair ${pair.id} returned volumeToken0 lt yesterday`)
+            throw new Error(`Invalid subgraph response: pair ${pair.id} returned volumeToken0 < yesterday.volumeToken0`)
           }
           if (yesterday.volumeToken1.gt(pair.volumeToken1)) {
-            throw new Error(`pair ${pair.id} returned volumeToken1 lt yesterday`)
+            throw new Error(`Invalid subgraph response: pair ${pair.id} returned volumeToken1 < yesterday.volumeToken1`)
           }
         }
 
