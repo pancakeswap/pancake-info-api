@@ -52,7 +52,8 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
 
   if (topPairsErrors && topPairsErrors.length > 0) {
@@ -61,7 +62,6 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   }
 
   // workaround for https://github.com/graphprotocol/graph-node/issues/1460
-  gql.resetCaches()
   const volumeQuery = gql`
     ${PAIRS_VOLUME_QUERY_STRING.replace(/__BLOCK_NUMBER__/g, `block: {number: ${firstBlock}}`)}
   `
@@ -73,7 +73,8 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     variables: {
       limit: TOP_PAIR_LIMIT,
       pairIds: pairs.map(pair => pair.id)
-    }
+    },
+    fetchPolicy: 'no-cache'
   })
 
   if (yesterdayVolumeErrors && yesterdayVolumeErrors.length > 0) {
