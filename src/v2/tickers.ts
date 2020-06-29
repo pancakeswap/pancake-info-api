@@ -11,7 +11,7 @@ interface ReturnShape {
     base_id: string
     quote_name: string
     quote_symbol: string
-    quote_id: string // exchange address
+    quote_id: string
     last_price: string
     base_volume: string
     quote_volume: string
@@ -41,7 +41,7 @@ export default async function(req: NowRequest, res: NowResponse): Promise<void> 
 
         return accumulator
       }, {}),
-      60 * 15 // cache for 15 minutes
+      60 // cache for 1 minute
     )
   } catch (error) {
     return500(res, error)

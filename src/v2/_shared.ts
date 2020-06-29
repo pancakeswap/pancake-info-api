@@ -75,6 +75,16 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   return (
     pairs?.map(
       (pair): MappedDetailedPair => {
+        const yesterday = yesterdayVolumeIndex[pair.id]
+        if (yesterday) {
+          if (yesterday.volumeToken0.gt(pair.volumeToken0)) {
+            throw new Error(`pair ${pair.id} returned volumeToken0 lt yesterday`)
+          }
+          if (yesterday.volumeToken1.gt(pair.volumeToken1)) {
+            throw new Error(`pair ${pair.id} returned volumeToken1 lt yesterday`)
+          }
+        }
+
         return {
           ...pair,
           price:
@@ -82,12 +92,12 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
               ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
               : undefined,
           previous24hVolumeToken0:
-            pair.volumeToken0 && yesterdayVolumeIndex[pair.id]?.volumeToken0
-              ? new BigNumber(pair.volumeToken0).minus(yesterdayVolumeIndex[pair.id].volumeToken0)
+            pair.volumeToken0 && yesterday?.volumeToken0
+              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0)
               : new BigNumber(pair.volumeToken0),
           previous24hVolumeToken1:
-            pair.volumeToken1 && yesterdayVolumeIndex[pair.id]?.volumeToken1
-              ? new BigNumber(pair.volumeToken1).minus(yesterdayVolumeIndex[pair.id].volumeToken1)
+            pair.volumeToken1 && yesterday?.volumeToken1
+              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1)
               : new BigNumber(pair.volumeToken1)
         }
       }
