@@ -19,7 +19,7 @@ export async function getBlockFromTimestamp(timestamp: number): Promise<string |
   const result = await blockClient.query({
     query: GET_BLOCK,
     variables: {
-      timestamp: timestamp
+      timestamp: '' + timestamp
     },
     fetchPolicy: 'cache-first'
   })

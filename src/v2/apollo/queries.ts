@@ -20,8 +20,7 @@ export const PAIRS_VOLUME_QUERY = gql`
   }
 `
 
-// only used for code gen because
-// https://github.com/graphprotocol/graph-node/issues/1460
+// gets the top 1k pairs by USD reserves
 export const TOP_PAIRS = gql`
   fragment TokenInfo on Token {
     id
