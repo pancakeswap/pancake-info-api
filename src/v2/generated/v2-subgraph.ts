@@ -2067,11 +2067,24 @@ export type PairReservesQuery = (
   )> }
 );
 
-export type SwapsByTokensQueryVariables = Exact<{
+export type SwapsByPairQueryVariables = Exact<{
   skip: Scalars['Int'];
+  timestamp: Scalars['BigInt'];
+  pairAddress: Scalars['String'];
+}>;
+
+
+export type SwapsByPairQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly swaps: ReadonlyArray<(
+    { readonly __typename?: 'Swap' }
+    & Pick<Swap, 'id' | 'timestamp' | 'amount0In' | 'amount0Out' | 'amount1In' | 'amount1Out'>
+  )> }
+);
+
+export type SwapsByTokensQueryVariables = Exact<{
   token0: Scalars['String'];
   token1: Scalars['String'];
-  timestamp: Scalars['BigInt'];
 }>;
 
 
@@ -2079,9 +2092,6 @@ export type SwapsByTokensQuery = (
   { readonly __typename?: 'Query' }
   & { readonly pairs: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
-    & { readonly swaps?: Maybe<ReadonlyArray<(
-      { readonly __typename?: 'Swap' }
-      & Pick<Swap, 'id' | 'timestamp' | 'amount0In' | 'amount0Out' | 'amount1In' | 'amount1Out'>
-    )>> }
+    & Pick<Pair, 'id'>
   )> }
 );

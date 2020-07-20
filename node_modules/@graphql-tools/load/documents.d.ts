@@ -1,0 +1,6 @@
+import { Source } from '@graphql-tools/utils';
+import { LoadTypedefsOptions, UnnormalizedTypeDefPointer } from './load-typedefs';
+export declare const OPERATION_KINDS: ("OperationDefinition" | "FragmentDefinition")[];
+export declare const NON_OPERATION_KINDS: any[];
+export declare function loadDocuments(documentDef: UnnormalizedTypeDefPointer | UnnormalizedTypeDefPointer[], options: LoadTypedefsOptions): Promise<Source[]>;
+export declare function loadDocumentsSync(documentDef: UnnormalizedTypeDefPointer | UnnormalizedTypeDefPointer[], options: LoadTypedefsOptions): Source[];

@@ -3,15 +3,15 @@ import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_TOKENS, TOP_PAIRS, PAIR_FROM_TOKENS } from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_PAIR, TOP_PAIRS, PAIR_FROM_TOKENS } from './apollo/queries'
 import { getBlockFromTimestamp } from './blocks/queries'
 import {
   PairReservesQuery,
   PairReservesQueryVariables,
   PairsVolumeQuery,
   PairsVolumeQueryVariables,
-  SwapsByTokensQuery,
-  SwapsByTokensQueryVariables,
+  SwapsByPairQuery,
+  SwapsByPairQueryVariables,
   TopPairsQuery,
   TopPairsQueryVariables
 } from './generated/v2-subgraph'
@@ -149,7 +149,7 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
 
 type ArrayElement<A> = A extends readonly (infer T)[] ? T : never
 
-type Swap = ArrayElement<SwapsByTokensQuery['pairs'][0]['swaps']>
+type Swap = ArrayElement<SwapsByPairQuery['swaps']>
 
 interface SwapMapped extends Swap {
   amountAIn: string
@@ -172,8 +172,6 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapp
     }
   })
 
-  console.log(pairAddress)
-  
 
   const sorted = isSorted(tokenA, tokenB)
   let skip = 0
@@ -181,19 +179,18 @@ export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapp
   let finished = false
   while (!finished) {
     await client
-      .query<SwapsByTokensQuery, SwapsByTokensQueryVariables>({
-        query: SWAPS_BY_TOKENS,
+      .query<SwapsByPairQuery, SwapsByPairQueryVariables>({
+        query: SWAPS_BY_PAIR,
         variables: {
           skip,
-          token0,
-          token1,
+          pairAddress,
           timestamp: _24HoursAgo
         }
       })
       .then(
         ({
           data: {
-            pairs: [{ swaps }]
+            swaps
           }
         }): void => {
           if (!swaps || swaps.length === 0) {

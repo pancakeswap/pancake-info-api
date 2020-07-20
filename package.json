@@ -2,7 +2,7 @@
   "name": "uniswap-api",
   "license": "GPL-3.0-or-later",
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "dependencies": {
     "@ethersproject/address": "^5.0.0-beta.125",
