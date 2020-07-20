@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import BLACKLIST from '../constants/blacklist'
 
 import client from './apollo/client'
-import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_TOKENS, TOP_PAIRS } from './apollo/queries'
+import { PAIR_RESERVES_BY_TOKENS, PAIRS_VOLUME_QUERY_STRING, SWAPS_BY_TOKENS, TOP_PAIRS, PAIR_FROM_TOKENS } from './apollo/queries'
 import { getBlockFromTimestamp } from './blocks/queries'
 import {
   PairReservesQuery,
@@ -161,6 +161,19 @@ interface SwapMapped extends Swap {
 export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapped[]> {
   const _24HoursAgo = get24HoursAgo()
   const [token0, token1] = sortedFormatted(tokenA, tokenB)
+  
+  let {data : {
+    pairs : [{id: pairAddress}]
+  }} = await client.query({
+    query: PAIR_FROM_TOKENS,
+    variables: {
+      token0,
+      token1
+    }
+  })
+
+  console.log(pairAddress)
+  
 
   const sorted = isSorted(tokenA, tokenB)
   let skip = 0
