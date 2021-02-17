@@ -1,14 +1,14 @@
-# V2 Endpoints
+# Endpoints
 
-All PancakeSwap V2 pairs consist of two different tokens. BNB is not a native currency in PancakeSwap V2, and is represented
-only by WBNB in the V2 pairs. 
+All PancakeSwap pairs consist of two different tokens. BNB is not a native currency in PancakeSwap, and is represented only by WBNB in the pairs. 
 
-The canonical WBNB address used by the PancakeSwap interface is `0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c`. 
+The canonical WBNB address used by the PancakeSwap interface is `0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c`.
+
+Results are edge-cached for 1 minute (or 60 seconds) and refreshed in background (`stale-while-revalidate`).
 
 ## [`/summary`](https://api.pancakeswap.info/api/summary)
 
-Returns data for the top ~1000 PancakeSwap V2 pairs, sorted by reserves. 
-Results are edge cached for 15 minutes.
+Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves. 
 
 ### Request
 
@@ -19,9 +19,11 @@ Results are edge cached for 15 minutes.
 ```json5
 {
   "0x..._0x...": {                  // the asset ids of the BEP20 tokens (i.e. token addresses), joined by an underscore
-    "last_price": "1.234",          // denominated in token0/token1
-    "base_volume": "123.456",       // last 24h volume denominated in token0
-    "quote_volume": "1234.56"       // last 24h volume denominated in token1
+    "last_price": 1.234,            // denominated in token0/token1
+    "base_volume": 123.456,         // last 24h volume denominated in token0
+    "quote_volume": 1234.56,        // last 24h volume denominated in token1
+    "liquidity": 1234.56,           // liquidity denominated in USD
+    "liquidity_BNB": 1234.56        // liquidity denominated in BNB
   },
   // ...
 }
@@ -29,8 +31,7 @@ Results are edge cached for 15 minutes.
 
 ## [`/assets`](https://api.pancakeswap.info/api/assets)
 
-Returns the tokens in the top ~1000 pairs on PancakeSwap V2, sorted by reserves. 
-Results are edge cached for 24 hours.
+Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves. 
 
 ### Request
 
@@ -53,8 +54,7 @@ Results are edge cached for 24 hours.
 
 ## [`/tickers`](https://api.pancakeswap.info/api/tickers)
 
-Returns data for the top ~1000 PancakeSwap V2 pairs, sorted by reserves.
-Results are edge cached for 1 minute.
+Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 
 ### Request
 
@@ -67,13 +67,17 @@ Results are edge cached for 1 minute.
   "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
     "base_name": "...",             // token0 name
     "base_symbol": "...",           // token0 symbol
+    "base_address": "0x...",        // token0 address
     "base_id": "0x...",             // token0 address
     "quote_name": "...",            // token1 name
     "quote_symbol": "...",          // token1 symbol
+    "quote_address": "0x...",       // token1 address
     "quote_id": "0x...",            // token1 address
-    "last_price": "1.234",          // the mid price as token1/token0
-    "base_volume": "123.456",       // denominated in token0
-    "quote_volume": "1234.56"       // denominated in token1
+    "last_price": 1.234,            // the mid price as token1/token0
+    "base_volume": 123.456,         // denominated in token0
+    "quote_volume": 1234.56,        // denominated in token1
+    "liquidity": 1234.56,           // liquidity denominated in USD
+    "liquidity_BNB": 1234.56        // liquidity denominated in BNB
   },
   // ...
 }
@@ -81,10 +85,9 @@ Results are edge cached for 1 minute.
 
 ## `/orderbook/:pair`
 
-Returns simulated orderbook data for the given PancakeSwap V2 pair.
+Returns simulated orderbook data for the given PancakeSwap pair.
 Since PancakeSwap has a continuous orderbook, fixed amounts in an interval are chosen for bids and asks, 
-and prices are derived from the PancakeSwap V2 formula (accounting for both slippage and fees paid to LPs). 
-Results are edge cached for 15 minutes.
+and prices are derived from the PancakeSwap formula (accounting for both slippage and fees paid to LPs). 
 
 ### Request
 
@@ -98,15 +101,15 @@ Results are edge cached for 15 minutes.
 
 ```json5
 {
-  "timestamp": 1234567, // UNIX timestamp of the response
+  "updated_at": 1234567, // UNIX timestamp of the response
   "bids": [
-    ["12", "1.2"],      // denominated in base token, quote token/base token
-    ["12", "1.1"],      // denominated in base token, quote token/base token
+    [12, 1.2],           // denominated in base token, quote token/base token
+    [12, 1.1],           // denominated in base token, quote token/base token
     // ...
   ],
   "asks": [
-    ["12", "1.3"],      // denominated in base token, quote token/base token
-    ["12", "1.4"],      // denominated in base token, quote token/base token
+    [12, 1.3],           // denominated in base token, quote token/base token
+    [12, 1.4],           // denominated in base token, quote token/base token
     // ...
   ]
 }
@@ -114,14 +117,10 @@ Results are edge cached for 15 minutes.
 
 ## `/trades/:pair`
 
-Returns all swaps in the last 24 hours for the given PancakeSwap V2 pair. 
-Results are edge cached for 15 minutes.
+Returns all swaps in the last 24 hours for the given PancakeSwap pair. 
 
 The pair address is the address of the two tokens in either order.
 The first address is considered the base in the response.
-
-Note because PancakeSwap V2 supports flash swaps and borrowing of both tokens in a pair, you may wish to exclude these 
-trade types (types `"???"` and `"borrow-both"`).
 
 ### URL Parameters
 
