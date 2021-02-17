@@ -1,0 +1,15 @@
+{
+  "name": "Binance Smart Chain Blocks",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Binance Smart Chain Blocks": {
+        "url": "https://api.bscgraph.org/subgraphs/name/bsc-blocks",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

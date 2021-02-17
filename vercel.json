@@ -1,35 +1,45 @@
 {
-  "name": "uniswap-api",
-  "version": 2,
-  "alias": "api.uniswap.info",
-  "builds": [{ "src": "src/**/*.ts", "use": "@now/node" }],
-  "routes": [
-    { "src": "/v1/summary", "dest": "/src/v1/summary.ts", "methods": ["GET"] },
-    { "src": "/v1/assets", "dest": "/src/v1/assets.ts", "methods": ["GET"] },
-    { "src": "/v1/tickers", "dest": "/src/v1/tickers.ts", "methods": ["GET"] },
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
     {
-      "src": "/v1/orderbook/(?<pair>.*)",
-      "dest": "/src/v1/orderbook.ts?pair=$pair",
-      "methods": ["GET"]
+      "source": "/api/orderbook/:pair",
+      "destination": "/api/orderbook"
     },
     {
-      "src": "/v1/trades/(?<pair>.*)",
-      "dest": "/src/v1/trades.ts?pair=$pair",
-      "methods": ["GET"]
-    },
-    { "src": "/v2/summary", "dest": "/src/v2/summary.ts", "methods": ["GET"] },
-    { "src": "/v2/assets", "dest": "/src/v2/assets.ts", "methods": ["GET"] },
-    { "src": "/v2/tickers", "dest": "/src/v2/tickers.ts", "methods": ["GET"] },
+      "source": "/api/trades/:pair",
+      "destination": "/api/trades"
+    }
+  ],
+  "headers": [
     {
-      "src": "/v2/orderbook/(?<pair>.*)",
-      "dest": "/src/v2/orderbook.ts?pair=$pair",
-      "methods": ["GET"]
-    },
-    {
-      "src": "/v2/trades/(?<pair>.*)",
-      "dest": "/src/v2/trades.ts?pair=$pair",
-      "methods": ["GET"]
-    },
-    {"src": "/.*", "dest": "/src/404.ts"}
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Accept, Content-Type, Origin"
+        },
+        {
+          "key": "Access-Control-Max-Age",
+          "value": "86400"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=3600, stale-while-revalidate"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        }
+      ]
+    }
   ]
 }

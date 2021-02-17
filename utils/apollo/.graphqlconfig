@@ -1,0 +1,15 @@
+{
+  "name": "PancakeSwap v2",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "PancakeSwap v2": {
+        "url": "https://api.bscgraph.org/subgraphs/name/cakeswap",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": false
+      }
+    }
+  }
+}

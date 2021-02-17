@@ -1,0 +1,12 @@
+overwrite: true
+schema: './utils/apollo/schema.graphql'
+documents:
+  - './utils/apollo/queries.ts'
+generates:
+  ./utils/generated/subgraph.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      declarationKind: 'interface'
+      immutableTypes: true

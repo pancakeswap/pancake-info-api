@@ -1,41 +1,37 @@
 {
-  "name": "uniswap-api",
-  "license": "GPL-3.0-or-later",
-  "engines": {
-    "node": "12.x"
+  "name": "pancake-info-api",
+  "version": "1.0.0",
+  "description": "Serverless API implementation for PancakeSwap on-chain data query.",
+  "repository": "git@github.com:pancakeswap/pancake-info-api.git",
+  "author": "PancakeSwap",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write '*/**/*.{js,ts}'",
+    "lint": "eslint '*/**/*.{js,ts}'",
+    "codegen": "graphql-codegen --config utils/apollo/codegen.yml"
   },
   "dependencies": {
-    "@ethersproject/address": "^5.0.0-beta.125",
-    "apollo-cache-inmemory": "^1.6.2",
-    "apollo-client": "^2.6.3",
-    "apollo-link-http": "^1.5.15",
-    "bignumber.js": "^9.0.0",
-    "graphql-tag": "^2.10.1",
-    "node-fetch": "^2.6.0"
+    "@apollo/client": "^3.3.11",
+    "@ethersproject/address": "^5.0.10",
+    "bignumber.js": "^9.0.1",
+    "graphql-tag": "^2.11.0",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@graphql-codegen/cli": "1.15.4",
     "@graphql-codegen/typescript": "1.15.4",
     "@graphql-codegen/typescript-operations": "^1.15.4",
-    "@now/node": "^0.10.0",
-    "@types/node-fetch": "^2.3.7",
-    "@typescript-eslint/eslint-plugin": "^1.11.0",
-    "@typescript-eslint/parser": "^1.11.0",
-    "eslint": "^5.0.0",
-    "eslint-config-prettier": "^6.0.0",
-    "graphql": "^15.1.0",
-    "prettier": "^1.18.2",
-    "typescript": "^3.5.2"
-  },
-  "scripts": {
-    "lint:base": "yarn eslint ./src/**/*.ts",
-    "format:base": "yarn prettier ./src/**/*.ts",
-    "fix:lint": "yarn lint:base --fix",
-    "fix:format": "yarn format:base --write",
-    "fix:all": "yarn fix:lint && yarn fix:format",
-    "check:lint": "yarn lint:base",
-    "check:format": "yarn format:base --check",
-    "check:all": "yarn check:lint && yarn check:format",
-    "generate:v2": "graphql-codegen --config src/v2/apollo/codegen.yml"
+    "@types/node-fetch": "^2.5.8",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "@vercel/node": "^1.9.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.2.0",
+    "graphql": "^15.5.0",
+    "husky": "^5.0.9",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.5"
   }
 }
