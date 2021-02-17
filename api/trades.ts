@@ -37,9 +37,8 @@ export default async function (req: NowRequest, res: NowResponse): Promise<void>
         // a is the base so if the pair sends a and not b then it's a 'buy'
         const isBuy = aOut && bIn && !aIn && !bOut;
         const isSell = !aOut && !bIn && aIn && bOut;
-        const isBorrowBoth = aOut && bOut && aIn && bIn;
 
-        const type = isBuy ? "buy" : isSell ? "sell" : isBorrowBoth ? "borrow-both" : "???";
+        const type = isBuy ? "buy" : isSell ? "sell" : "unknown";
         const baseAmount = aOut ? swap.amountAOut : swap.amountAIn;
         const quoteAmount = bOut ? swap.amountBOut : swap.amountBIn;
         return {
