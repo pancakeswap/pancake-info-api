@@ -1,5 +1,5 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client/core";
-import fetch from "node-fetch";
+import fetch from "cross-fetch";
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({

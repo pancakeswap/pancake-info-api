@@ -14,8 +14,8 @@
     "@apollo/client": "^3.3.11",
     "@ethersproject/address": "^5.0.10",
     "bignumber.js": "^9.0.1",
-    "graphql-tag": "^2.11.0",
-    "node-fetch": "^2.6.1"
+    "cross-fetch": "^3.0.6",
+    "graphql-tag": "^2.11.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -23,7 +23,6 @@
     "@graphql-codegen/cli": "1.15.4",
     "@graphql-codegen/typescript": "1.15.4",
     "@graphql-codegen/typescript-operations": "^1.15.4",
-    "@types/node-fetch": "^2.5.8",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
     "@vercel/node": "^1.9.0",
