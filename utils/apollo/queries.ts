@@ -1,5 +1,13 @@
 import gql from "graphql-tag";
 
+export const BUNDLE_BY_ID = gql`
+  query Bundle($id: ID!) {
+    bundle(id: $id) {
+      ethPrice
+    }
+  }
+`;
+
 export const PAIRS_VOLUME_QUERY = gql`
   query PairsVolume($limit: Int!, $pairIds: [ID!]!, $blockNumber: Int!) {
     pairVolumes: pairs(first: $limit, where: { id_in: $pairIds }, block: { number: $blockNumber }) {
@@ -16,6 +24,7 @@ export const TOP_PAIRS = gql`
     id
     symbol
     name
+    derivedETH
   }
 
   query TopPairs($limit: Int!, $excludeTokenIds: [String!]!) {
