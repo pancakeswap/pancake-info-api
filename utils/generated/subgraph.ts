@@ -2026,6 +2026,17 @@ export type BundleQuery = (
   )> }
 );
 
+export type UniswapFactoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UniswapFactoriesQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly uniswapFactories: ReadonlyArray<(
+    { readonly __typename?: 'UniswapFactory' }
+    & Pick<UniswapFactory, 'totalLiquidityUSD' | 'totalLiquidityETH' | 'pairCount'>
+  )> }
+);
+
 export type PairsVolumeQueryVariables = Exact<{
   limit: Scalars['Int'];
   pairIds: ReadonlyArray<Scalars['ID']> | Scalars['ID'];
