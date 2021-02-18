@@ -8,9 +8,12 @@ import {
   TOP_PAIRS,
   PAIR_FROM_TOKENS,
   PAIRS_VOLUME_QUERY,
+  BUNDLE_BY_ID,
 } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
+  BundleQuery,
+  BundleQueryVariables,
   PairReservesQuery,
   PairReservesQueryVariables,
   PairsVolumeQuery,
@@ -136,6 +139,17 @@ function sortedFormatted(tokenA: string, tokenB: string): [string, string] {
   return isSorted(tokenA, tokenB)
     ? [tokenA.toLowerCase(), tokenB.toLowerCase()]
     : [tokenB.toLowerCase(), tokenA.toLowerCase()];
+}
+
+export async function getBundle(id: string): Promise<[string]> {
+  return client
+    .query<BundleQuery, BundleQueryVariables>({
+      query: BUNDLE_BY_ID,
+      variables: {
+        id,
+      },
+    })
+    .then(({ data: { bundle } }): [string] => [bundle?.ethPrice]);
 }
 
 // returns reserves of token a and b in the order they are queried

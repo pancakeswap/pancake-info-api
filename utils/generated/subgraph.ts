@@ -1944,6 +1944,14 @@ export interface User_Filter {
   readonly id_not_in?: Maybe<ReadonlyArray<Scalars["ID"]>>;
 }
 
+export type BundleQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type BundleQuery = { readonly __typename?: "Query" } & {
+  readonly bundle?: Maybe<{ readonly __typename?: "Bundle" } & Pick<Bundle, "ethPrice">>;
+};
+
 export type PairsVolumeQueryVariables = Exact<{
   limit: Scalars["Int"];
   pairIds: ReadonlyArray<Scalars["ID"]> | Scalars["ID"];
@@ -1956,7 +1964,10 @@ export type PairsVolumeQuery = { readonly __typename?: "Query" } & {
   >;
 };
 
-export type TokenInfoFragment = { readonly __typename?: "Token" } & Pick<Token, "id" | "symbol" | "name">;
+export type TokenInfoFragment = { readonly __typename?: "Token" } & Pick<
+  Token,
+  "id" | "symbol" | "name" | "derivedETH"
+>;
 
 export type TopPairsQueryVariables = Exact<{
   limit: Scalars["Int"];
