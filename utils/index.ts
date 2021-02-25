@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { BLACKLIST } from "./constants/blacklist";
+import { BLACKLIST } from "./constants";
 
 import { client } from "./apollo/client";
 import {
@@ -9,6 +9,7 @@ import {
   PAIR_FROM_TOKENS,
   PAIRS_VOLUME_QUERY,
   BUNDLE_BY_ID,
+  GLOBAL_DATA,
 } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
@@ -22,6 +23,8 @@ import {
   SwapsByPairQueryVariables,
   TopPairsQuery,
   TopPairsQueryVariables,
+  UniswapFactoriesQuery,
+  UniswapFactoriesQueryVariables,
 } from "./generated/subgraph";
 
 const SECOND = 1000;
@@ -150,6 +153,18 @@ export async function getBundle(id: string): Promise<[string]> {
       },
     })
     .then(({ data: { bundle } }): [string] => [bundle?.ethPrice]);
+}
+
+export async function getStatistics(): Promise<[number, number, number]> {
+  return client
+    .query<UniswapFactoriesQuery, UniswapFactoriesQueryVariables>({
+      query: GLOBAL_DATA,
+    })
+    .then(({ data: { uniswapFactories: [{ totalLiquidityUSD, totalLiquidityETH, pairCount }] } }): [
+      number,
+      number,
+      number
+    ] => [totalLiquidityUSD, totalLiquidityETH, pairCount]);
 }
 
 // returns reserves of token a and b in the order they are queried
