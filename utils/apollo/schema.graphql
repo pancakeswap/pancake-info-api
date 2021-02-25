@@ -26,14 +26,6 @@ type Burn {
     transaction: Transaction!
 }
 
-type LiquidityPosition {
-    id: ID!
-    liquidityTokenBalance: BigDecimal!
-    pair: Pair!
-    poolOwnership: BigDecimal
-    user: User!
-}
-
 type Mint {
     amount0: BigDecimal
     amount1: BigDecimal
@@ -56,7 +48,6 @@ type Pair {
     createdAtTimestamp: BigInt!
     factory: UniswapFactory!
     id: ID!
-    liquidityPositions(first: Int = 100, orderBy: LiquidityPosition_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: LiquidityPosition_filter): [LiquidityPosition!]
     mints(first: Int = 100, orderBy: Mint_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Mint_filter): [Mint!]
     reserve0: BigDecimal!
     reserve1: BigDecimal!
@@ -119,20 +110,6 @@ type Query {
         skip: Int = 0,
         where: Burn_filter
     ): [Burn!]!
-    liquidityPosition(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        id: ID!
-    ): LiquidityPosition
-    liquidityPositions(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        first: Int = 100,
-        orderBy: LiquidityPosition_orderBy,
-        orderDirection: OrderDirection,
-        skip: Int = 0,
-        where: LiquidityPosition_filter
-    ): [LiquidityPosition!]!
     mint(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -259,20 +236,6 @@ type Query {
         block: Block_height,
         id: ID!
     ): UniswapFactory
-    user(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        id: ID!
-    ): User
-    users(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        first: Int = 100,
-        orderBy: User_orderBy,
-        orderDirection: OrderDirection,
-        skip: Int = 0,
-        where: User_filter
-    ): [User!]!
 }
 
 type Subscription {
@@ -304,20 +267,6 @@ type Subscription {
         skip: Int = 0,
         where: Burn_filter
     ): [Burn!]!
-    liquidityPosition(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        id: ID!
-    ): LiquidityPosition
-    liquidityPositions(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        first: Int = 100,
-        orderBy: LiquidityPosition_orderBy,
-        orderDirection: OrderDirection,
-        skip: Int = 0,
-        where: LiquidityPosition_filter
-    ): [LiquidityPosition!]!
     mint(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -444,20 +393,6 @@ type Subscription {
         block: Block_height,
         id: ID!
     ): UniswapFactory
-    user(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        id: ID!
-    ): User
-    users(
-        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
-        block: Block_height,
-        first: Int = 100,
-        orderBy: User_orderBy,
-        orderDirection: OrderDirection,
-        skip: Int = 0,
-        where: User_filter
-    ): [User!]!
 }
 
 type Swap {
@@ -540,11 +475,6 @@ type UniswapFactory {
     txCount: BigInt!
 }
 
-type User {
-    id: ID!
-    liquidityPositions(first: Int = 100, orderBy: LiquidityPosition_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: LiquidityPosition_filter): [LiquidityPosition!]
-}
-
 enum Bundle_orderBy {
     ethPrice
     id
@@ -564,14 +494,6 @@ enum Burn_orderBy {
     timestamp
     to
     transaction
-}
-
-enum LiquidityPosition_orderBy {
-    id
-    liquidityTokenBalance
-    pair
-    poolOwnership
-    user
 }
 
 enum Mint_orderBy {
@@ -616,7 +538,6 @@ enum Pair_orderBy {
     createdAtTimestamp
     factory
     id
-    liquidityPositions
     mints
     reserve0
     reserve1
@@ -713,11 +634,6 @@ enum UniswapFactory_orderBy {
     totalVolumeETH
     totalVolumeUSD
     txCount
-}
-
-enum User_orderBy {
-    id
-    liquidityPositions
 }
 
 input Block_height {
@@ -841,61 +757,6 @@ input Burn_filter {
     to_not: Bytes
     to_not_contains: Bytes
     to_not_in: [Bytes!]
-}
-
-input LiquidityPosition_filter {
-    id: ID
-    id_gt: ID
-    id_gte: ID
-    id_in: [ID!]
-    id_lt: ID
-    id_lte: ID
-    id_not: ID
-    id_not_in: [ID!]
-    liquidityTokenBalance: BigDecimal
-    liquidityTokenBalance_gt: BigDecimal
-    liquidityTokenBalance_gte: BigDecimal
-    liquidityTokenBalance_in: [BigDecimal!]
-    liquidityTokenBalance_lt: BigDecimal
-    liquidityTokenBalance_lte: BigDecimal
-    liquidityTokenBalance_not: BigDecimal
-    liquidityTokenBalance_not_in: [BigDecimal!]
-    pair: String
-    pair_contains: String
-    pair_ends_with: String
-    pair_gt: String
-    pair_gte: String
-    pair_in: [String!]
-    pair_lt: String
-    pair_lte: String
-    pair_not: String
-    pair_not_contains: String
-    pair_not_ends_with: String
-    pair_not_in: [String!]
-    pair_not_starts_with: String
-    pair_starts_with: String
-    poolOwnership: BigDecimal
-    poolOwnership_gt: BigDecimal
-    poolOwnership_gte: BigDecimal
-    poolOwnership_in: [BigDecimal!]
-    poolOwnership_lt: BigDecimal
-    poolOwnership_lte: BigDecimal
-    poolOwnership_not: BigDecimal
-    poolOwnership_not_in: [BigDecimal!]
-    user: String
-    user_contains: String
-    user_ends_with: String
-    user_gt: String
-    user_gte: String
-    user_in: [String!]
-    user_lt: String
-    user_lte: String
-    user_not: String
-    user_not_contains: String
-    user_not_ends_with: String
-    user_not_in: [String!]
-    user_not_starts_with: String
-    user_starts_with: String
 }
 
 input Mint_filter {
@@ -1745,17 +1606,6 @@ input UniswapFactory_filter {
     txCount_lte: BigInt
     txCount_not: BigInt
     txCount_not_in: [BigInt!]
-}
-
-input User_filter {
-    id: ID
-    id_gt: ID
-    id_gte: ID
-    id_in: [ID!]
-    id_lt: ID
-    id_lte: ID
-    id_not: ID
-    id_not_in: [ID!]
 }
 
 

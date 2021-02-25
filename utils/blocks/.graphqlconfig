@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Binance Smart Chain Blocks": {
-        "url": "https://api.bscgraph.org/subgraphs/name/bsc-blocks",
+        "url": "https://api.thegraph.com/subgraphs/name/pancakeswap/blocks",
         "headers": {
           "user-agent": "JS GraphQL"
         },

@@ -1,10 +1,10 @@
 {
-  "name": "PancakeSwap v2",
+  "name": "PancakeSwap Exchange",
   "schemaPath": "schema.graphql",
   "extensions": {
     "endpoints": {
-      "PancakeSwap v2": {
-        "url": "https://api.bscgraph.org/subgraphs/name/cakeswap",
+      "PancakeSwap Exchange": {
+        "url": "https://api.thegraph.com/subgraphs/name/pancakeswap/exchange",
         "headers": {
           "user-agent": "JS GraphQL"
         },
