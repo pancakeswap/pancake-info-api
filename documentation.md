@@ -21,7 +21,7 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
   "updated_at": 1234567,    // UNIX timestamp
   "data": {
     "0x..._0x...": {                  // the asset ids of the BEP20 tokens (i.e. token addresses), joined by an underscore
-      "last_price": "...",            // denominated in token0/token1
+      "price": "...",                 // denominated in token0/token1
       "base_volume": "...",           // last 24h volume denominated in token0
       "quote_volume": "...",          // last 24h volume denominated in token1
       "liquidity": "...",             // liquidity denominated in USD
