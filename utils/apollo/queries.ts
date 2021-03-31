@@ -59,29 +59,3 @@ export const PAIR_RESERVES_BY_TOKENS = gql`
     }
   }
 `;
-
-export const SWAPS_BY_PAIR = gql`
-  query SwapsByPair($skip: Int!, $timestamp: BigInt!, $pairAddress: String!) {
-    swaps(
-      skip: $skip
-      where: { timestamp_gte: $timestamp, pair: $pairAddress }
-      orderBy: timestamp
-      orderDirection: asc
-    ) {
-      id
-      timestamp
-      amount0In
-      amount0Out
-      amount1In
-      amount1Out
-    }
-  }
-`;
-
-export const PAIR_FROM_TOKENS = gql`
-  query SwapsByTokens($token0: String!, $token1: String!) {
-    pairs(where: { token0: $token0, token1: $token1 }) {
-      id
-    }
-  }
-`;

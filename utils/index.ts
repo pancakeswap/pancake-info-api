@@ -4,9 +4,7 @@ import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
 import {
   PAIR_RESERVES_BY_TOKENS,
-  SWAPS_BY_PAIR,
   TOP_PAIRS,
-  PAIR_FROM_TOKENS,
   PAIRS_VOLUME_QUERY,
   BUNDLE_BY_ID,
 } from "./apollo/queries";
@@ -18,20 +16,9 @@ import {
   PairReservesQueryVariables,
   PairsVolumeQuery,
   PairsVolumeQueryVariables,
-  SwapsByPairQuery,
-  SwapsByPairQueryVariables,
   TopPairsQuery,
   TopPairsQueryVariables,
 } from "./generated/subgraph";
-
-const SECOND = 1000;
-const MINUTE = 60 * SECOND;
-const HOUR = 60 * MINUTE;
-const DAY = 24 * HOUR;
-
-export function get24HoursAgo(): number {
-  return Math.floor((Date.now() - DAY) / 1000);
-}
 
 const TOP_PAIR_LIMIT = 1000;
 export type Pair = TopPairsQuery["pairs"][number];
@@ -166,69 +153,4 @@ export async function getReserves(tokenA: string, tokenB: string): Promise<[stri
     .then(({ data: { pairs: [{ reserve0, reserve1 }] } }): [string, string] =>
       tokenA.toLowerCase() === token0 ? [reserve0, reserve1] : [reserve1, reserve0]
     );
-}
-
-type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
-
-type Swap = ArrayElement<SwapsByPairQuery["swaps"]>;
-
-interface SwapMapped extends Swap {
-  amountAIn: string;
-  amountAOut: string;
-  amountBIn: string;
-  amountBOut: string;
-}
-
-export async function getSwaps(tokenA: string, tokenB: string): Promise<SwapMapped[]> {
-  const _24HoursAgo = get24HoursAgo();
-  const [token0, token1] = sortedFormatted(tokenA, tokenB);
-
-  const {
-    data: {
-      pairs: [{ id: pairAddress }],
-    },
-  } = await client.query({
-    query: PAIR_FROM_TOKENS,
-    variables: {
-      token0,
-      token1,
-    },
-  });
-
-  const sorted = isSorted(tokenA, tokenB);
-  let skip = 0;
-  let results: SwapMapped[] = [];
-  let finished = false;
-  while (!finished) {
-    await client
-      .query<SwapsByPairQuery, SwapsByPairQueryVariables>({
-        query: SWAPS_BY_PAIR,
-        variables: {
-          skip,
-          pairAddress,
-          timestamp: _24HoursAgo,
-        },
-      })
-      .then(({ data: { swaps } }): void => {
-        if (!swaps || swaps.length === 0) {
-          finished = true;
-        } else {
-          skip += swaps.length;
-
-          results = results.concat(
-            swaps.map(
-              (swap: Swap): SwapMapped => ({
-                ...swap,
-                amountAIn: sorted ? swap.amount0In : swap.amount1In,
-                amountAOut: sorted ? swap.amount0Out : swap.amount1Out,
-                amountBIn: sorted ? swap.amount1In : swap.amount0In,
-                amountBOut: sorted ? swap.amount1Out : swap.amount0Out,
-              })
-            )
-          );
-        }
-      });
-  }
-
-  return results;
 }

@@ -115,34 +115,3 @@ and prices are derived from the PancakeSwap formula (accounting for both slippag
   ]
 }
 ```
-
-## `/trades/:pair`
-
-Returns all swaps in the last 24 hours for the given PancakeSwap pair. 
-
-The pair address is the address of the two tokens in either order.
-The first address is considered the base in the response.
-
-### URL Parameters
-
-- `pair`: The asset ids of two BEP20 tokens, joined by an underscore, e.g. `0x..._0x...`. The first token address is considered the base in the response.
-
-### Request
-
-`GET https://api.pancakeswap.info/api/trades/:pair`
-
-### Response
-
-```json5
-[
-  {
-    "trade_id": "...",
-    "price": "1.234",           // denominated in quote token/base token
-    "base_volume": "123.456",   // denominated in base token
-    "quote_volume": "1234.56",  // denominated in quote token
-    "trade_timestamp": 1234567, // UNIX timestamp
-    "type": "buy"               // "buy"/"sell"/"borrow-both"/"???" 
-  },
-  // ...
-]
-```
