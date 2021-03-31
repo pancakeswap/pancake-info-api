@@ -1,20 +1,9 @@
 import gql from "graphql-tag";
-import { FACTORY_ADDRESS } from "../constants";
 
 export const BUNDLE_BY_ID = gql`
   query Bundle($id: ID!) {
     bundle(id: $id) {
       ethPrice
-    }
-  }
-`;
-
-export const GLOBAL_DATA = gql`
-  query uniswapFactories {
-    uniswapFactories(where: { id: "${FACTORY_ADDRESS}" }) {
-      totalLiquidityUSD
-      totalLiquidityETH
-      pairCount
     }
   }
 `;
