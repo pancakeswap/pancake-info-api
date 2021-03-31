@@ -1,5 +1,4 @@
 // list of lowercase token addresses that are not returned from the API
-
 export const BLACKLIST = [
   "0xe40fc6ff5f2895b44268fd2e1a421e07f567e007", // LBC
   "0xfd158609228b43aa380140b46fff3cdf9ad315de", // LBA

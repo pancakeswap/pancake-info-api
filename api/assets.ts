@@ -8,9 +8,8 @@ interface ReturnShape {
   [tokenAddress: string]: {
     name: string;
     symbol: string;
-    last_price: number;
-    maker_fee: number;
-    taker_fee: number;
+    price: number;
+    price_BNB: number;
   };
 }
 
@@ -26,15 +25,14 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
         accumulator[id] = {
           name: token.name,
           symbol: token.symbol,
-          last_price: new BigNumber(token.derivedETH).times(new BigNumber(ethPrice)).toNumber(),
-          maker_fee: 0,
-          taker_fee: 0.002,
+          price: new BigNumber(token.derivedETH).times(new BigNumber(ethPrice)).toNumber(),
+          price_BNB: new BigNumber(token.derivedETH).toNumber(),
         };
       }
 
       return accumulator;
     }, {});
-    return200(res, tokens);
+    return200(res, { updated_at: new Date().getTime(), data: tokens });
   } catch (error) {
     return500(res, error);
   }
