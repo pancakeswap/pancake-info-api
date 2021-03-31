@@ -15,9 +15,9 @@ interface ReturnShape {
 
 export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
-    const pairs = await getTopPairs();
+    const topPairs = await getTopPairs();
 
-    const tokens = pairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
+    const tokens = topPairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
       for (const token of [pair.token0, pair.token1]) {
         const id = getAddress(token.id);
         if (accumulator[id]) continue;
@@ -31,6 +31,7 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
 
       return accumulator;
     }, {});
+
     return200(res, { updated_at: new Date().getTime(), data: tokens });
   } catch (error) {
     return500(res, error);

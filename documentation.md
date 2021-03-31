@@ -29,13 +29,13 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 }
 ```
 
-## [`/assets`](https://api.pancakeswap.info/api/assets)
+## [`/tokens`](https://api.pancakeswap.info/api/tokens)
 
 Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves. 
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/assets`
+`GET https://api.pancakeswap.info/api/tokens`
 
 ### Response
 
