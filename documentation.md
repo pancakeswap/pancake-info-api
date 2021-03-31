@@ -46,42 +46,46 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
     "0x...": {              // the address of the BEP20 token
       "name": "...",        // not necessarily included for BEP20 tokens
       "symbol": "...",      // not necessarily included for BEP20 tokens
-      "price": 1.234,       // denominated in USD
-      "price_BNB": 1.234,   // always 0
+      "price": "...",       // denominated in USD
+      "price_BNB": "...",   // always 0
     },
     // ...
   }
 }
 ```
 
-## [`/tickers`](https://api.pancakeswap.info/api/tickers)
+## [`/pairs`](https://api.pancakeswap.info/api/pairs)
 
 Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/tickers`
+`GET https://api.pancakeswap.info/api/pairs`
 
 ### Response
 
 ```json5
 {
-  "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
-    "base_name": "...",             // token0 name
-    "base_symbol": "...",           // token0 symbol
-    "base_address": "0x...",        // token0 address
-    "base_id": "0x...",             // token0 address
-    "quote_name": "...",            // token1 name
-    "quote_symbol": "...",          // token1 symbol
-    "quote_address": "0x...",       // token1 address
-    "quote_id": "0x...",            // token1 address
-    "last_price": 1.234,            // the mid price as token1/token0
-    "base_volume": 123.456,         // denominated in token0
-    "quote_volume": 1234.56,        // denominated in token1
-    "liquidity": 1234.56,           // liquidity denominated in USD
-    "liquidity_BNB": 1234.56        // liquidity denominated in BNB
-  },
-  // ...
+  "updated_at": 1234567,    // UNIX timestamp
+  "data": {
+    "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
+      "pair_address": "0x...",        // pair address
+      "base_name": "...",             // token0 name
+      "base_symbol": "...",           // token0 symbol
+      "base_address": "0x...",        // token0 address
+      "base_id": "0x...",             // token0 address
+      "quote_name": "...",            // token1 name
+      "quote_symbol": "...",          // token1 symbol
+      "quote_address": "0x...",       // token1 address
+      "quote_id": "0x...",            // token1 address
+      "price": "...",                 // the mid price as token1/token0
+      "base_volume": "...",           // denominated in token0
+      "quote_volume": "...",          // denominated in token1
+      "liquidity": "...",             // liquidity denominated in USD
+      "liquidity_BNB": "..."          // liquidity denominated in BNB
+    },
+    // ...
+  }
 }
 ```
 

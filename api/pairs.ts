@@ -1,22 +1,22 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
-import BigNumber from "bignumber.js";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
 
 interface ReturnShape {
   [tokenIds: string]: {
+    pair_address: string;
     base_name: string;
     base_symbol: string;
     base_address: string;
     quote_name: string;
     quote_symbol: string;
     quote_address: string;
-    last_price: number;
-    base_volume: number;
-    quote_volume: number;
-    liquidity: number;
-    liquidity_BNB: number;
+    price: string;
+    base_volume: string;
+    quote_volume: string;
+    liquidity: string;
+    liquidity_BNB: string;
   };
 }
 
@@ -29,17 +29,18 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
       const id1 = getAddress(pair.token1.id);
 
       accumulator[`${id0}_${id1}`] = {
+        pair_address: pair.id,
         base_name: pair.token0.name,
         base_symbol: pair.token0.symbol,
         base_address: id0,
         quote_name: pair.token1.name,
         quote_symbol: pair.token1.symbol,
         quote_address: id1,
-        last_price: pair.price ?? 0,
+        price: pair.price,
         base_volume: pair.previous24hVolumeToken0,
         quote_volume: pair.previous24hVolumeToken1,
-        liquidity: new BigNumber(pair.reserveUSD).toNumber(),
-        liquidity_BNB: new BigNumber(pair.reserveBNB).toNumber(),
+        liquidity: pair.reserveUSD,
+        liquidity_BNB: pair.reserveBNB,
       };
 
       return accumulator;

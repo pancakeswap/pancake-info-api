@@ -5,10 +5,6 @@
     {
       "source": "/api/orderbook/:pair",
       "destination": "/api/orderbook"
-    },
-    {
-      "source": "/api/trades/:pair",
-      "destination": "/api/trades"
     }
   ],
   "headers": [

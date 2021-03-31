@@ -1,6 +1,5 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
-import BigNumber from "bignumber.js";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
 
@@ -8,8 +7,8 @@ interface ReturnShape {
   [tokenAddress: string]: {
     name: string;
     symbol: string;
-    price: number;
-    price_BNB: number;
+    price: string;
+    price_BNB: string;
   };
 }
 
@@ -24,8 +23,8 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
         accumulator[id] = {
           name: token.name,
           symbol: token.symbol,
-          price: new BigNumber(token.derivedUSD).toNumber(),
-          price_BNB: new BigNumber(token.derivedBNB).toNumber(),
+          price: token.derivedUSD,
+          price_BNB: token.derivedBNB,
         };
       }
 

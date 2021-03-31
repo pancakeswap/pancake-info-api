@@ -17,9 +17,9 @@ const TOP_PAIR_LIMIT = 1000;
 export type Pair = TopPairsQuery["pairs"][number];
 
 export interface MappedDetailedPair extends Pair {
-  price?: number;
-  previous24hVolumeToken0: number;
-  previous24hVolumeToken1: number;
+  price: string;
+  previous24hVolumeToken0: string;
+  previous24hVolumeToken1: string;
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
@@ -95,16 +95,16 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
           ...pair,
           price:
             pair.reserve0 !== "0" && pair.reserve1 !== "0"
-              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toNumber()
-              : undefined,
+              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
+              : "0",
           previous24hVolumeToken0:
             pair.volumeToken0 && yesterday?.volumeToken0
-              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toNumber()
-              : new BigNumber(pair.volumeToken0).toNumber(),
+              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
+              : new BigNumber(pair.volumeToken0).toString(),
           previous24hVolumeToken1:
             pair.volumeToken1 && yesterday?.volumeToken1
-              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toNumber()
-              : new BigNumber(pair.volumeToken1).toNumber(),
+              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
+              : new BigNumber(pair.volumeToken1).toString(),
         };
       }
     ) ?? []
