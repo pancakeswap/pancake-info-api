@@ -1,9 +1,9 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import BigNumber from "bignumber.js";
 import { getStatistics } from "../utils";
 import { return200, return500 } from "../utils/response";
 
-export default async function (req: NowRequest, res: NowResponse): Promise<void> {
+export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const [totalLiquidityUSD, totalLiquidityETH, pairCount] = await getStatistics();
 

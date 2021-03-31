@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
 import BigNumber from "bignumber.js";
 import { getTopPairs } from "../utils";
@@ -14,7 +14,7 @@ interface ReturnShape {
   };
 }
 
-export default async function (req: NowRequest, res: NowResponse): Promise<void> {
+export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const pairs = await getTopPairs();
 
