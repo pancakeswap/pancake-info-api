@@ -1,12 +1,6 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/api/orderbook/:pair",
-      "destination": "/api/orderbook"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -17,7 +11,7 @@
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS"
+          "value": "GET, HEAD, OPTIONS"
         },
         {
           "key": "Access-Control-Allow-Headers",
@@ -29,7 +23,7 @@
         },
         {
           "key": "Cache-Control",
-          "value": "s-maxage=60, stale-while-revalidate"
+          "value": "public, max-age=300, s-maxage=300"
         },
         {
           "key": "Pragma",

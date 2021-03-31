@@ -1,38 +1,38 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
-import BigNumber from "bignumber.js";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
 
 interface ReturnShape {
   [tokenIds: string]: {
-    last_price: number;
-    base_volume: number;
-    quote_volume: number;
-    liquidity: number;
-    liquidity_BNB: number;
+    price: string;
+    base_volume: string;
+    quote_volume: string;
+    liquidity: string;
+    liquidity_BNB: string;
   };
 }
 
 export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
-    const pairs = await getTopPairs();
+    const topPairs = await getTopPairs();
 
-    return200(
-      res,
-      pairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
-        const id0 = getAddress(pair.token0.id);
-        const id1 = getAddress(pair.token1.id);
-        accumulator[`${id0}_${id1}`] = {
-          last_price: pair.price ?? 0,
-          base_volume: new BigNumber(pair.volumeToken0).toNumber(),
-          quote_volume: new BigNumber(pair.volumeToken1).toNumber(),
-          liquidity: new BigNumber(pair.reserveUSD).toNumber(),
-          liquidity_BNB: new BigNumber(pair.reserveBNB).toNumber(),
-        };
-        return accumulator;
-      }, {})
-    );
+    const pairs = topPairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
+      const id0 = getAddress(pair.token0.id);
+      const id1 = getAddress(pair.token1.id);
+
+      accumulator[`${id0}_${id1}`] = {
+        price: pair.price,
+        base_volume: pair.volumeToken0,
+        quote_volume: pair.volumeToken1,
+        liquidity: pair.reserveUSD,
+        liquidity_BNB: pair.reserveBNB,
+      };
+
+      return accumulator;
+    }, {});
+
+    return200(res, { updated_at: new Date().getTime(), data: pairs });
   } catch (error) {
     return500(res, error);
   }
