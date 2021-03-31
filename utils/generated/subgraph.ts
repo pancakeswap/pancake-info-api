@@ -14,10 +14,41 @@ export interface Scalars {
   Bytes: any;
 }
 
+
+
+export interface Block_Height {
+  readonly hash?: Maybe<Scalars['Bytes']>;
+  readonly number?: Maybe<Scalars['Int']>;
+}
+
 export interface Bundle {
   readonly __typename?: 'Bundle';
   readonly ethPrice: Scalars['BigDecimal'];
   readonly id: Scalars['ID'];
+}
+
+export interface Bundle_Filter {
+  readonly ethPrice?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly ethPrice_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_not?: Maybe<Scalars['BigDecimal']>;
+  readonly ethPrice_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+}
+
+export enum Bundle_OrderBy {
+  EthPrice = 'ethPrice',
+  Id = 'id'
 }
 
 export interface Burn {
@@ -37,6 +68,122 @@ export interface Burn {
   readonly transaction: Transaction;
 }
 
+export interface Burn_Filter {
+  readonly amount0?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount1?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amountUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amountUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeLiquidity?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeLiquidity_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_not?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeTo?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_contains?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly feeTo_not?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly liquidity?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly liquidity_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_not?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly logIndex?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_gt?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_gte?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly logIndex_lt?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_lte?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_not?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly pair?: Maybe<Scalars['String']>;
+  readonly pair_contains?: Maybe<Scalars['String']>;
+  readonly pair_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_gt?: Maybe<Scalars['String']>;
+  readonly pair_gte?: Maybe<Scalars['String']>;
+  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_lt?: Maybe<Scalars['String']>;
+  readonly pair_lte?: Maybe<Scalars['String']>;
+  readonly pair_not?: Maybe<Scalars['String']>;
+  readonly pair_not_contains?: Maybe<Scalars['String']>;
+  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
+  readonly pair_starts_with?: Maybe<Scalars['String']>;
+  readonly sender?: Maybe<Scalars['Bytes']>;
+  readonly sender_contains?: Maybe<Scalars['Bytes']>;
+  readonly sender_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly sender_not?: Maybe<Scalars['Bytes']>;
+  readonly sender_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly sender_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly timestamp?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_gt?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_gte?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly timestamp_lt?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_lte?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_not?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly to?: Maybe<Scalars['Bytes']>;
+  readonly to_contains?: Maybe<Scalars['Bytes']>;
+  readonly to_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly to_not?: Maybe<Scalars['Bytes']>;
+  readonly to_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly to_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+}
+
+export enum Burn_OrderBy {
+  Amount0 = 'amount0',
+  Amount1 = 'amount1',
+  AmountUsd = 'amountUSD',
+  FeeLiquidity = 'feeLiquidity',
+  FeeTo = 'feeTo',
+  Id = 'id',
+  Liquidity = 'liquidity',
+  LogIndex = 'logIndex',
+  Pair = 'pair',
+  Sender = 'sender',
+  Timestamp = 'timestamp',
+  To = 'to',
+  Transaction = 'transaction'
+}
+
+
 export interface LiquidityPosition {
   readonly __typename?: 'LiquidityPosition';
   readonly id: Scalars['ID'];
@@ -44,6 +191,69 @@ export interface LiquidityPosition {
   readonly pair: Pair;
   readonly poolOwnership?: Maybe<Scalars['BigDecimal']>;
   readonly user: User;
+}
+
+export interface LiquidityPosition_Filter {
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly liquidityTokenBalance?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly liquidityTokenBalance_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_not?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidityTokenBalance_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly pair?: Maybe<Scalars['String']>;
+  readonly pair_contains?: Maybe<Scalars['String']>;
+  readonly pair_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_gt?: Maybe<Scalars['String']>;
+  readonly pair_gte?: Maybe<Scalars['String']>;
+  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_lt?: Maybe<Scalars['String']>;
+  readonly pair_lte?: Maybe<Scalars['String']>;
+  readonly pair_not?: Maybe<Scalars['String']>;
+  readonly pair_not_contains?: Maybe<Scalars['String']>;
+  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
+  readonly pair_starts_with?: Maybe<Scalars['String']>;
+  readonly poolOwnership?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly poolOwnership_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_not?: Maybe<Scalars['BigDecimal']>;
+  readonly poolOwnership_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly user?: Maybe<Scalars['String']>;
+  readonly user_contains?: Maybe<Scalars['String']>;
+  readonly user_ends_with?: Maybe<Scalars['String']>;
+  readonly user_gt?: Maybe<Scalars['String']>;
+  readonly user_gte?: Maybe<Scalars['String']>;
+  readonly user_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly user_lt?: Maybe<Scalars['String']>;
+  readonly user_lte?: Maybe<Scalars['String']>;
+  readonly user_not?: Maybe<Scalars['String']>;
+  readonly user_not_contains?: Maybe<Scalars['String']>;
+  readonly user_not_ends_with?: Maybe<Scalars['String']>;
+  readonly user_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly user_not_starts_with?: Maybe<Scalars['String']>;
+  readonly user_starts_with?: Maybe<Scalars['String']>;
+}
+
+export enum LiquidityPosition_OrderBy {
+  Id = 'id',
+  LiquidityTokenBalance = 'liquidityTokenBalance',
+  Pair = 'pair',
+  PoolOwnership = 'poolOwnership',
+  User = 'user'
 }
 
 export interface Mint {
@@ -61,6 +271,126 @@ export interface Mint {
   readonly timestamp: Scalars['BigInt'];
   readonly to: Scalars['Bytes'];
   readonly transaction: Transaction;
+}
+
+export interface Mint_Filter {
+  readonly amount0?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amount0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount1?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amount1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amount1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amountUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly amountUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly amountUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeLiquidity?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeLiquidity_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_not?: Maybe<Scalars['BigDecimal']>;
+  readonly feeLiquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly feeTo?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_contains?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly feeTo_not?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly feeTo_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly liquidity?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly liquidity_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_not?: Maybe<Scalars['BigDecimal']>;
+  readonly liquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly logIndex?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_gt?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_gte?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly logIndex_lt?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_lte?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_not?: Maybe<Scalars['BigInt']>;
+  readonly logIndex_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly pair?: Maybe<Scalars['String']>;
+  readonly pair_contains?: Maybe<Scalars['String']>;
+  readonly pair_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_gt?: Maybe<Scalars['String']>;
+  readonly pair_gte?: Maybe<Scalars['String']>;
+  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_lt?: Maybe<Scalars['String']>;
+  readonly pair_lte?: Maybe<Scalars['String']>;
+  readonly pair_not?: Maybe<Scalars['String']>;
+  readonly pair_not_contains?: Maybe<Scalars['String']>;
+  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
+  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
+  readonly pair_starts_with?: Maybe<Scalars['String']>;
+  readonly sender?: Maybe<Scalars['Bytes']>;
+  readonly sender_contains?: Maybe<Scalars['Bytes']>;
+  readonly sender_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly sender_not?: Maybe<Scalars['Bytes']>;
+  readonly sender_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly sender_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly timestamp?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_gt?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_gte?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly timestamp_lt?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_lte?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_not?: Maybe<Scalars['BigInt']>;
+  readonly timestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly to?: Maybe<Scalars['Bytes']>;
+  readonly to_contains?: Maybe<Scalars['Bytes']>;
+  readonly to_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly to_not?: Maybe<Scalars['Bytes']>;
+  readonly to_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly to_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+}
+
+export enum Mint_OrderBy {
+  Amount0 = 'amount0',
+  Amount1 = 'amount1',
+  AmountUsd = 'amountUSD',
+  FeeLiquidity = 'feeLiquidity',
+  FeeTo = 'feeTo',
+  Id = 'id',
+  Liquidity = 'liquidity',
+  LogIndex = 'logIndex',
+  Pair = 'pair',
+  Sender = 'sender',
+  Timestamp = 'timestamp',
+  To = 'to',
+  Transaction = 'transaction'
+}
+
+export enum OrderDirection {
+  Asc = 'asc',
+  Desc = 'desc'
 }
 
 export interface Pair {
@@ -139,6 +469,306 @@ export interface PairDayData {
   readonly reserveUSD: Scalars['BigDecimal'];
   readonly token0: Token;
   readonly token1: Token;
+}
+
+export interface PairDayData_Filter {
+  readonly dailyTxns?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_gt?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_gte?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly dailyTxns_lt?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_lte?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_not?: Maybe<Scalars['BigInt']>;
+  readonly dailyTxns_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly dailyVolumeToken0?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly dailyVolumeToken0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly dailyVolumeToken1?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly dailyVolumeToken1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeToken1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly dailyVolumeUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly dailyVolumeUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly dailyVolumeUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly date?: Maybe<Scalars['Int']>;
+  readonly date_gt?: Maybe<Scalars['Int']>;
+  readonly date_gte?: Maybe<Scalars['Int']>;
+  readonly date_in?: Maybe<ReadonlyArray<Scalars['Int']>>;
+  readonly date_lt?: Maybe<Scalars['Int']>;
+  readonly date_lte?: Maybe<Scalars['Int']>;
+  readonly date_not?: Maybe<Scalars['Int']>;
+  readonly date_not_in?: Maybe<ReadonlyArray<Scalars['Int']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly pairAddress?: Maybe<Scalars['Bytes']>;
+  readonly pairAddress_contains?: Maybe<Scalars['Bytes']>;
+  readonly pairAddress_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly pairAddress_not?: Maybe<Scalars['Bytes']>;
+  readonly pairAddress_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly pairAddress_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly reserve0?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve1?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token0?: Maybe<Scalars['String']>;
+  readonly token0_contains?: Maybe<Scalars['String']>;
+  readonly token0_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_gt?: Maybe<Scalars['String']>;
+  readonly token0_gte?: Maybe<Scalars['String']>;
+  readonly token0_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_lt?: Maybe<Scalars['String']>;
+  readonly token0_lte?: Maybe<Scalars['String']>;
+  readonly token0_not?: Maybe<Scalars['String']>;
+  readonly token0_not_contains?: Maybe<Scalars['String']>;
+  readonly token0_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token0_starts_with?: Maybe<Scalars['String']>;
+  readonly token1?: Maybe<Scalars['String']>;
+  readonly token1_contains?: Maybe<Scalars['String']>;
+  readonly token1_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_gt?: Maybe<Scalars['String']>;
+  readonly token1_gte?: Maybe<Scalars['String']>;
+  readonly token1_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_lt?: Maybe<Scalars['String']>;
+  readonly token1_lte?: Maybe<Scalars['String']>;
+  readonly token1_not?: Maybe<Scalars['String']>;
+  readonly token1_not_contains?: Maybe<Scalars['String']>;
+  readonly token1_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token1_starts_with?: Maybe<Scalars['String']>;
+}
+
+export enum PairDayData_OrderBy {
+  DailyTxns = 'dailyTxns',
+  DailyVolumeToken0 = 'dailyVolumeToken0',
+  DailyVolumeToken1 = 'dailyVolumeToken1',
+  DailyVolumeUsd = 'dailyVolumeUSD',
+  Date = 'date',
+  Id = 'id',
+  PairAddress = 'pairAddress',
+  Reserve0 = 'reserve0',
+  Reserve1 = 'reserve1',
+  ReserveUsd = 'reserveUSD',
+  Token0 = 'token0',
+  Token1 = 'token1'
+}
+
+export interface Pair_Filter {
+  readonly createdAtBlockNumber?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_gt?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_gte?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly createdAtBlockNumber_lt?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_lte?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_not?: Maybe<Scalars['BigInt']>;
+  readonly createdAtBlockNumber_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly createdAtTimestamp?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_gt?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_gte?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly createdAtTimestamp_lt?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_lte?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_not?: Maybe<Scalars['BigInt']>;
+  readonly createdAtTimestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly reserve0?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve1?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserve1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserve1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveETH?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveETH_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveETH_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly reserveUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly reserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token0?: Maybe<Scalars['String']>;
+  readonly token0Price?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token0Price_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_not?: Maybe<Scalars['BigDecimal']>;
+  readonly token0Price_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token0_contains?: Maybe<Scalars['String']>;
+  readonly token0_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_gt?: Maybe<Scalars['String']>;
+  readonly token0_gte?: Maybe<Scalars['String']>;
+  readonly token0_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_lt?: Maybe<Scalars['String']>;
+  readonly token0_lte?: Maybe<Scalars['String']>;
+  readonly token0_not?: Maybe<Scalars['String']>;
+  readonly token0_not_contains?: Maybe<Scalars['String']>;
+  readonly token0_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token0_starts_with?: Maybe<Scalars['String']>;
+  readonly token1?: Maybe<Scalars['String']>;
+  readonly token1Price?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token1Price_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_not?: Maybe<Scalars['BigDecimal']>;
+  readonly token1Price_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly token1_contains?: Maybe<Scalars['String']>;
+  readonly token1_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_gt?: Maybe<Scalars['String']>;
+  readonly token1_gte?: Maybe<Scalars['String']>;
+  readonly token1_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_lt?: Maybe<Scalars['String']>;
+  readonly token1_lte?: Maybe<Scalars['String']>;
+  readonly token1_not?: Maybe<Scalars['String']>;
+  readonly token1_not_contains?: Maybe<Scalars['String']>;
+  readonly token1_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token1_starts_with?: Maybe<Scalars['String']>;
+  readonly totalSupply?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly totalSupply_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_not?: Maybe<Scalars['BigDecimal']>;
+  readonly totalSupply_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly trackedReserveETH?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly trackedReserveETH_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_not?: Maybe<Scalars['BigDecimal']>;
+  readonly trackedReserveETH_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly txCount?: Maybe<Scalars['BigInt']>;
+  readonly txCount_gt?: Maybe<Scalars['BigInt']>;
+  readonly txCount_gte?: Maybe<Scalars['BigInt']>;
+  readonly txCount_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly txCount_lt?: Maybe<Scalars['BigInt']>;
+  readonly txCount_lte?: Maybe<Scalars['BigInt']>;
+  readonly txCount_not?: Maybe<Scalars['BigInt']>;
+  readonly txCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly volumeToken0?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeToken0_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_not?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeToken1?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeToken1_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_not?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeToken1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+}
+
+export enum Pair_OrderBy {
+  Burns = 'burns',
+  CreatedAtBlockNumber = 'createdAtBlockNumber',
+  CreatedAtTimestamp = 'createdAtTimestamp',
+  Factory = 'factory',
+  Id = 'id',
+  LiquidityPositions = 'liquidityPositions',
+  Mints = 'mints',
+  Reserve0 = 'reserve0',
+  Reserve1 = 'reserve1',
+  ReserveEth = 'reserveETH',
+  ReserveUsd = 'reserveUSD',
+  Swaps = 'swaps',
+  Token0 = 'token0',
+  Token0Price = 'token0Price',
+  Token1 = 'token1',
+  Token1Price = 'token1Price',
+  TotalSupply = 'totalSupply',
+  TrackedReserveEth = 'trackedReserveETH',
+  TxCount = 'txCount',
+  VolumeToken0 = 'volumeToken0',
+  VolumeToken1 = 'volumeToken1',
+  VolumeUsd = 'volumeUSD'
 }
 
 export interface Query {
@@ -633,884 +1263,6 @@ export interface Swap {
   readonly transaction: Transaction;
 }
 
-export interface Token {
-  readonly __typename?: 'Token';
-  readonly allPairs?: Maybe<ReadonlyArray<Pair>>;
-  readonly decimals: Scalars['BigInt'];
-  readonly derivedETH?: Maybe<Scalars['BigDecimal']>;
-  readonly id: Scalars['ID'];
-  readonly mostLiquidPairs: ReadonlyArray<Maybe<PairDayData>>;
-  readonly name: Scalars['String'];
-  readonly symbol: Scalars['String'];
-  readonly totalLiquidity: Scalars['BigDecimal'];
-  readonly tradeVolume: Scalars['BigDecimal'];
-  readonly tradeVolumeUSD: Scalars['BigDecimal'];
-  readonly txCount: Scalars['BigInt'];
-}
-
-
-export interface TokenAllPairsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Pair_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Pair_Filter>;
-}
-
-
-export interface TokenMostLiquidPairsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<PairDayData_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<PairDayData_Filter>;
-}
-
-export interface TokenDayData {
-  readonly __typename?: 'TokenDayData';
-  readonly dailyTxns: Scalars['BigInt'];
-  readonly dailyVolumeETH: Scalars['BigDecimal'];
-  readonly dailyVolumeToken: Scalars['BigDecimal'];
-  readonly dailyVolumeUSD: Scalars['BigDecimal'];
-  readonly date: Scalars['Int'];
-  readonly id: Scalars['ID'];
-  readonly maxStored: Scalars['Int'];
-  readonly mostLiquidPairs: ReadonlyArray<PairDayData>;
-  readonly priceUSD: Scalars['BigDecimal'];
-  readonly token: Token;
-  readonly totalLiquidityETH: Scalars['BigDecimal'];
-  readonly totalLiquidityToken: Scalars['BigDecimal'];
-  readonly totalLiquidityUSD: Scalars['BigDecimal'];
-}
-
-
-export interface TokenDayDataMostLiquidPairsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<PairDayData_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<PairDayData_Filter>;
-}
-
-export interface Transaction {
-  readonly __typename?: 'Transaction';
-  readonly blockNumber: Scalars['BigInt'];
-  readonly burns: ReadonlyArray<Maybe<Burn>>;
-  readonly id: Scalars['ID'];
-  readonly mints: ReadonlyArray<Maybe<Mint>>;
-  readonly swaps: ReadonlyArray<Maybe<Swap>>;
-  readonly timestamp: Scalars['BigInt'];
-}
-
-
-export interface TransactionBurnsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Burn_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Burn_Filter>;
-}
-
-
-export interface TransactionMintsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Mint_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Mint_Filter>;
-}
-
-
-export interface TransactionSwapsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Swap_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Swap_Filter>;
-}
-
-export interface UniswapDayData {
-  readonly __typename?: 'UniswapDayData';
-  readonly dailyVolumeETH: Scalars['BigDecimal'];
-  readonly dailyVolumeUSD: Scalars['BigDecimal'];
-  readonly date: Scalars['Int'];
-  readonly id: Scalars['ID'];
-  readonly maxStored?: Maybe<Scalars['Int']>;
-  readonly mostLiquidTokens: ReadonlyArray<TokenDayData>;
-  readonly totalLiquidityETH: Scalars['BigDecimal'];
-  readonly totalLiquidityUSD: Scalars['BigDecimal'];
-  readonly totalVolumeETH: Scalars['BigDecimal'];
-  readonly totalVolumeUSD: Scalars['BigDecimal'];
-  readonly txCount: Scalars['BigInt'];
-}
-
-
-export interface UniswapDayDataMostLiquidTokensArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<TokenDayData_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<TokenDayData_Filter>;
-}
-
-export interface UniswapFactory {
-  readonly __typename?: 'UniswapFactory';
-  readonly id: Scalars['ID'];
-  readonly mostLiquidTokens: ReadonlyArray<TokenDayData>;
-  readonly pairCount: Scalars['Int'];
-  readonly pairs: ReadonlyArray<Maybe<Pair>>;
-  readonly totalLiquidityETH: Scalars['BigDecimal'];
-  readonly totalLiquidityUSD: Scalars['BigDecimal'];
-  readonly totalVolumeETH: Scalars['BigDecimal'];
-  readonly totalVolumeUSD: Scalars['BigDecimal'];
-  readonly txCount: Scalars['BigInt'];
-}
-
-
-export interface UniswapFactoryMostLiquidTokensArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<TokenDayData_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<TokenDayData_Filter>;
-}
-
-
-export interface UniswapFactoryPairsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Pair_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Pair_Filter>;
-}
-
-export interface User {
-  readonly __typename?: 'User';
-  readonly id: Scalars['ID'];
-  readonly liquidityPositions?: Maybe<ReadonlyArray<LiquidityPosition>>;
-}
-
-
-export interface UserLiquidityPositionsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<LiquidityPosition_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<LiquidityPosition_Filter>;
-}
-
-export enum Bundle_OrderBy {
-  EthPrice = 'ethPrice',
-  Id = 'id'
-}
-
-export enum Burn_OrderBy {
-  Amount0 = 'amount0',
-  Amount1 = 'amount1',
-  AmountUsd = 'amountUSD',
-  FeeLiquidity = 'feeLiquidity',
-  FeeTo = 'feeTo',
-  Id = 'id',
-  Liquidity = 'liquidity',
-  LogIndex = 'logIndex',
-  Pair = 'pair',
-  Sender = 'sender',
-  Timestamp = 'timestamp',
-  To = 'to',
-  Transaction = 'transaction'
-}
-
-export enum LiquidityPosition_OrderBy {
-  Id = 'id',
-  LiquidityTokenBalance = 'liquidityTokenBalance',
-  Pair = 'pair',
-  PoolOwnership = 'poolOwnership',
-  User = 'user'
-}
-
-export enum Mint_OrderBy {
-  Amount0 = 'amount0',
-  Amount1 = 'amount1',
-  AmountUsd = 'amountUSD',
-  FeeLiquidity = 'feeLiquidity',
-  FeeTo = 'feeTo',
-  Id = 'id',
-  Liquidity = 'liquidity',
-  LogIndex = 'logIndex',
-  Pair = 'pair',
-  Sender = 'sender',
-  Timestamp = 'timestamp',
-  To = 'to',
-  Transaction = 'transaction'
-}
-
-export enum OrderDirection {
-  Asc = 'asc',
-  Desc = 'desc'
-}
-
-export enum PairDayData_OrderBy {
-  DailyTxns = 'dailyTxns',
-  DailyVolumeToken0 = 'dailyVolumeToken0',
-  DailyVolumeToken1 = 'dailyVolumeToken1',
-  DailyVolumeUsd = 'dailyVolumeUSD',
-  Date = 'date',
-  Id = 'id',
-  PairAddress = 'pairAddress',
-  Reserve0 = 'reserve0',
-  Reserve1 = 'reserve1',
-  ReserveUsd = 'reserveUSD',
-  Token0 = 'token0',
-  Token1 = 'token1'
-}
-
-export enum Pair_OrderBy {
-  Burns = 'burns',
-  CreatedAtBlockNumber = 'createdAtBlockNumber',
-  CreatedAtTimestamp = 'createdAtTimestamp',
-  Factory = 'factory',
-  Id = 'id',
-  LiquidityPositions = 'liquidityPositions',
-  Mints = 'mints',
-  Reserve0 = 'reserve0',
-  Reserve1 = 'reserve1',
-  ReserveEth = 'reserveETH',
-  ReserveUsd = 'reserveUSD',
-  Swaps = 'swaps',
-  Token0 = 'token0',
-  Token0Price = 'token0Price',
-  Token1 = 'token1',
-  Token1Price = 'token1Price',
-  TotalSupply = 'totalSupply',
-  TrackedReserveEth = 'trackedReserveETH',
-  TxCount = 'txCount',
-  VolumeToken0 = 'volumeToken0',
-  VolumeToken1 = 'volumeToken1',
-  VolumeUsd = 'volumeUSD'
-}
-
-export enum Swap_OrderBy {
-  Amount0In = 'amount0In',
-  Amount0Out = 'amount0Out',
-  Amount1In = 'amount1In',
-  Amount1Out = 'amount1Out',
-  AmountUsd = 'amountUSD',
-  Id = 'id',
-  LogIndex = 'logIndex',
-  Pair = 'pair',
-  Sender = 'sender',
-  Timestamp = 'timestamp',
-  To = 'to',
-  Transaction = 'transaction'
-}
-
-export enum TokenDayData_OrderBy {
-  DailyTxns = 'dailyTxns',
-  DailyVolumeEth = 'dailyVolumeETH',
-  DailyVolumeToken = 'dailyVolumeToken',
-  DailyVolumeUsd = 'dailyVolumeUSD',
-  Date = 'date',
-  Id = 'id',
-  MaxStored = 'maxStored',
-  MostLiquidPairs = 'mostLiquidPairs',
-  PriceUsd = 'priceUSD',
-  Token = 'token',
-  TotalLiquidityEth = 'totalLiquidityETH',
-  TotalLiquidityToken = 'totalLiquidityToken',
-  TotalLiquidityUsd = 'totalLiquidityUSD'
-}
-
-export enum Token_OrderBy {
-  AllPairs = 'allPairs',
-  Decimals = 'decimals',
-  DerivedEth = 'derivedETH',
-  Id = 'id',
-  MostLiquidPairs = 'mostLiquidPairs',
-  Name = 'name',
-  Symbol = 'symbol',
-  TotalLiquidity = 'totalLiquidity',
-  TradeVolume = 'tradeVolume',
-  TradeVolumeUsd = 'tradeVolumeUSD',
-  TxCount = 'txCount'
-}
-
-export enum Transaction_OrderBy {
-  BlockNumber = 'blockNumber',
-  Burns = 'burns',
-  Id = 'id',
-  Mints = 'mints',
-  Swaps = 'swaps',
-  Timestamp = 'timestamp'
-}
-
-export enum UniswapDayData_OrderBy {
-  DailyVolumeEth = 'dailyVolumeETH',
-  DailyVolumeUsd = 'dailyVolumeUSD',
-  Date = 'date',
-  Id = 'id',
-  MaxStored = 'maxStored',
-  MostLiquidTokens = 'mostLiquidTokens',
-  TotalLiquidityEth = 'totalLiquidityETH',
-  TotalLiquidityUsd = 'totalLiquidityUSD',
-  TotalVolumeEth = 'totalVolumeETH',
-  TotalVolumeUsd = 'totalVolumeUSD',
-  TxCount = 'txCount'
-}
-
-export enum UniswapFactory_OrderBy {
-  Id = 'id',
-  MostLiquidTokens = 'mostLiquidTokens',
-  PairCount = 'pairCount',
-  Pairs = 'pairs',
-  TotalLiquidityEth = 'totalLiquidityETH',
-  TotalLiquidityUsd = 'totalLiquidityUSD',
-  TotalVolumeEth = 'totalVolumeETH',
-  TotalVolumeUsd = 'totalVolumeUSD',
-  TxCount = 'txCount'
-}
-
-export enum User_OrderBy {
-  Id = 'id',
-  LiquidityPositions = 'liquidityPositions'
-}
-
-export interface Block_Height {
-  readonly hash?: Maybe<Scalars['Bytes']>;
-  readonly number?: Maybe<Scalars['Int']>;
-}
-
-export interface Bundle_Filter {
-  readonly ethPrice?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly ethPrice_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_not?: Maybe<Scalars['BigDecimal']>;
-  readonly ethPrice_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-}
-
-export interface Burn_Filter {
-  readonly amount0?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount1?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amountUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amountUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeLiquidity?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeLiquidity_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_not?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeTo?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_contains?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly feeTo_not?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly liquidity?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly liquidity_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_not?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly logIndex?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_gt?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_gte?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly logIndex_lt?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_lte?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_not?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly pair?: Maybe<Scalars['String']>;
-  readonly pair_contains?: Maybe<Scalars['String']>;
-  readonly pair_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_gt?: Maybe<Scalars['String']>;
-  readonly pair_gte?: Maybe<Scalars['String']>;
-  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_lt?: Maybe<Scalars['String']>;
-  readonly pair_lte?: Maybe<Scalars['String']>;
-  readonly pair_not?: Maybe<Scalars['String']>;
-  readonly pair_not_contains?: Maybe<Scalars['String']>;
-  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
-  readonly pair_starts_with?: Maybe<Scalars['String']>;
-  readonly sender?: Maybe<Scalars['Bytes']>;
-  readonly sender_contains?: Maybe<Scalars['Bytes']>;
-  readonly sender_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly sender_not?: Maybe<Scalars['Bytes']>;
-  readonly sender_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly sender_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly timestamp?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_gt?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_gte?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly timestamp_lt?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_lte?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_not?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly to?: Maybe<Scalars['Bytes']>;
-  readonly to_contains?: Maybe<Scalars['Bytes']>;
-  readonly to_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly to_not?: Maybe<Scalars['Bytes']>;
-  readonly to_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly to_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-}
-
-export interface LiquidityPosition_Filter {
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly liquidityTokenBalance?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly liquidityTokenBalance_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_not?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidityTokenBalance_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly pair?: Maybe<Scalars['String']>;
-  readonly pair_contains?: Maybe<Scalars['String']>;
-  readonly pair_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_gt?: Maybe<Scalars['String']>;
-  readonly pair_gte?: Maybe<Scalars['String']>;
-  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_lt?: Maybe<Scalars['String']>;
-  readonly pair_lte?: Maybe<Scalars['String']>;
-  readonly pair_not?: Maybe<Scalars['String']>;
-  readonly pair_not_contains?: Maybe<Scalars['String']>;
-  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
-  readonly pair_starts_with?: Maybe<Scalars['String']>;
-  readonly poolOwnership?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly poolOwnership_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_not?: Maybe<Scalars['BigDecimal']>;
-  readonly poolOwnership_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly user?: Maybe<Scalars['String']>;
-  readonly user_contains?: Maybe<Scalars['String']>;
-  readonly user_ends_with?: Maybe<Scalars['String']>;
-  readonly user_gt?: Maybe<Scalars['String']>;
-  readonly user_gte?: Maybe<Scalars['String']>;
-  readonly user_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly user_lt?: Maybe<Scalars['String']>;
-  readonly user_lte?: Maybe<Scalars['String']>;
-  readonly user_not?: Maybe<Scalars['String']>;
-  readonly user_not_contains?: Maybe<Scalars['String']>;
-  readonly user_not_ends_with?: Maybe<Scalars['String']>;
-  readonly user_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly user_not_starts_with?: Maybe<Scalars['String']>;
-  readonly user_starts_with?: Maybe<Scalars['String']>;
-}
-
-export interface Mint_Filter {
-  readonly amount0?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amount0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount1?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amount1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amount1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amountUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly amountUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly amountUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeLiquidity?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeLiquidity_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_not?: Maybe<Scalars['BigDecimal']>;
-  readonly feeLiquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly feeTo?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_contains?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly feeTo_not?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly feeTo_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly liquidity?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly liquidity_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_not?: Maybe<Scalars['BigDecimal']>;
-  readonly liquidity_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly logIndex?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_gt?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_gte?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly logIndex_lt?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_lte?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_not?: Maybe<Scalars['BigInt']>;
-  readonly logIndex_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly pair?: Maybe<Scalars['String']>;
-  readonly pair_contains?: Maybe<Scalars['String']>;
-  readonly pair_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_gt?: Maybe<Scalars['String']>;
-  readonly pair_gte?: Maybe<Scalars['String']>;
-  readonly pair_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_lt?: Maybe<Scalars['String']>;
-  readonly pair_lte?: Maybe<Scalars['String']>;
-  readonly pair_not?: Maybe<Scalars['String']>;
-  readonly pair_not_contains?: Maybe<Scalars['String']>;
-  readonly pair_not_ends_with?: Maybe<Scalars['String']>;
-  readonly pair_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly pair_not_starts_with?: Maybe<Scalars['String']>;
-  readonly pair_starts_with?: Maybe<Scalars['String']>;
-  readonly sender?: Maybe<Scalars['Bytes']>;
-  readonly sender_contains?: Maybe<Scalars['Bytes']>;
-  readonly sender_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly sender_not?: Maybe<Scalars['Bytes']>;
-  readonly sender_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly sender_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly timestamp?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_gt?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_gte?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly timestamp_lt?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_lte?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_not?: Maybe<Scalars['BigInt']>;
-  readonly timestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly to?: Maybe<Scalars['Bytes']>;
-  readonly to_contains?: Maybe<Scalars['Bytes']>;
-  readonly to_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly to_not?: Maybe<Scalars['Bytes']>;
-  readonly to_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly to_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-}
-
-export interface PairDayData_Filter {
-  readonly dailyTxns?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_gt?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_gte?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly dailyTxns_lt?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_lte?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_not?: Maybe<Scalars['BigInt']>;
-  readonly dailyTxns_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly dailyVolumeToken0?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly dailyVolumeToken0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly dailyVolumeToken1?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly dailyVolumeToken1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeToken1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly dailyVolumeUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly dailyVolumeUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly dailyVolumeUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly date?: Maybe<Scalars['Int']>;
-  readonly date_gt?: Maybe<Scalars['Int']>;
-  readonly date_gte?: Maybe<Scalars['Int']>;
-  readonly date_in?: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly date_lt?: Maybe<Scalars['Int']>;
-  readonly date_lte?: Maybe<Scalars['Int']>;
-  readonly date_not?: Maybe<Scalars['Int']>;
-  readonly date_not_in?: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly pairAddress?: Maybe<Scalars['Bytes']>;
-  readonly pairAddress_contains?: Maybe<Scalars['Bytes']>;
-  readonly pairAddress_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly pairAddress_not?: Maybe<Scalars['Bytes']>;
-  readonly pairAddress_not_contains?: Maybe<Scalars['Bytes']>;
-  readonly pairAddress_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
-  readonly reserve0?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve1?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token0?: Maybe<Scalars['String']>;
-  readonly token0_contains?: Maybe<Scalars['String']>;
-  readonly token0_ends_with?: Maybe<Scalars['String']>;
-  readonly token0_gt?: Maybe<Scalars['String']>;
-  readonly token0_gte?: Maybe<Scalars['String']>;
-  readonly token0_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token0_lt?: Maybe<Scalars['String']>;
-  readonly token0_lte?: Maybe<Scalars['String']>;
-  readonly token0_not?: Maybe<Scalars['String']>;
-  readonly token0_not_contains?: Maybe<Scalars['String']>;
-  readonly token0_not_ends_with?: Maybe<Scalars['String']>;
-  readonly token0_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token0_not_starts_with?: Maybe<Scalars['String']>;
-  readonly token0_starts_with?: Maybe<Scalars['String']>;
-  readonly token1?: Maybe<Scalars['String']>;
-  readonly token1_contains?: Maybe<Scalars['String']>;
-  readonly token1_ends_with?: Maybe<Scalars['String']>;
-  readonly token1_gt?: Maybe<Scalars['String']>;
-  readonly token1_gte?: Maybe<Scalars['String']>;
-  readonly token1_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token1_lt?: Maybe<Scalars['String']>;
-  readonly token1_lte?: Maybe<Scalars['String']>;
-  readonly token1_not?: Maybe<Scalars['String']>;
-  readonly token1_not_contains?: Maybe<Scalars['String']>;
-  readonly token1_not_ends_with?: Maybe<Scalars['String']>;
-  readonly token1_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token1_not_starts_with?: Maybe<Scalars['String']>;
-  readonly token1_starts_with?: Maybe<Scalars['String']>;
-}
-
-export interface Pair_Filter {
-  readonly createdAtBlockNumber?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_gt?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_gte?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly createdAtBlockNumber_lt?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_lte?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_not?: Maybe<Scalars['BigInt']>;
-  readonly createdAtBlockNumber_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly createdAtTimestamp?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_gt?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_gte?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly createdAtTimestamp_lt?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_lte?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_not?: Maybe<Scalars['BigInt']>;
-  readonly createdAtTimestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly id_gt?: Maybe<Scalars['ID']>;
-  readonly id_gte?: Maybe<Scalars['ID']>;
-  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly id_lt?: Maybe<Scalars['ID']>;
-  readonly id_lte?: Maybe<Scalars['ID']>;
-  readonly id_not?: Maybe<Scalars['ID']>;
-  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
-  readonly reserve0?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve1?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserve1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserve1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveETH?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveETH_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveETH_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly reserveUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly reserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token0?: Maybe<Scalars['String']>;
-  readonly token0Price?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token0Price_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_not?: Maybe<Scalars['BigDecimal']>;
-  readonly token0Price_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token0_contains?: Maybe<Scalars['String']>;
-  readonly token0_ends_with?: Maybe<Scalars['String']>;
-  readonly token0_gt?: Maybe<Scalars['String']>;
-  readonly token0_gte?: Maybe<Scalars['String']>;
-  readonly token0_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token0_lt?: Maybe<Scalars['String']>;
-  readonly token0_lte?: Maybe<Scalars['String']>;
-  readonly token0_not?: Maybe<Scalars['String']>;
-  readonly token0_not_contains?: Maybe<Scalars['String']>;
-  readonly token0_not_ends_with?: Maybe<Scalars['String']>;
-  readonly token0_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token0_not_starts_with?: Maybe<Scalars['String']>;
-  readonly token0_starts_with?: Maybe<Scalars['String']>;
-  readonly token1?: Maybe<Scalars['String']>;
-  readonly token1Price?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token1Price_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_not?: Maybe<Scalars['BigDecimal']>;
-  readonly token1Price_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly token1_contains?: Maybe<Scalars['String']>;
-  readonly token1_ends_with?: Maybe<Scalars['String']>;
-  readonly token1_gt?: Maybe<Scalars['String']>;
-  readonly token1_gte?: Maybe<Scalars['String']>;
-  readonly token1_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token1_lt?: Maybe<Scalars['String']>;
-  readonly token1_lte?: Maybe<Scalars['String']>;
-  readonly token1_not?: Maybe<Scalars['String']>;
-  readonly token1_not_contains?: Maybe<Scalars['String']>;
-  readonly token1_not_ends_with?: Maybe<Scalars['String']>;
-  readonly token1_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly token1_not_starts_with?: Maybe<Scalars['String']>;
-  readonly token1_starts_with?: Maybe<Scalars['String']>;
-  readonly totalSupply?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly totalSupply_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_not?: Maybe<Scalars['BigDecimal']>;
-  readonly totalSupply_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly trackedReserveETH?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly trackedReserveETH_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_not?: Maybe<Scalars['BigDecimal']>;
-  readonly trackedReserveETH_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly txCount?: Maybe<Scalars['BigInt']>;
-  readonly txCount_gt?: Maybe<Scalars['BigInt']>;
-  readonly txCount_gte?: Maybe<Scalars['BigInt']>;
-  readonly txCount_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly txCount_lt?: Maybe<Scalars['BigInt']>;
-  readonly txCount_lte?: Maybe<Scalars['BigInt']>;
-  readonly txCount_not?: Maybe<Scalars['BigInt']>;
-  readonly txCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
-  readonly volumeToken0?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeToken0_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_not?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken0_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeToken1?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeToken1_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_not?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeToken1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-}
-
 export interface Swap_Filter {
   readonly amount0In?: Maybe<Scalars['BigDecimal']>;
   readonly amount0In_gt?: Maybe<Scalars['BigDecimal']>;
@@ -1602,6 +1354,80 @@ export interface Swap_Filter {
   readonly to_not?: Maybe<Scalars['Bytes']>;
   readonly to_not_contains?: Maybe<Scalars['Bytes']>;
   readonly to_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+}
+
+export enum Swap_OrderBy {
+  Amount0In = 'amount0In',
+  Amount0Out = 'amount0Out',
+  Amount1In = 'amount1In',
+  Amount1Out = 'amount1Out',
+  AmountUsd = 'amountUSD',
+  Id = 'id',
+  LogIndex = 'logIndex',
+  Pair = 'pair',
+  Sender = 'sender',
+  Timestamp = 'timestamp',
+  To = 'to',
+  Transaction = 'transaction'
+}
+
+export interface Token {
+  readonly __typename?: 'Token';
+  readonly allPairs?: Maybe<ReadonlyArray<Pair>>;
+  readonly decimals: Scalars['BigInt'];
+  readonly derivedETH?: Maybe<Scalars['BigDecimal']>;
+  readonly id: Scalars['ID'];
+  readonly mostLiquidPairs: ReadonlyArray<Maybe<PairDayData>>;
+  readonly name: Scalars['String'];
+  readonly symbol: Scalars['String'];
+  readonly totalLiquidity: Scalars['BigDecimal'];
+  readonly tradeVolume: Scalars['BigDecimal'];
+  readonly tradeVolumeUSD: Scalars['BigDecimal'];
+  readonly txCount: Scalars['BigInt'];
+}
+
+
+export interface TokenAllPairsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Pair_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Pair_Filter>;
+}
+
+
+export interface TokenMostLiquidPairsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<PairDayData_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<PairDayData_Filter>;
+}
+
+export interface TokenDayData {
+  readonly __typename?: 'TokenDayData';
+  readonly dailyTxns: Scalars['BigInt'];
+  readonly dailyVolumeETH: Scalars['BigDecimal'];
+  readonly dailyVolumeToken: Scalars['BigDecimal'];
+  readonly dailyVolumeUSD: Scalars['BigDecimal'];
+  readonly date: Scalars['Int'];
+  readonly id: Scalars['ID'];
+  readonly maxStored: Scalars['Int'];
+  readonly mostLiquidPairs: ReadonlyArray<PairDayData>;
+  readonly priceUSD: Scalars['BigDecimal'];
+  readonly token: Token;
+  readonly totalLiquidityETH: Scalars['BigDecimal'];
+  readonly totalLiquidityToken: Scalars['BigDecimal'];
+  readonly totalLiquidityUSD: Scalars['BigDecimal'];
+}
+
+
+export interface TokenDayDataMostLiquidPairsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<PairDayData_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<PairDayData_Filter>;
 }
 
 export interface TokenDayData_Filter {
@@ -1713,6 +1539,22 @@ export interface TokenDayData_Filter {
   readonly totalLiquidityUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
 }
 
+export enum TokenDayData_OrderBy {
+  DailyTxns = 'dailyTxns',
+  DailyVolumeEth = 'dailyVolumeETH',
+  DailyVolumeToken = 'dailyVolumeToken',
+  DailyVolumeUsd = 'dailyVolumeUSD',
+  Date = 'date',
+  Id = 'id',
+  MaxStored = 'maxStored',
+  MostLiquidPairs = 'mostLiquidPairs',
+  PriceUsd = 'priceUSD',
+  Token = 'token',
+  TotalLiquidityEth = 'totalLiquidityETH',
+  TotalLiquidityToken = 'totalLiquidityToken',
+  TotalLiquidityUsd = 'totalLiquidityUSD'
+}
+
 export interface Token_Filter {
   readonly allPairs?: Maybe<ReadonlyArray<Scalars['String']>>;
   readonly allPairs_contains?: Maybe<ReadonlyArray<Scalars['String']>>;
@@ -1808,6 +1650,57 @@ export interface Token_Filter {
   readonly txCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
 }
 
+export enum Token_OrderBy {
+  AllPairs = 'allPairs',
+  Decimals = 'decimals',
+  DerivedEth = 'derivedETH',
+  Id = 'id',
+  MostLiquidPairs = 'mostLiquidPairs',
+  Name = 'name',
+  Symbol = 'symbol',
+  TotalLiquidity = 'totalLiquidity',
+  TradeVolume = 'tradeVolume',
+  TradeVolumeUsd = 'tradeVolumeUSD',
+  TxCount = 'txCount'
+}
+
+export interface Transaction {
+  readonly __typename?: 'Transaction';
+  readonly blockNumber: Scalars['BigInt'];
+  readonly burns: ReadonlyArray<Maybe<Burn>>;
+  readonly id: Scalars['ID'];
+  readonly mints: ReadonlyArray<Maybe<Mint>>;
+  readonly swaps: ReadonlyArray<Maybe<Swap>>;
+  readonly timestamp: Scalars['BigInt'];
+}
+
+
+export interface TransactionBurnsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Burn_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Burn_Filter>;
+}
+
+
+export interface TransactionMintsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Mint_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Mint_Filter>;
+}
+
+
+export interface TransactionSwapsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Swap_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Swap_Filter>;
+}
+
 export interface Transaction_Filter {
   readonly blockNumber?: Maybe<Scalars['BigInt']>;
   readonly blockNumber_gt?: Maybe<Scalars['BigInt']>;
@@ -1845,6 +1738,39 @@ export interface Transaction_Filter {
   readonly timestamp_lte?: Maybe<Scalars['BigInt']>;
   readonly timestamp_not?: Maybe<Scalars['BigInt']>;
   readonly timestamp_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+}
+
+export enum Transaction_OrderBy {
+  BlockNumber = 'blockNumber',
+  Burns = 'burns',
+  Id = 'id',
+  Mints = 'mints',
+  Swaps = 'swaps',
+  Timestamp = 'timestamp'
+}
+
+export interface UniswapDayData {
+  readonly __typename?: 'UniswapDayData';
+  readonly dailyVolumeETH: Scalars['BigDecimal'];
+  readonly dailyVolumeUSD: Scalars['BigDecimal'];
+  readonly date: Scalars['Int'];
+  readonly id: Scalars['ID'];
+  readonly maxStored?: Maybe<Scalars['Int']>;
+  readonly mostLiquidTokens: ReadonlyArray<TokenDayData>;
+  readonly totalLiquidityETH: Scalars['BigDecimal'];
+  readonly totalLiquidityUSD: Scalars['BigDecimal'];
+  readonly totalVolumeETH: Scalars['BigDecimal'];
+  readonly totalVolumeUSD: Scalars['BigDecimal'];
+  readonly txCount: Scalars['BigInt'];
+}
+
+
+export interface UniswapDayDataMostLiquidTokensArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<TokenDayData_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<TokenDayData_Filter>;
 }
 
 export interface UniswapDayData_Filter {
@@ -1934,6 +1860,51 @@ export interface UniswapDayData_Filter {
   readonly txCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
 }
 
+export enum UniswapDayData_OrderBy {
+  DailyVolumeEth = 'dailyVolumeETH',
+  DailyVolumeUsd = 'dailyVolumeUSD',
+  Date = 'date',
+  Id = 'id',
+  MaxStored = 'maxStored',
+  MostLiquidTokens = 'mostLiquidTokens',
+  TotalLiquidityEth = 'totalLiquidityETH',
+  TotalLiquidityUsd = 'totalLiquidityUSD',
+  TotalVolumeEth = 'totalVolumeETH',
+  TotalVolumeUsd = 'totalVolumeUSD',
+  TxCount = 'txCount'
+}
+
+export interface UniswapFactory {
+  readonly __typename?: 'UniswapFactory';
+  readonly id: Scalars['ID'];
+  readonly mostLiquidTokens: ReadonlyArray<TokenDayData>;
+  readonly pairCount: Scalars['Int'];
+  readonly pairs: ReadonlyArray<Maybe<Pair>>;
+  readonly totalLiquidityETH: Scalars['BigDecimal'];
+  readonly totalLiquidityUSD: Scalars['BigDecimal'];
+  readonly totalVolumeETH: Scalars['BigDecimal'];
+  readonly totalVolumeUSD: Scalars['BigDecimal'];
+  readonly txCount: Scalars['BigInt'];
+}
+
+
+export interface UniswapFactoryMostLiquidTokensArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<TokenDayData_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<TokenDayData_Filter>;
+}
+
+
+export interface UniswapFactoryPairsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Pair_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Pair_Filter>;
+}
+
 export interface UniswapFactory_Filter {
   readonly id?: Maybe<Scalars['ID']>;
   readonly id_gt?: Maybe<Scalars['ID']>;
@@ -2001,6 +1972,33 @@ export interface UniswapFactory_Filter {
   readonly txCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
 }
 
+export enum UniswapFactory_OrderBy {
+  Id = 'id',
+  MostLiquidTokens = 'mostLiquidTokens',
+  PairCount = 'pairCount',
+  Pairs = 'pairs',
+  TotalLiquidityEth = 'totalLiquidityETH',
+  TotalLiquidityUsd = 'totalLiquidityUSD',
+  TotalVolumeEth = 'totalVolumeETH',
+  TotalVolumeUsd = 'totalVolumeUSD',
+  TxCount = 'txCount'
+}
+
+export interface User {
+  readonly __typename?: 'User';
+  readonly id: Scalars['ID'];
+  readonly liquidityPositions?: Maybe<ReadonlyArray<LiquidityPosition>>;
+}
+
+
+export interface UserLiquidityPositionsArgs {
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<LiquidityPosition_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<LiquidityPosition_Filter>;
+}
+
 export interface User_Filter {
   readonly id?: Maybe<Scalars['ID']>;
   readonly id_gt?: Maybe<Scalars['ID']>;
@@ -2012,8 +2010,10 @@ export interface User_Filter {
   readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
 }
 
-
-
+export enum User_OrderBy {
+  Id = 'id',
+  LiquidityPositions = 'liquidityPositions'
+}
 
 export type BundleQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -2025,17 +2025,6 @@ export type BundleQuery = (
   & { readonly bundle?: Maybe<(
     { readonly __typename?: 'Bundle' }
     & Pick<Bundle, 'ethPrice'>
-  )> }
-);
-
-export type UniswapFactoriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UniswapFactoriesQuery = (
-  { readonly __typename?: 'Query' }
-  & { readonly uniswapFactories: ReadonlyArray<(
-    { readonly __typename?: 'UniswapFactory' }
-    & Pick<UniswapFactory, 'totalLiquidityUSD' | 'totalLiquidityETH' | 'pairCount'>
   )> }
 );
 
@@ -2091,34 +2080,5 @@ export type PairReservesQuery = (
   & { readonly pairs: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
     & Pick<Pair, 'reserve0' | 'reserve1'>
-  )> }
-);
-
-export type SwapsByPairQueryVariables = Exact<{
-  skip: Scalars['Int'];
-  timestamp: Scalars['BigInt'];
-  pairAddress: Scalars['String'];
-}>;
-
-
-export type SwapsByPairQuery = (
-  { readonly __typename?: 'Query' }
-  & { readonly swaps: ReadonlyArray<(
-    { readonly __typename?: 'Swap' }
-    & Pick<Swap, 'id' | 'timestamp' | 'amount0In' | 'amount0Out' | 'amount1In' | 'amount1Out'>
-  )> }
-);
-
-export type SwapsByTokensQueryVariables = Exact<{
-  token0: Scalars['String'];
-  token1: Scalars['String'];
-}>;
-
-
-export type SwapsByTokensQuery = (
-  { readonly __typename?: 'Query' }
-  & { readonly pairs: ReadonlyArray<(
-    { readonly __typename?: 'Pair' }
-    & Pick<Pair, 'id'>
   )> }
 );

@@ -6,24 +6,6 @@ The canonical WBNB address used by the PancakeSwap interface is `0xbb4CdB9CBd36B
 
 Results are edge-cached for 1 minute (or 60 seconds) and refreshed in background (`stale-while-revalidate`).
 
-## [`/statistics`](https://api.pancakeswap.info/api/statistics)
-
-Returns data about PancakeSwap factory.
-
-### Request
-
-`GET https://api.pancakeswap.info/api/statistics`
-
-### Response
-
-```json5
-{
-  "total_liquidity": 1234.56,       // total liquidity denominated in USD
-  "total_liquidity_BNB": 1234.56,   // total liquidity denominated in BNB
-  "total_pair": 1234                // pair count
-}
-```
-
 ## [`/summary`](https://api.pancakeswap.info/api/summary)
 
 Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves. 
@@ -120,7 +102,7 @@ and prices are derived from the PancakeSwap formula (accounting for both slippag
 
 ```json5
 {
-  "updated_at": 1234567, // UNIX timestamp
+  "updated_at": 1234567, // UNIX timestamp of the response
   "bids": [
     [12, 1.2],           // denominated in base token, quote token/base token
     [12, 1.1],           // denominated in base token, quote token/base token
@@ -132,35 +114,4 @@ and prices are derived from the PancakeSwap formula (accounting for both slippag
     // ...
   ]
 }
-```
-
-## `/trades/:pair`
-
-Returns all swaps in the last 24 hours for the given PancakeSwap pair. 
-
-The pair address is the address of the two tokens in either order.
-The first address is considered the base in the response.
-
-### URL Parameters
-
-- `pair`: The asset ids of two BEP20 tokens, joined by an underscore, e.g. `0x..._0x...`. The first token address is considered the base in the response.
-
-### Request
-
-`GET https://api.pancakeswap.info/api/trades/:pair`
-
-### Response
-
-```json5
-[
-  {
-    "trade_id": "...",
-    "price": "1.234",           // denominated in quote token/base token
-    "base_volume": "123.456",   // denominated in base token
-    "quote_volume": "1234.56",  // denominated in quote token
-    "trade_timestamp": 1234567, // UNIX timestamp
-    "type": "buy"               // "buy"/"sell"/"borrow-both"/"???" 
-  },
-  // ...
-]
 ```
