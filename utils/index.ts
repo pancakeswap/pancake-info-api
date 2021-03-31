@@ -1,19 +1,9 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
-
 import { client } from "./apollo/client";
-import {
-  PAIR_RESERVES_BY_TOKENS,
-  TOP_PAIRS,
-  PAIRS_VOLUME_QUERY,
-  BUNDLE_BY_ID,
-} from "./apollo/queries";
+import { TOP_PAIRS, PAIRS_VOLUME_QUERY } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
-  BundleQuery,
-  BundleQueryVariables,
-  PairReservesQuery,
-  PairReservesQueryVariables,
   PairsVolumeQuery,
   PairsVolumeQueryVariables,
   TopPairsQuery,
@@ -24,9 +14,9 @@ const TOP_PAIR_LIMIT = 1000;
 export type Pair = TopPairsQuery["pairs"][number];
 
 export interface MappedDetailedPair extends Pair {
-  price?: number;
-  previous24hVolumeToken0: number;
-  previous24hVolumeToken1: number;
+  price: string;
+  previous24hVolumeToken0: string;
+  previous24hVolumeToken1: string;
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
@@ -102,55 +92,18 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
           ...pair,
           price:
             pair.reserve0 !== "0" && pair.reserve1 !== "0"
-              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toNumber()
-              : undefined,
+              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
+              : "0",
           previous24hVolumeToken0:
             pair.volumeToken0 && yesterday?.volumeToken0
-              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toNumber()
-              : new BigNumber(pair.volumeToken0).toNumber(),
+              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
+              : new BigNumber(pair.volumeToken0).toString(),
           previous24hVolumeToken1:
             pair.volumeToken1 && yesterday?.volumeToken1
-              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toNumber()
-              : new BigNumber(pair.volumeToken1).toNumber(),
+              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
+              : new BigNumber(pair.volumeToken1).toString(),
         };
       }
     ) ?? []
   );
-}
-
-function isSorted(tokenA: string, tokenB: string): boolean {
-  return tokenA.toLowerCase() < tokenB.toLowerCase();
-}
-
-function sortedFormatted(tokenA: string, tokenB: string): [string, string] {
-  return isSorted(tokenA, tokenB)
-    ? [tokenA.toLowerCase(), tokenB.toLowerCase()]
-    : [tokenB.toLowerCase(), tokenA.toLowerCase()];
-}
-
-export async function getBundle(id: string): Promise<[string]> {
-  return client
-    .query<BundleQuery, BundleQueryVariables>({
-      query: BUNDLE_BY_ID,
-      variables: {
-        id,
-      },
-    })
-    .then(({ data: { bundle } }): [string] => [bundle?.ethPrice]);
-}
-
-// returns reserves of token a and b in the order they are queried
-export async function getReserves(tokenA: string, tokenB: string): Promise<[string, string]> {
-  const [token0, token1] = sortedFormatted(tokenA, tokenB);
-  return client
-    .query<PairReservesQuery, PairReservesQueryVariables>({
-      query: PAIR_RESERVES_BY_TOKENS,
-      variables: {
-        token0,
-        token1,
-      },
-    })
-    .then(({ data: { pairs: [{ reserve0, reserve1 }] } }): [string, string] =>
-      tokenA.toLowerCase() === token0 ? [reserve0, reserve1] : [reserve1, reserve0]
-    );
 }
