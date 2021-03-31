@@ -1,10 +1,10 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
 import BigNumber from "bignumber.js";
 import { getSwaps } from "../utils";
 import { return200, return400, return500 } from "../utils/response";
 
-export default async function (req: NowRequest, res: NowResponse): Promise<void> {
+export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   if (
     !req.query.pair ||
     typeof req.query.pair !== "string" ||
@@ -48,7 +48,9 @@ export default async function (req: NowRequest, res: NowResponse): Promise<void>
           type,
           trade_timestamp: swap.timestamp,
           price:
-            baseAmount !== "0" ? new BigNumber(quoteAmount).dividedBy(new BigNumber(baseAmount)).toNumber() : undefined,
+            baseAmount !== "0"
+              ? new BigNumber(quoteAmount).dividedBy(new BigNumber(baseAmount)).toNumber()
+              : undefined,
         };
       })
     );

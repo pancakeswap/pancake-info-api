@@ -1,14 +1,20 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
 import BigNumber from "bignumber.js";
 import { getBundle, getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
 
 interface ReturnShape {
-  [tokenAddress: string]: { name: string; symbol: string; last_price: number; maker_fee: number; taker_fee: number };
+  [tokenAddress: string]: {
+    name: string;
+    symbol: string;
+    last_price: number;
+    maker_fee: number;
+    taker_fee: number;
+  };
 }
 
-export default async function (req: NowRequest, res: NowResponse): Promise<void> {
+export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const pairs = await getTopPairs();
     const [ethPrice] = await getBundle("1");

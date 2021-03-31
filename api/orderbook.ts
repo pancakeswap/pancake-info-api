@@ -1,11 +1,11 @@
-import { NowRequest, NowResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
 import BigNumber from "bignumber.js";
 import { getReserves } from "../utils";
 import { computeBidsAsks } from "../utils/computeBidsAsks";
 import { return200, return400, return500 } from "../utils/response";
 
-export default async function (req: NowRequest, res: NowResponse): Promise<void> {
+export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   if (
     !req.query.pair ||
     typeof req.query.pair !== "string" ||
