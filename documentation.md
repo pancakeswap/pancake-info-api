@@ -41,15 +41,16 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
 
 ```json5
 {
-  // ...,
-  "0x...": {              // the address of the BEP20 token
-    "name": "...",        // not necessarily included for BEP20 tokens
-    "symbol": "...",      // not necessarily included for BEP20 tokens
-    "last_price": 1.234,  // denominated in USD
-    "maker_fee": 0,       // always 0
-    "taker_fee": 0.002,   // always 0.002 i.e. .2%
-  },
-  // ...
+  "updated_at": 1234567,    // UNIX timestamp
+  "data": {
+    "0x...": {              // the address of the BEP20 token
+      "name": "...",        // not necessarily included for BEP20 tokens
+      "symbol": "...",      // not necessarily included for BEP20 tokens
+      "price": 1.234,       // denominated in USD
+      "price_BNB": 1.234,   // always 0
+    },
+    // ...
+  }
 }
 ```
 
@@ -102,7 +103,7 @@ and prices are derived from the PancakeSwap formula (accounting for both slippag
 
 ```json5
 {
-  "updated_at": 1234567, // UNIX timestamp of the response
+  "updated_at": 1234567, // UNIX timestamp
   "bids": [
     [12, 1.2],           // denominated in base token, quote token/base token
     [12, 1.1],           // denominated in base token, quote token/base token
