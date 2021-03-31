@@ -7,7 +7,11 @@ function getAmountOut(
 ): { amountOut: BigNumber; reservesInAfter: BigNumber; reservesOutAfter: BigNumber } {
   const amountOut = amountIn.eq(0)
     ? new BigNumber(0)
-    : reservesOut.minus(reservesOut.multipliedBy(reservesIn).dividedBy(reservesIn.plus(amountIn.multipliedBy(0.998))));
+    : reservesOut.minus(
+        reservesOut
+          .multipliedBy(reservesIn)
+          .dividedBy(reservesIn.plus(amountIn.multipliedBy(0.998)))
+      );
   return {
     amountOut,
     reservesInAfter: reservesIn.plus(amountIn),
@@ -51,24 +55,25 @@ export function computeBidsAsks(
 
   // we don't do exactly 100 segments because we do not care about the trade that takes exact out of entire reserves
   const increment = baseReserves.dividedBy(numSegments + 1);
-  const baseAmounts = Array.from({ length: numSegments }, (x, i): BigNumber => increment.multipliedBy(i));
+  const baseAmounts = Array.from(
+    { length: numSegments },
+    (x, i): BigNumber => increment.multipliedBy(i)
+  );
 
   const bids = baseAmounts.map((buyBaseAmount): [number, number] => {
-    const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountOut(
-      buyBaseAmount,
-      baseReserves,
-      quoteReserves
-    );
+    const {
+      reservesInAfter: baseReservesBefore,
+      reservesOutAfter: quoteReservesBefore,
+    } = getAmountOut(buyBaseAmount, baseReserves, quoteReserves);
     const { amountOut } = getAmountOut(increment, baseReservesBefore, quoteReservesBefore);
     return [increment.toNumber(), amountOut.dividedBy(increment).toNumber()];
   });
 
   const asks = baseAmounts.map((sellBaseAmount): [number, number] => {
-    const { reservesInAfter: baseReservesBefore, reservesOutAfter: quoteReservesBefore } = getAmountIn(
-      sellBaseAmount,
-      quoteReserves,
-      baseReserves
-    );
+    const {
+      reservesInAfter: baseReservesBefore,
+      reservesOutAfter: quoteReservesBefore,
+    } = getAmountIn(sellBaseAmount, quoteReserves, baseReserves);
     const { amountIn } = getAmountIn(increment, baseReservesBefore, quoteReservesBefore);
     return [increment.toNumber(), amountIn.dividedBy(increment).toNumber()];
   });
