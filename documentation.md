@@ -1,10 +1,10 @@
-# Endpoints
+# Documentation
 
 All PancakeSwap pairs consist of two different tokens. BNB is not a native currency in PancakeSwap, and is represented only by WBNB in the pairs. 
 
 The canonical WBNB address used by the PancakeSwap interface is `0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c`.
 
-Results are edge-cached for 5 minutes (or 300 seconds).
+Results are cached for 5 minutes (or 300 seconds).
 
 ## [`/summary`](https://api.pancakeswap.info/api/summary)
 
@@ -18,7 +18,7 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 
 ```json5
 {
-  "updated_at": 1234567,    // UNIX timestamp
+  "updated_at": 1234567,              // UNIX timestamp
   "data": {
     "0x..._0x...": {                  // the asset ids of the BEP20 tokens (i.e. token addresses), joined by an underscore
       "price": "...",                 // denominated in token0/token1
@@ -44,13 +44,13 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
 
 ```json5
 {
-  "updated_at": 1234567,    // UNIX timestamp
+  "updated_at": 1234567,              // UNIX timestamp
   "data": {
-    "0x...": {              // the address of the BEP20 token
-      "name": "...",        // not necessarily included for BEP20 tokens
-      "symbol": "...",      // not necessarily included for BEP20 tokens
-      "price": "...",       // denominated in USD
-      "price_BNB": "...",   // always 0
+    "0x...": {                        // the address of the BEP20 token
+      "name": "...",                  // not necessarily included for BEP20 tokens
+      "symbol": "...",                // not necessarily included for BEP20 tokens
+      "price": "...",                 // denominated in USD
+      "price_BNB": "...",             // always 0
     },
     // ...
   }
@@ -69,7 +69,7 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 
 ```json5
 {
-  "updated_at": 1234567,    // UNIX timestamp
+  "updated_at": 1234567,              // UNIX timestamp
   "data": {
     "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
       "pair_address": "0x...",        // pair address
