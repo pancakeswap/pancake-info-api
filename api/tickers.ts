@@ -40,7 +40,7 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
           base_volume: pair.previous24hVolumeToken0,
           quote_volume: pair.previous24hVolumeToken1,
           liquidity: new BigNumber(pair.reserveUSD).toNumber(),
-          liquidity_BNB: new BigNumber(pair.reserveETH).toNumber(),
+          liquidity_BNB: new BigNumber(pair.reserveBNB).toNumber(),
         };
 
         return accumulator;

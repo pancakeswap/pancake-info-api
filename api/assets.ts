@@ -1,8 +1,8 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
-import { getBundle, getTopPairs } from "../utils";
-import { return200, return500 } from "../utils/response";
 import BigNumber from "bignumber.js";
+import { getTopPairs } from "../utils";
+import { return200, return500 } from "../utils/response";
 
 interface ReturnShape {
   [tokenAddress: string]: {
@@ -16,7 +16,6 @@ interface ReturnShape {
 export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const pairs = await getTopPairs();
-    const [ethPrice] = await getBundle("1");
 
     const tokens = pairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
       for (const token of [pair.token0, pair.token1]) {
@@ -25,8 +24,8 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
         accumulator[id] = {
           name: token.name,
           symbol: token.symbol,
-          price: new BigNumber(token.derivedETH).times(new BigNumber(ethPrice)).toNumber(),
-          price_BNB: new BigNumber(token.derivedETH).toNumber(),
+          price: new BigNumber(token.derivedUSD).toNumber(),
+          price_BNB: new BigNumber(token.derivedBNB).toNumber(),
         };
       }
 

@@ -28,7 +28,7 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
           base_volume: new BigNumber(pair.volumeToken0).toNumber(),
           quote_volume: new BigNumber(pair.volumeToken1).toNumber(),
           liquidity: new BigNumber(pair.reserveUSD).toNumber(),
-          liquidity_BNB: new BigNumber(pair.reserveETH).toNumber(),
+          liquidity_BNB: new BigNumber(pair.reserveBNB).toNumber(),
         };
         return accumulator;
       }, {})
