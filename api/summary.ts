@@ -18,10 +18,10 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
     const topPairs = await getTopPairs();
 
     const pairs = topPairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
-      const id0 = getAddress(pair.token0.id);
-      const id1 = getAddress(pair.token1.id);
+      const t0Id = getAddress(pair.token0.id);
+      const t1Id = getAddress(pair.token1.id);
 
-      accumulator[`${id0}_${id1}`] = {
+      accumulator[`${t0Id}_${t1Id}`] = {
         price: pair.price,
         base_volume: pair.volumeToken0,
         quote_volume: pair.volumeToken1,
