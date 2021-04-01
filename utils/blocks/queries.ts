@@ -3,7 +3,12 @@ import { blockClient } from "./client";
 
 export const GET_BLOCK = gql`
   query blocks($timestamp: BigInt!) {
-    blocks(first: 1, orderBy: timestamp, orderDirection: asc, where: { timestamp_gt: $timestamp }) {
+    blocks(
+      first: 1
+      orderBy: timestamp
+      orderDirection: asc
+      where: { timestamp_gte: $timestamp }
+    ) {
       id
       number
       timestamp
@@ -19,7 +24,7 @@ export async function getBlockFromTimestamp(timestamp: number): Promise<string |
   const result = await blockClient.query({
     query: GET_BLOCK,
     variables: {
-      timestamp: "" + timestamp,
+      timestamp: timestamp,
     },
     fetchPolicy: "cache-first",
   });
