@@ -23,6 +23,8 @@ type Block {
 }
 
 type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
     block(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -40,6 +42,8 @@ type Query {
 }
 
 type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
     block(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -54,6 +58,29 @@ type Subscription {
         skip: Int = 0,
         where: Block_filter
     ): [Block!]!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+    "If `true`, the subgraph encountered indexing errors at some past block"
+    hasIndexingErrors: Boolean!
 }
 
 enum Block_orderBy {
@@ -76,6 +103,13 @@ enum Block_orderBy {
 enum OrderDirection {
     asc
     desc
+}
+
+enum _SubgraphErrorPolicy_ {
+    "Data will be returned even if the subgraph has indexing errors"
+    allow
+    "If the subgraph has indexing errors, data will be omitted. The default."
+    deny
 }
 
 input Block_filter {
