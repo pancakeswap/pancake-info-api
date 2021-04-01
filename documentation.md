@@ -20,8 +20,8 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 {
   "updated_at": 1234567,              // UNIX timestamp
   "data": {
-    "0x..._0x...": {                  // the asset ids of the BEP20 tokens (i.e. token addresses), joined by an underscore
-      "price": "...",                 // denominated in token0/token1
+    "0x..._0x...": {                  // BEP20 token addresses, joined by an underscore
+      "price": "...",                 // price denominated in token0/token1
       "base_volume": "...",           // last 24h volume denominated in token0
       "quote_volume": "...",          // last 24h volume denominated in token1
       "liquidity": "...",             // liquidity denominated in USD
@@ -49,8 +49,8 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
     "0x...": {                        // the address of the BEP20 token
       "name": "...",                  // not necessarily included for BEP20 tokens
       "symbol": "...",                // not necessarily included for BEP20 tokens
-      "price": "...",                 // denominated in USD
-      "price_BNB": "...",             // always 0
+      "price": "...",                 // price denominated in USD
+      "price_BNB": "...",             // price denominated in BNB
     },
     // ...
   }
@@ -76,14 +76,12 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
       "base_name": "...",             // token0 name
       "base_symbol": "...",           // token0 symbol
       "base_address": "0x...",        // token0 address
-      "base_id": "0x...",             // token0 address
       "quote_name": "...",            // token1 name
       "quote_symbol": "...",          // token1 symbol
       "quote_address": "0x...",       // token1 address
-      "quote_id": "0x...",            // token1 address
-      "price": "...",                 // the mid price as token1/token0
-      "base_volume": "...",           // denominated in token0
-      "quote_volume": "...",          // denominated in token1
+      "price": "...",                 // price as token1/token0
+      "base_volume": "...",           // volume denominated in token0
+      "quote_volume": "...",          // volume denominated in token1
       "liquidity": "...",             // liquidity denominated in USD
       "liquidity_BNB": "..."          // liquidity denominated in BNB
     },
