@@ -21,10 +21,10 @@ export interface MappedDetailedPair extends Pair {
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   const epochSecond = Math.round(new Date().getTime() / 1000);
-  const firstBlock = await getBlockFromTimestamp(epochSecond - 24 * 3600);
+  const firstBlock = await getBlockFromTimestamp(epochSecond - 86400);
 
   if (!firstBlock) {
-    throw new Error("first block was not fetched");
+    throw new Error("Failed to fetch blocks from the subgraph");
   }
 
   const {
@@ -40,7 +40,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
   });
 
   if (topPairsErrors && topPairsErrors.length > 0) {
-    throw new Error("Failed to fetch top pairs from the subgraph");
+    throw new Error("Failed to fetch pairs from the subgraph");
   }
 
   const {
