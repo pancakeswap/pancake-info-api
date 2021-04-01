@@ -20,8 +20,8 @@ export interface MappedDetailedPair extends Pair {
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
-  const epochSecond = Math.floor(new Date().getTime() / 1000);
-  const firstBlock = await getBlockFromTimestamp(epochSecond - 86400);
+  const epochSecond = Math.round(new Date().getTime() / 1000);
+  const firstBlock = await getBlockFromTimestamp(epochSecond - 24 * 3600);
 
   if (!firstBlock) {
     throw new Error("first block was not fetched");
@@ -75,18 +75,6 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     pairs?.map(
       (pair): MappedDetailedPair => {
         const yesterday = yesterdayVolumeIndex[pair.id];
-        if (yesterday) {
-          if (yesterday.volumeToken0.gt(pair.volumeToken0)) {
-            throw new Error(
-              `Invalid subgraph response: pair ${pair.id} returned volumeToken0 < yesterday.volumeToken0`
-            );
-          }
-          if (yesterday.volumeToken1.gt(pair.volumeToken1)) {
-            throw new Error(
-              `Invalid subgraph response: pair ${pair.id} returned volumeToken1 < yesterday.volumeToken1`
-            );
-          }
-        }
 
         return {
           ...pair,
