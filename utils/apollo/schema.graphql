@@ -5,6 +5,16 @@ schema {
     subscription: Subscription
 }
 
+type Bundle {
+    bnbPrice: BigDecimal!
+    id: ID!
+}
+
+type Factory {
+    id: ID!
+    pairCount: BigInt!
+}
+
 type Pair {
     id: ID!
     reserve0: BigDecimal!
@@ -17,30 +27,71 @@ type Pair {
     token1Price: BigDecimal!
     trackedReserveBNB: BigDecimal!
     trackedReserveUSD: BigDecimal!
-    untrackedReserveBNB: BigDecimal!
-    untrackedReserveUSD: BigDecimal!
+    untrackedVolumeBNB: BigDecimal!
+    untrackedVolumeUSD: BigDecimal!
+    volumeBNB: BigDecimal!
     volumeToken0: BigDecimal!
     volumeToken1: BigDecimal!
-    volumeBNB: BigDecimal!
     volumeUSD: BigDecimal!
 }
 
-type Token {
-    allPairs(first: Int = 100, orderBy: Pair_orderBy, orderDirection: OrderDirection, skip: Int = 0, where: Pair_filter): [Pair!]
-    decimals: BigInt!
-    derivedBNB: BigDecimal!
-    derivedUSD: BigDecimal!
+type PairSimple {
+    address: Bytes!
     id: ID!
-    name: String!
-    symbol: String!
+    token0: Token!
+    token1: Token!
 }
 
 type Query {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    bundle(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Bundle
+    bundles(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Bundle_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Bundle_filter
+    ): [Bundle!]!
+    factories(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Factory_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Factory_filter
+    ): [Factory!]!
+    factory(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Factory
     pair(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
         id: ID!
     ): Pair
+    pairSimple(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PairSimple
+    pairSimples(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PairSimple_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PairSimple_filter
+    ): [PairSimple!]!
     pairs(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -67,11 +118,55 @@ type Query {
 }
 
 type Subscription {
+    "Access to subgraph metadata"
+    _meta(block: Block_height): _Meta_
+    bundle(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Bundle
+    bundles(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Bundle_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Bundle_filter
+    ): [Bundle!]!
+    factories(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: Factory_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: Factory_filter
+    ): [Factory!]!
+    factory(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): Factory
     pair(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
         id: ID!
     ): Pair
+    pairSimple(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        id: ID!
+    ): PairSimple
+    pairSimples(
+        "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
+        block: Block_height,
+        first: Int = 100,
+        orderBy: PairSimple_orderBy,
+        orderDirection: OrderDirection,
+        skip: Int = 0,
+        where: PairSimple_filter
+    ): [PairSimple!]!
     pairs(
         "The block at which the query should be executed. Can either be an `{ number: Int }` containing the block number or a `{ hash: Bytes }` value containing a block hash. Defaults to the latest block when omitted."
         block: Block_height,
@@ -97,9 +192,58 @@ type Subscription {
     ): [Token!]!
 }
 
+type Token {
+    decimals: BigInt!
+    derivedBNB: BigDecimal!
+    derivedUSD: BigDecimal!
+    id: ID!
+    name: String!
+    symbol: String!
+}
+
+type _Block_ {
+    "The hash of the block"
+    hash: Bytes
+    "The block number"
+    number: Int!
+}
+
+"The type for the top-level _meta field"
+type _Meta_ {
+    """
+
+    Information about a specific subgraph block. The hash of the block
+    will be null if the _meta field has a block constraint that asks for
+    a block number. It will be filled if the _meta field has no block constraint
+    and therefore asks for the latest  block
+    """
+    block: _Block_!
+    "The deployment ID"
+    deployment: String!
+    "If `true`, the subgraph encountered indexing errors at some past block"
+    hasIndexingErrors: Boolean!
+}
+
+enum Bundle_orderBy {
+    bnbPrice
+    id
+}
+
+enum Factory_orderBy {
+    id
+    pairCount
+}
+
 enum OrderDirection {
     asc
     desc
+}
+
+enum PairSimple_orderBy {
+    address
+    id
+    token0
+    token1
 }
 
 enum Pair_orderBy {
@@ -114,27 +258,116 @@ enum Pair_orderBy {
     token1Price
     trackedReserveBNB
     trackedReserveUSD
-    untrackedReserveBNB
-    untrackedReserveUSD
+    untrackedVolumeBNB
+    untrackedVolumeUSD
+    volumeBNB
     volumeToken0
     volumeToken1
-    volumeBNB
     volumeUSD
 }
 
 enum Token_orderBy {
-    allPairs
-    id
-    name
-    symbol
     decimals
     derivedBNB
     derivedUSD
+    id
+    name
+    symbol
+}
+
+enum _SubgraphErrorPolicy_ {
+    "Data will be returned even if the subgraph has indexing errors"
+    allow
+    "If the subgraph has indexing errors, data will be omitted. The default."
+    deny
 }
 
 input Block_height {
     hash: Bytes
     number: Int
+}
+
+input Bundle_filter {
+    bnbPrice: BigDecimal
+    bnbPrice_gt: BigDecimal
+    bnbPrice_gte: BigDecimal
+    bnbPrice_in: [BigDecimal!]
+    bnbPrice_lt: BigDecimal
+    bnbPrice_lte: BigDecimal
+    bnbPrice_not: BigDecimal
+    bnbPrice_not_in: [BigDecimal!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+}
+
+input Factory_filter {
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    pairCount: BigInt
+    pairCount_gt: BigInt
+    pairCount_gte: BigInt
+    pairCount_in: [BigInt!]
+    pairCount_lt: BigInt
+    pairCount_lte: BigInt
+    pairCount_not: BigInt
+    pairCount_not_in: [BigInt!]
+}
+
+input PairSimple_filter {
+    address: Bytes
+    address_contains: Bytes
+    address_in: [Bytes!]
+    address_not: Bytes
+    address_not_contains: Bytes
+    address_not_in: [Bytes!]
+    id: ID
+    id_gt: ID
+    id_gte: ID
+    id_in: [ID!]
+    id_lt: ID
+    id_lte: ID
+    id_not: ID
+    id_not_in: [ID!]
+    token0: String
+    token0_contains: String
+    token0_ends_with: String
+    token0_gt: String
+    token0_gte: String
+    token0_in: [String!]
+    token0_lt: String
+    token0_lte: String
+    token0_not: String
+    token0_not_contains: String
+    token0_not_ends_with: String
+    token0_not_in: [String!]
+    token0_not_starts_with: String
+    token0_starts_with: String
+    token1: String
+    token1_contains: String
+    token1_ends_with: String
+    token1_gt: String
+    token1_gte: String
+    token1_in: [String!]
+    token1_lt: String
+    token1_lte: String
+    token1_not: String
+    token1_not_contains: String
+    token1_not_ends_with: String
+    token1_not_in: [String!]
+    token1_not_starts_with: String
+    token1_starts_with: String
 }
 
 input Pair_filter {
@@ -238,22 +471,30 @@ input Pair_filter {
     trackedReserveUSD_lte: BigDecimal
     trackedReserveUSD_not: BigDecimal
     trackedReserveUSD_not_in: [BigDecimal!]
-    untrackedReserveBNB: BigDecimal
-    untrackedReserveBNB_gt: BigDecimal
-    untrackedReserveBNB_gte: BigDecimal
-    untrackedReserveBNB_in: [BigDecimal!]
-    untrackedReserveBNB_lt: BigDecimal
-    untrackedReserveBNB_lte: BigDecimal
-    untrackedReserveBNB_not: BigDecimal
-    untrackedReserveBNB_not_in: [BigDecimal!]
-    untrackedReserveUSD: BigDecimal
-    untrackedReserveUSD_gt: BigDecimal
-    untrackedReserveUSD_gte: BigDecimal
-    untrackedReserveUSD_in: [BigDecimal!]
-    untrackedReserveUSD_lt: BigDecimal
-    untrackedReserveUSD_lte: BigDecimal
-    untrackedReserveUSD_not: BigDecimal
-    untrackedReserveUSD_not_in: [BigDecimal!]
+    untrackedVolumeBNB: BigDecimal
+    untrackedVolumeBNB_gt: BigDecimal
+    untrackedVolumeBNB_gte: BigDecimal
+    untrackedVolumeBNB_in: [BigDecimal!]
+    untrackedVolumeBNB_lt: BigDecimal
+    untrackedVolumeBNB_lte: BigDecimal
+    untrackedVolumeBNB_not: BigDecimal
+    untrackedVolumeBNB_not_in: [BigDecimal!]
+    untrackedVolumeUSD: BigDecimal
+    untrackedVolumeUSD_gt: BigDecimal
+    untrackedVolumeUSD_gte: BigDecimal
+    untrackedVolumeUSD_in: [BigDecimal!]
+    untrackedVolumeUSD_lt: BigDecimal
+    untrackedVolumeUSD_lte: BigDecimal
+    untrackedVolumeUSD_not: BigDecimal
+    untrackedVolumeUSD_not_in: [BigDecimal!]
+    volumeBNB: BigDecimal
+    volumeBNB_gt: BigDecimal
+    volumeBNB_gte: BigDecimal
+    volumeBNB_in: [BigDecimal!]
+    volumeBNB_lt: BigDecimal
+    volumeBNB_lte: BigDecimal
+    volumeBNB_not: BigDecimal
+    volumeBNB_not_in: [BigDecimal!]
     volumeToken0: BigDecimal
     volumeToken0_gt: BigDecimal
     volumeToken0_gte: BigDecimal
@@ -270,14 +511,6 @@ input Pair_filter {
     volumeToken1_lte: BigDecimal
     volumeToken1_not: BigDecimal
     volumeToken1_not_in: [BigDecimal!]
-    volumeBNB: BigDecimal
-    volumeBNB_gt: BigDecimal
-    volumeBNB_gte: BigDecimal
-    volumeBNB_in: [BigDecimal!]
-    volumeBNB_lt: BigDecimal
-    volumeBNB_lte: BigDecimal
-    volumeBNB_not: BigDecimal
-    volumeBNB_not_in: [BigDecimal!]
     volumeUSD: BigDecimal
     volumeUSD_gt: BigDecimal
     volumeUSD_gte: BigDecimal
@@ -289,10 +522,6 @@ input Pair_filter {
 }
 
 input Token_filter {
-    allPairs: [String!]
-    allPairs_contains: [String!]
-    allPairs_not: [String!]
-    allPairs_not_contains: [String!]
     decimals: BigInt
     decimals_gt: BigInt
     decimals_gte: BigInt
@@ -354,6 +583,7 @@ input Token_filter {
     symbol_not_starts_with: String
     symbol_starts_with: String
 }
+
 
 scalar BigDecimal
 
