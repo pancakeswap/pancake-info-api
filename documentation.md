@@ -34,7 +34,7 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 
 ## [`/tokens`](https://api.pancakeswap.info/api/tokens)
 
-Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves. 
+Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
 
 ### Request
 
@@ -53,6 +53,28 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
       "price_BNB": "...",             // price denominated in BNB
     },
     // ...
+  }
+}
+```
+
+## [`/tokens/0x...`](https://api.pancakeswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82)
+
+Returns the token information, based on address.
+
+### Request
+
+`GET https://api.pancakeswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`
+
+### Response
+
+```json5
+{
+  "updated_at": 1234567,              // UNIX timestamp
+  "data": {
+    "name": "...",                    // not necessarily included for BEP20 tokens
+    "symbol": "...",                  // not necessarily included for BEP20 tokens
+    "price": "...",                   // price denominated in USD
+    "price_BNB": "...",               // price denominated in BNB
   }
 }
 ```

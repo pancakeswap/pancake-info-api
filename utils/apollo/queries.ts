@@ -10,6 +10,18 @@ export const PAIRS_VOLUME_QUERY = gql`
   }
 `;
 
+export const TOKEN_BY_ADDRESS = gql`
+  query Token($id: ID!) {
+    token(id: $id) {
+      id
+      name
+      symbol
+      derivedBNB
+      derivedUSD
+    }
+  }
+`;
+
 export const TOP_PAIRS = gql`
   fragment TokenInfo on Token {
     id
