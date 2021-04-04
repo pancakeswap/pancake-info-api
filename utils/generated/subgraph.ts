@@ -21,6 +21,66 @@ export interface Block_Height {
   readonly number?: Maybe<Scalars['Int']>;
 }
 
+export interface Bundle {
+  readonly __typename?: 'Bundle';
+  readonly bnbPrice: Scalars['BigDecimal'];
+  readonly id: Scalars['ID'];
+}
+
+export interface Bundle_Filter {
+  readonly bnbPrice?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly bnbPrice_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_not?: Maybe<Scalars['BigDecimal']>;
+  readonly bnbPrice_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+}
+
+export enum Bundle_OrderBy {
+  BnbPrice = 'bnbPrice',
+  Id = 'id'
+}
+
+
+export interface Factory {
+  readonly __typename?: 'Factory';
+  readonly id: Scalars['ID'];
+  readonly pairCount: Scalars['BigInt'];
+}
+
+export interface Factory_Filter {
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly pairCount?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_gt?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_gte?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  readonly pairCount_lt?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_lte?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_not?: Maybe<Scalars['BigInt']>;
+  readonly pairCount_not_in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+}
+
+export enum Factory_OrderBy {
+  Id = 'id',
+  PairCount = 'pairCount'
+}
 
 export enum OrderDirection {
   Asc = 'asc',
@@ -40,12 +100,72 @@ export interface Pair {
   readonly token1Price: Scalars['BigDecimal'];
   readonly trackedReserveBNB: Scalars['BigDecimal'];
   readonly trackedReserveUSD: Scalars['BigDecimal'];
-  readonly untrackedReserveBNB: Scalars['BigDecimal'];
-  readonly untrackedReserveUSD: Scalars['BigDecimal'];
+  readonly untrackedVolumeBNB: Scalars['BigDecimal'];
+  readonly untrackedVolumeUSD: Scalars['BigDecimal'];
+  readonly volumeBNB: Scalars['BigDecimal'];
   readonly volumeToken0: Scalars['BigDecimal'];
   readonly volumeToken1: Scalars['BigDecimal'];
-  readonly volumeBNB: Scalars['BigDecimal'];
   readonly volumeUSD: Scalars['BigDecimal'];
+}
+
+export interface PairSimple {
+  readonly __typename?: 'PairSimple';
+  readonly address: Scalars['Bytes'];
+  readonly id: Scalars['ID'];
+  readonly token0: Token;
+  readonly token1: Token;
+}
+
+export interface PairSimple_Filter {
+  readonly address?: Maybe<Scalars['Bytes']>;
+  readonly address_contains?: Maybe<Scalars['Bytes']>;
+  readonly address_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly address_not?: Maybe<Scalars['Bytes']>;
+  readonly address_not_contains?: Maybe<Scalars['Bytes']>;
+  readonly address_not_in?: Maybe<ReadonlyArray<Scalars['Bytes']>>;
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly id_gt?: Maybe<Scalars['ID']>;
+  readonly id_gte?: Maybe<Scalars['ID']>;
+  readonly id_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly id_lt?: Maybe<Scalars['ID']>;
+  readonly id_lte?: Maybe<Scalars['ID']>;
+  readonly id_not?: Maybe<Scalars['ID']>;
+  readonly id_not_in?: Maybe<ReadonlyArray<Scalars['ID']>>;
+  readonly token0?: Maybe<Scalars['String']>;
+  readonly token0_contains?: Maybe<Scalars['String']>;
+  readonly token0_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_gt?: Maybe<Scalars['String']>;
+  readonly token0_gte?: Maybe<Scalars['String']>;
+  readonly token0_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_lt?: Maybe<Scalars['String']>;
+  readonly token0_lte?: Maybe<Scalars['String']>;
+  readonly token0_not?: Maybe<Scalars['String']>;
+  readonly token0_not_contains?: Maybe<Scalars['String']>;
+  readonly token0_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token0_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token0_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token0_starts_with?: Maybe<Scalars['String']>;
+  readonly token1?: Maybe<Scalars['String']>;
+  readonly token1_contains?: Maybe<Scalars['String']>;
+  readonly token1_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_gt?: Maybe<Scalars['String']>;
+  readonly token1_gte?: Maybe<Scalars['String']>;
+  readonly token1_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_lt?: Maybe<Scalars['String']>;
+  readonly token1_lte?: Maybe<Scalars['String']>;
+  readonly token1_not?: Maybe<Scalars['String']>;
+  readonly token1_not_contains?: Maybe<Scalars['String']>;
+  readonly token1_not_ends_with?: Maybe<Scalars['String']>;
+  readonly token1_not_in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  readonly token1_not_starts_with?: Maybe<Scalars['String']>;
+  readonly token1_starts_with?: Maybe<Scalars['String']>;
+}
+
+export enum PairSimple_OrderBy {
+  Address = 'address',
+  Id = 'id',
+  Token0 = 'token0',
+  Token1 = 'token1'
 }
 
 export interface Pair_Filter {
@@ -149,22 +269,30 @@ export interface Pair_Filter {
   readonly trackedReserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
   readonly trackedReserveUSD_not?: Maybe<Scalars['BigDecimal']>;
   readonly trackedReserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly untrackedReserveBNB?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly untrackedReserveBNB_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_not?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveBNB_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly untrackedReserveUSD?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly untrackedReserveUSD_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_not?: Maybe<Scalars['BigDecimal']>;
-  readonly untrackedReserveUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly untrackedVolumeBNB?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly untrackedVolumeBNB_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_not?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeBNB_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly untrackedVolumeUSD?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly untrackedVolumeUSD_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_not?: Maybe<Scalars['BigDecimal']>;
+  readonly untrackedVolumeUSD_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeBNB?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_gt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_gte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
+  readonly volumeBNB_lt?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_lte?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_not?: Maybe<Scalars['BigDecimal']>;
+  readonly volumeBNB_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
   readonly volumeToken0?: Maybe<Scalars['BigDecimal']>;
   readonly volumeToken0_gt?: Maybe<Scalars['BigDecimal']>;
   readonly volumeToken0_gte?: Maybe<Scalars['BigDecimal']>;
@@ -181,14 +309,6 @@ export interface Pair_Filter {
   readonly volumeToken1_lte?: Maybe<Scalars['BigDecimal']>;
   readonly volumeToken1_not?: Maybe<Scalars['BigDecimal']>;
   readonly volumeToken1_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeBNB?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_gt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_gte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
-  readonly volumeBNB_lt?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_lte?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_not?: Maybe<Scalars['BigDecimal']>;
-  readonly volumeBNB_not_in?: Maybe<ReadonlyArray<Scalars['BigDecimal']>>;
   readonly volumeUSD?: Maybe<Scalars['BigDecimal']>;
   readonly volumeUSD_gt?: Maybe<Scalars['BigDecimal']>;
   readonly volumeUSD_gte?: Maybe<Scalars['BigDecimal']>;
@@ -211,26 +331,87 @@ export enum Pair_OrderBy {
   Token1Price = 'token1Price',
   TrackedReserveBnb = 'trackedReserveBNB',
   TrackedReserveUsd = 'trackedReserveUSD',
-  UntrackedReserveBnb = 'untrackedReserveBNB',
-  UntrackedReserveUsd = 'untrackedReserveUSD',
+  UntrackedVolumeBnb = 'untrackedVolumeBNB',
+  UntrackedVolumeUsd = 'untrackedVolumeUSD',
+  VolumeBnb = 'volumeBNB',
   VolumeToken0 = 'volumeToken0',
   VolumeToken1 = 'volumeToken1',
-  VolumeBnb = 'volumeBNB',
   VolumeUsd = 'volumeUSD'
 }
 
 export interface Query {
   readonly __typename?: 'Query';
+  /** Access to subgraph metadata */
+  readonly _meta?: Maybe<_Meta_>;
+  readonly bundle?: Maybe<Bundle>;
+  readonly bundles: ReadonlyArray<Bundle>;
+  readonly factories: ReadonlyArray<Factory>;
+  readonly factory?: Maybe<Factory>;
   readonly pair?: Maybe<Pair>;
+  readonly pairSimple?: Maybe<PairSimple>;
+  readonly pairSimples: ReadonlyArray<PairSimple>;
   readonly pairs: ReadonlyArray<Pair>;
   readonly token?: Maybe<Token>;
   readonly tokens: ReadonlyArray<Token>;
 }
 
 
+export interface Query_MetaArgs {
+  block?: Maybe<Block_Height>;
+}
+
+
+export interface QueryBundleArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
+export interface QueryBundlesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Bundle_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Bundle_Filter>;
+}
+
+
+export interface QueryFactoriesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Factory_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Factory_Filter>;
+}
+
+
+export interface QueryFactoryArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
 export interface QueryPairArgs {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
+}
+
+
+export interface QueryPairSimpleArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
+export interface QueryPairSimplesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<PairSimple_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<PairSimple_Filter>;
 }
 
 
@@ -261,16 +442,77 @@ export interface QueryTokensArgs {
 
 export interface Subscription {
   readonly __typename?: 'Subscription';
+  /** Access to subgraph metadata */
+  readonly _meta?: Maybe<_Meta_>;
+  readonly bundle?: Maybe<Bundle>;
+  readonly bundles: ReadonlyArray<Bundle>;
+  readonly factories: ReadonlyArray<Factory>;
+  readonly factory?: Maybe<Factory>;
   readonly pair?: Maybe<Pair>;
+  readonly pairSimple?: Maybe<PairSimple>;
+  readonly pairSimples: ReadonlyArray<PairSimple>;
   readonly pairs: ReadonlyArray<Pair>;
   readonly token?: Maybe<Token>;
   readonly tokens: ReadonlyArray<Token>;
 }
 
 
+export interface Subscription_MetaArgs {
+  block?: Maybe<Block_Height>;
+}
+
+
+export interface SubscriptionBundleArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
+export interface SubscriptionBundlesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Bundle_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Bundle_Filter>;
+}
+
+
+export interface SubscriptionFactoriesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<Factory_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<Factory_Filter>;
+}
+
+
+export interface SubscriptionFactoryArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
 export interface SubscriptionPairArgs {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
+}
+
+
+export interface SubscriptionPairSimpleArgs {
+  block?: Maybe<Block_Height>;
+  id: Scalars['ID'];
+}
+
+
+export interface SubscriptionPairSimplesArgs {
+  block?: Maybe<Block_Height>;
+  first?: Maybe<Scalars['Int']>;
+  orderBy?: Maybe<PairSimple_OrderBy>;
+  orderDirection?: Maybe<OrderDirection>;
+  skip?: Maybe<Scalars['Int']>;
+  where?: Maybe<PairSimple_Filter>;
 }
 
 
@@ -301,7 +543,6 @@ export interface SubscriptionTokensArgs {
 
 export interface Token {
   readonly __typename?: 'Token';
-  readonly allPairs?: Maybe<ReadonlyArray<Pair>>;
   readonly decimals: Scalars['BigInt'];
   readonly derivedBNB: Scalars['BigDecimal'];
   readonly derivedUSD: Scalars['BigDecimal'];
@@ -310,20 +551,7 @@ export interface Token {
   readonly symbol: Scalars['String'];
 }
 
-
-export interface TokenAllPairsArgs {
-  first?: Maybe<Scalars['Int']>;
-  orderBy?: Maybe<Pair_OrderBy>;
-  orderDirection?: Maybe<OrderDirection>;
-  skip?: Maybe<Scalars['Int']>;
-  where?: Maybe<Pair_Filter>;
-}
-
 export interface Token_Filter {
-  readonly allPairs?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly allPairs_contains?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly allPairs_not?: Maybe<ReadonlyArray<Scalars['String']>>;
-  readonly allPairs_not_contains?: Maybe<ReadonlyArray<Scalars['String']>>;
   readonly decimals?: Maybe<Scalars['BigInt']>;
   readonly decimals_gt?: Maybe<Scalars['BigInt']>;
   readonly decimals_gte?: Maybe<Scalars['BigInt']>;
@@ -387,13 +615,43 @@ export interface Token_Filter {
 }
 
 export enum Token_OrderBy {
-  AllPairs = 'allPairs',
-  Id = 'id',
-  Name = 'name',
-  Symbol = 'symbol',
   Decimals = 'decimals',
   DerivedBnb = 'derivedBNB',
-  DerivedUsd = 'derivedUSD'
+  DerivedUsd = 'derivedUSD',
+  Id = 'id',
+  Name = 'name',
+  Symbol = 'symbol'
+}
+
+export interface _Block_ {
+  readonly __typename?: '_Block_';
+  /** The hash of the block */
+  readonly hash?: Maybe<Scalars['Bytes']>;
+  /** The block number */
+  readonly number: Scalars['Int'];
+}
+
+/** The type for the top-level _meta field */
+export interface _Meta_ {
+  readonly __typename?: '_Meta_';
+  /**
+   * Information about a specific subgraph block. The hash of the block
+   * will be null if the _meta field has a block constraint that asks for
+   * a block number. It will be filled if the _meta field has no block constraint
+   * and therefore asks for the latest  block
+   */
+  readonly block: _Block_;
+  /** The deployment ID */
+  readonly deployment: Scalars['String'];
+  /** If `true`, the subgraph encountered indexing errors at some past block */
+  readonly hasIndexingErrors: Scalars['Boolean'];
+}
+
+export enum _SubgraphErrorPolicy_ {
+  /** Data will be returned even if the subgraph has indexing errors */
+  Allow = 'allow',
+  /** If the subgraph has indexing errors, data will be omitted. The default. */
+  Deny = 'deny'
 }
 
 export type PairsVolumeQueryVariables = Exact<{
@@ -408,6 +666,19 @@ export type PairsVolumeQuery = (
   & { readonly pairVolumes: ReadonlyArray<(
     { readonly __typename?: 'Pair' }
     & Pick<Pair, 'id' | 'volumeToken0' | 'volumeToken1'>
+  )> }
+);
+
+export type TokenQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type TokenQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly token?: Maybe<(
+    { readonly __typename?: 'Token' }
+    & Pick<Token, 'id' | 'name' | 'symbol' | 'derivedBNB' | 'derivedUSD'>
   )> }
 );
 

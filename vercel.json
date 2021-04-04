@@ -1,6 +1,16 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/tokens",
+      "destination": "/api/tokens"
+    },
+    {
+      "source": "/api/tokens/:address",
+      "destination": "/api/tokens/tokens"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -23,7 +33,7 @@
         },
         {
           "key": "Cache-Control",
-          "value": "public, max-age=300, s-maxage=300"
+          "value": "public, max-age=60, s-maxage=60"
         },
         {
           "key": "Pragma",

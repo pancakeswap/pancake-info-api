@@ -14,6 +14,10 @@ export function returnError(res: VercelResponse, code: number, message: string):
   });
 }
 
+export function return400(res: VercelResponse, message = "Bad request"): VercelResponse {
+  return returnError(res, 400, message);
+}
+
 export function return500(res: VercelResponse, error: Error): VercelResponse {
   return returnError(res, 500, error.message);
 }

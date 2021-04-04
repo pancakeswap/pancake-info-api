@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
-import { getTopPairs } from "../utils";
-import { return200, return500 } from "../utils/response";
+import { getTopPairs } from "../../utils";
+import { return200, return500 } from "../../utils/response";
 
 interface ReturnShape {
   [tokenAddress: string]: {

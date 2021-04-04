@@ -1,22 +1,44 @@
 import BigNumber from "bignumber.js";
 import { BLACKLIST } from "./constants/blacklist";
 import { client } from "./apollo/client";
-import { TOP_PAIRS, PAIRS_VOLUME_QUERY } from "./apollo/queries";
+import { TOP_PAIRS, PAIRS_VOLUME_QUERY, TOKEN_BY_ADDRESS } from "./apollo/queries";
 import { getBlockFromTimestamp } from "./blocks/queries";
 import {
   PairsVolumeQuery,
   PairsVolumeQueryVariables,
+  TokenQuery,
+  TokenQueryVariables,
   TopPairsQuery,
   TopPairsQueryVariables,
 } from "./generated/subgraph";
 
 const TOP_PAIR_LIMIT = 1000;
+export type Token = TokenQuery["token"];
 export type Pair = TopPairsQuery["pairs"][number];
 
 export interface MappedDetailedPair extends Pair {
   price: string;
   previous24hVolumeToken0: string;
   previous24hVolumeToken1: string;
+}
+
+export async function getTokenByAddress(address: string): Promise<Token> {
+  const {
+    data: { token },
+    errors: tokenErrors,
+  } = await client.query<TokenQuery, TokenQueryVariables>({
+    query: TOKEN_BY_ADDRESS,
+    variables: {
+      id: address,
+    },
+    fetchPolicy: "cache-first",
+  });
+
+  if (tokenErrors && tokenErrors.length > 0) {
+    throw new Error("Failed to fetch token from subgraph");
+  }
+
+  return token;
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
