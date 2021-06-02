@@ -94,26 +94,24 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     }, {}) ?? {};
 
   return (
-    pairs?.map(
-      (pair): MappedDetailedPair => {
-        const yesterday = yesterdayVolumeIndex[pair.id];
+    pairs?.map((pair): MappedDetailedPair => {
+      const yesterday = yesterdayVolumeIndex[pair.id];
 
-        return {
-          ...pair,
-          price:
-            pair.reserve0 !== "0" && pair.reserve1 !== "0"
-              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
-              : "0",
-          previous24hVolumeToken0:
-            pair.volumeToken0 && yesterday?.volumeToken0
-              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
-              : new BigNumber(pair.volumeToken0).toString(),
-          previous24hVolumeToken1:
-            pair.volumeToken1 && yesterday?.volumeToken1
-              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
-              : new BigNumber(pair.volumeToken1).toString(),
-        };
-      }
-    ) ?? []
+      return {
+        ...pair,
+        price:
+          pair.reserve0 !== "0" && pair.reserve1 !== "0"
+            ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
+            : "0",
+        previous24hVolumeToken0:
+          pair.volumeToken0 && yesterday?.volumeToken0
+            ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
+            : new BigNumber(pair.volumeToken0).toString(),
+        previous24hVolumeToken1:
+          pair.volumeToken1 && yesterday?.volumeToken1
+            ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
+            : new BigNumber(pair.volumeToken1).toString(),
+      };
+    }) ?? []
   );
 }
