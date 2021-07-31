@@ -1,4 +1,4 @@
-{
+
   "name": "pancake-info-api",
   "version": "1.0.0",
   "description": "Serverless API implementation for PancakeSwap on-chain data query.",
@@ -38,6 +38,6 @@
     "graphql": "^15.5.0",
     "husky": "^4.3.8",
     "prettier": "^2.2.1",
-    "typescript": "^4.2.3"
-  }
-}
+    "typescript": "^4.2.4"
+  
+
