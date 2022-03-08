@@ -1,18 +1,18 @@
 # Documentation
 
-All PancakeSwap pairs consist of two different tokens. BNB is not a native currency in PancakeSwap, and is represented only by WBNB in the pairs. 
+All Summitswap pairs consist of two different tokens. BNB is not a native currency in Summitswap, and is represented only by WBNB in the pairs. 
 
-The canonical WBNB address used by the PancakeSwap interface is `0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c`.
+The canonical WBNB address used by the Summitswap interface is `0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c`.
 
 Results are cached for 5 minutes (or 300 seconds).
 
-## [`/v2/summary`](https://api.pancakeswap.info/api/v2/summary)
+## [`/summary`](https://api.summitswap.info/api/summary)
 
-Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves. 
+Returns data for the top ~1000 SummitSwap pairs, sorted by reserves. 
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/v2/summary`
+`GET https://api.summitswap.info/api/summary`
 
 ### Response
 
@@ -32,13 +32,13 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
 }
 ```
 
-## [`/v2/tokens`](https://api.pancakeswap.info/api/v2/tokens)
+## [`/tokens`](https://api.summitswap.info/api/tokens)
 
-Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
+Returns the tokens in the top ~1000 pairs on SummitSwap, sorted by reserves.
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/v2/tokens`
+`GET https://api.summitswap.info/api/tokens`
 
 ### Response
 
@@ -57,13 +57,13 @@ Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
 }
 ```
 
-## [`/v2/tokens/0x...`](https://api.pancakeswap.info/api/v2/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82)
+## [`/tokens/0x...`](https://api.summitswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82)
 
 Returns the token information, based on address.
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/v2/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`
+`GET https://api.summitswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`
 
 ### Response
 
@@ -79,13 +79,13 @@ Returns the token information, based on address.
 }
 ```
 
-## [`/v2/pairs`](https://api.pancakeswap.info/api/v2/pairs)
+## [`/pairs`](https://api.summitswap.info/api/pairs)
 
-Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
+Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
 
 ### Request
 
-`GET https://api.pancakeswap.info/api/v2/pairs`
+`GET https://api.summitswap.info/api/pairs`
 
 ### Response
 
