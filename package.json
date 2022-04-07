@@ -1,9 +1,9 @@
 {
-  "name": "pancake-info-api",
+  "name": "summit-info-api",
   "version": "1.0.0",
-  "description": "Serverless API implementation for PancakeSwap on-chain data query.",
-  "repository": "git@github.com:pancakeswap/pancake-info-api.git",
-  "author": "PancakeSwap",
+  "description": "Serverless API implementation for SummitSwap on-chain data query.",
+  "repository": "https://github.com/Koda-Finance/summitswap-info-api",
+  "author": "SummitSwap",
   "license": "MIT",
   "scripts": {
     "format:check": "prettier --check '*/**/*.{js,ts}'",
