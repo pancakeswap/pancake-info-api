@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "SummitSwap Exchange": {
-        "url": "https://api.thegraph.com/subgraphs/name/erwin-huang/exchange",
+        "url": "https://api.thegraph.com/subgraphs/name/koda-finance/summitswap-exchange",
         "headers": {
           "user-agent": "JS GraphQL"
         },

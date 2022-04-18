@@ -4,7 +4,7 @@ import fetch from "cross-fetch";
 export const client = new ApolloClient({
   link: new HttpLink({
     fetch,
-    uri: "https://api.thegraph.com/subgraphs/name/erwin-huang/exchange",
+    uri: "https://api.thegraph.com/subgraphs/name/koda-finance/summitswap-exchange",
   }),
   cache: new InMemoryCache(),
 });
