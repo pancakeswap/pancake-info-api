@@ -3,6 +3,10 @@
 The SummitSwap API is a set of endpoints used by market aggregators (e.g. coinmarketcap.com) to surface SummitSwap liquidity
 and volume information. All information is fetched from the underlying subgraphs.
 
+## Documentation
+
+The documentation of the endpoints, for SummitSwap, can be found [here](documentation.md).
+
 ## Development
 
 ### Install requirements
