@@ -6,13 +6,13 @@ The canonical WBNB address used by the Summitswap interface is `0xbb4CdB9CBd36B0
 
 Results are cached for 5 minutes (or 300 seconds).
 
-## [`/summary`](https://api.summitswap.info/api/summary)
+## [`/summary`](https://api.summitswap.finance/api/summary)
 
 Returns data for the top ~1000 SummitSwap pairs, sorted by reserves. 
 
 ### Request
 
-`GET https://api.summitswap.info/api/summary`
+`GET https://api.summitswap.finance/api/summary`
 
 ### Response
 
@@ -32,13 +32,13 @@ Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
 }
 ```
 
-## [`/tokens`](https://api.summitswap.info/api/tokens)
+## [`/tokens`](https://api.summitswap.finance/api/tokens)
 
 Returns the tokens in the top ~1000 pairs on SummitSwap, sorted by reserves.
 
 ### Request
 
-`GET https://api.summitswap.info/api/tokens`
+`GET https://api.summitswap.finance/api/tokens`
 
 ### Response
 
@@ -57,13 +57,13 @@ Returns the tokens in the top ~1000 pairs on SummitSwap, sorted by reserves.
 }
 ```
 
-## [`/tokens/0x...`](https://api.summitswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82)
+## [`/tokens/0x...`](https://api.summitswap.finance/api/tokens/0x8094e772fA4A60bdEb1DfEC56AB040e17DD608D5)
 
 Returns the token information, based on address.
 
 ### Request
 
-`GET https://api.summitswap.info/api/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82`
+`GET https://api.summitswap.finance/api/tokens/0x8094e772fA4A60bdEb1DfEC56AB040e17DD608D5`
 
 ### Response
 
@@ -79,13 +79,13 @@ Returns the token information, based on address.
 }
 ```
 
-## [`/pairs`](https://api.summitswap.info/api/pairs)
+## [`/pairs`](https://api.summitswap.finance/api/pairs)
 
 Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
 
 ### Request
 
-`GET https://api.summitswap.info/api/pairs`
+`GET https://api.summitswap.finance/api/pairs`
 
 ### Response
 
