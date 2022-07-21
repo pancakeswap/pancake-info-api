@@ -54,3 +54,12 @@ export const TOP_PAIRS = gql`
     }
   }
 `;
+
+export const PAIR_RESERVES_BY_TOKENS = gql`
+  query PairReserves($token0: String!, $token1: String!) {
+    pairs(where: { token0: $token0, token1: $token1 }) {
+      reserve0
+      reserve1
+    }
+  }
+`;

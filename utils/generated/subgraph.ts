@@ -707,3 +707,17 @@ export type TopPairsQuery = (
     ) }
   )> }
 );
+
+export type PairReservesQueryVariables = Exact<{
+  token0: Scalars['String'];
+  token1: Scalars['String'];
+}>;
+
+
+export type PairReservesQuery = (
+  { readonly __typename?: 'Query' }
+  & { readonly pairs: ReadonlyArray<(
+    { readonly __typename?: 'Pair' }
+    & Pick<Pair, 'reserve0' | 'reserve1'>
+  )> }
+);

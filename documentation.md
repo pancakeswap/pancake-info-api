@@ -111,3 +111,110 @@ Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
   }
 }
 ```
+
+## [`/coinmarketcap/pairs`](https://api.summitswap.finance/api/coinmarketcap/pairs)
+
+Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
+
+### Request
+
+`GET https://api.summitswap.finance/api/coinmarketcap/pairs`
+
+### Response
+
+```json5
+{
+  "updated_at": 1234567,              // UNIX timestamp
+  "data": {
+    "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
+      "base_id": "0x...",             // token0 address
+      "base_name": "...",             // token0 name
+      "base_symbol": "...",           // token0 symbol
+      "quote_id": "0x...",            // token1 address
+      "quote_name": "...",            // token1 name
+      "quote_symbol": "...",          // token1 symbol
+      "last_price": "...",            // price denominated in token1/token0
+      "base_volume": "...",           // volume denominated in token0
+      "quote_volume": "...",          // volume denominated in token1
+    },
+    // ...
+  }
+}
+```
+
+## [`/coingecko/pairs`](https://api.summitswap.finance/api/coingecko/pairs)
+
+Returns data for the top ~1000 SummitSwap pairs, sorted by reserves.
+
+### Request
+
+`GET https://api.summitswap.finance/api/coingecko/pairs`
+
+### Response
+
+```json5
+{
+  "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
+    "ticker_id": "0x..._0x...",     // Identifier of a ticker address_address
+    "base": "...",                  // token0 symbol
+    "target": "...",                // token1 symbol
+    "pool_id": "...",               // pool/pair address
+  },
+  // ...
+}
+```
+
+## [`/coingecko/tickers`](https://api.summitswap.finance/api/coingecko/tickers)
+
+Returns market related statistics data from the top ~1000 SummitSwap pairs, sorted by reserves.
+
+### Request
+
+`GET https://api.summitswap.finance/api/coingecko/tickers`
+
+### Response
+
+```json5
+{
+  "0x..._0x...": {                  // the asset ids of BNB and BEP20 tokens, joined by an underscore
+    "ticker_id": "0x..._0x...",     // Identifier of a ticker address_address
+    "base_currency": "...",         // token0 symbol
+    "target_currency": "...",       // token1 symbol
+    "last_price": "...",            // price denominated in token1/token0
+    "base_volume": "...",           // token0 volume
+    "target_volume": "...",         // token1 volume
+    "pool_id": "...",               // pool/pair address
+  },
+  // ...
+}
+```
+
+## [`/coingecko/orderbook`](https://api.summitswap.finance/api/coingecko/orderbook)
+
+Returns order book of any given trading pair, split into two different arrays for bid and ask orders.
+
+### Request
+
+`GET https://api.summitswap.finance/api/coingecko/orderbook`
+
+### Response
+
+```json5
+{
+  "ticker_id": "0x..._0x...",       // Identifier of a ticker 
+  "timestamp": 1234567,             // UNIX timestamp
+  "bids": [                         // The offer price and quantity for each bid order
+    [123, 456],
+    [789, 123],
+    // ...
+  ],
+  "asks": [                         // The ask price and quantity for each ask order
+
+    [123, 456],
+    [789, 123],
+    // ...
+  ],
+  // ...
+}
+```
+
