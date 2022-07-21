@@ -209,7 +209,6 @@ Returns order book of any given trading pair, split into two different arrays fo
     // ...
   ],
   "asks": [                         // The ask price and quantity for each ask order
-
     [123, 456],
     [789, 123],
     // ...
@@ -217,4 +216,3 @@ Returns order book of any given trading pair, split into two different arrays fo
   // ...
 }
 ```
-
