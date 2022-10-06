@@ -28,6 +28,7 @@ Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
       "liquidity_BNB": "..."          // liquidity denominated in BNB
     },
     // ...
+
   }
 }
 ```
