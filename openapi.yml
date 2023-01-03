@@ -1,0 +1,185 @@
+openapi: 3.0.0
+
+info:
+  title: PancakeSwap API
+  description: |
+    The PancakeSwap API is a set of endpoints used by market aggregators (e.g. coinmarketcap.com) to surface PancakeSwap liquidity and volume information.
+    All information is fetched from the underlying subgraphs.
+  version: 2.0.0
+servers:
+  - url: https://api.pancakeswap.info/api/v2/
+    description: Prod endpoint for pancakeswap V2
+
+paths:
+  /summary:
+    get:
+      summary: Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
+      responses:
+        '200':    # status code
+          description: Returns a array of Token pairs
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PancakeSummaryReturnObject'
+  /tokens:
+    get:
+      summary: Returns the tokens in the top ~1000 pairs on PancakeSwap, sorted by reserves.
+      responses:
+        '200':
+          description: Returns a 
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/PancakeTokensReturnObject'
+  /token/{address}:
+    get:
+      summary: Returns the token information, based on address.
+      parameters:
+        - name: address
+          in: path
+          required: true
+          description: Address of the token
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns token information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PancakeTokenReturnObject'
+  /pairs:
+    get:
+      summary: Returns data for the top ~1000 PancakeSwap pairs, sorted by reserves.
+      responses:
+        '200':
+          description: Returns pair informations from ~1000 pairs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PancakePairsReturnObject'
+
+components:
+  schemas:
+    PancakePairsReturnObject:
+      type: object
+      properties:
+        updated_at:
+          type: integer
+          description: UNIX timestamp
+        data:
+          type: object
+          description: Returns a hashmap there the key is the address of the tokenpar
+          additionalProperties:
+            $ref: '#/components/schemas/PancakePair'
+        
+    PancakeTokenReturnObject:
+      type: object
+      properties:
+        updated_at:
+          type: integer
+          description: UNIX timestamp
+        data:
+          type: object
+          properties:
+            schema:
+              $ref: '#/components/schemas/PancakeToken'
+
+    PancakeTokensReturnObject:
+      type: object
+      properties:
+        updated_at:
+          type: integer
+          description: UNIX timestamp
+        data:
+          type: object 
+          additionalProperties:
+            $ref: '#/components/schemas/PancakeToken'
+
+
+    PancakeSummaryReturnObject:
+      type: object
+      properties:
+        updated_at:
+          type: integer
+          description: UNIX timestamp
+        data:
+          type: object 
+          additionalProperties:
+            description: BEP20 token addresses, joined by an underscore
+            $ref: '#/components/schemas/PancakeSummary'
+
+    PancakePair:
+      type: object
+      properties:
+        pair_address:
+          type: string
+          description: pair address
+        base_name:
+          type: string
+          description: token0 name
+        base_symbol:
+          type: string
+          description: token0 symbol
+        base_address:
+          type: string
+          description: token0 address
+        quote_name:
+          type: string
+          description: token1 name
+        quote_symbol:
+          type: string
+          description: token1 symbol
+        quote_address:
+          type: string
+          description: token1 address
+        price:
+          type: string
+          description: price denominated in token1/token0
+        base_volume:
+          type: string
+          description: volume denominated in token0
+        quote_volume:
+          type: string
+          description: volume denominated in token1
+        liquidity:
+          type: string
+          description: liquidity denominated in USD
+        liquidity_BNB:
+          type: string
+          description: liquidity denominated in BNB
+
+    PancakeToken:
+      type: object
+      properties:
+        name:
+          type: string
+          description: not necessarily included for BEP20 tokens
+        symbol:
+          type: string
+          description: not necessarily included for BEP20 tokens
+        price:
+          type: string
+          description: price denominated in USD
+        price_BNB:
+          type: string
+          description: price denominated in BNB
+
+    PancakeSummary:
+      type: object
+      properties:
+        price:
+          type: string
+          description: price denominated in token1/token0
+        base_volume:
+          type: string
+          description: last 24h volume denominated in token0
+        quote_volume:
+          type: string
+          description: last 24h volume denominated in token1
+        liquidity:
+          type: string
+          description: liquidity denominated in USD
+        liquidity_BNB:
+          type: string
+          description: liquidity denominated in BNB
